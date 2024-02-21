@@ -1,7 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function BigFive() {
+export default function BigFive({ setFormValues, setFormIsCompleted }) {
 
   const bgColors = ["bg-[#8346E7]", "bg-[#D256A2]", "bg-[#ffffff]", "bg-[#F26C6D]", "bg-[#FC893A]"]
   const borderColors = ["border-[#8346E7]", "border-[#D256A2]", "border-[#ffffff]", "border-[#F26C6D]", "border-[#FC893A]"]
@@ -16,8 +16,17 @@ export default function BigFive() {
       ...prevOptions,
       [field]: option,
     }));
-    console.log(selectedOptions)
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [field]: option,
+    }));
   };
+
+  useEffect(() => {
+    if (Object.keys(selectedOptions).length === 20) {
+      setFormIsCompleted(true)
+    }
+  }, [selectedOptions, setFormIsCompleted])
 
   return (
     <div className='flex flex-col items-center'>

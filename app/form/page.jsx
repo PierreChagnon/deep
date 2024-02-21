@@ -5,24 +5,55 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
 import DeepForm from '../components/DeepForm';
 import BigFive from '../components/BigFive'
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import GameHabits from '../components/GameHabits';
+import FancyButton from '../components/FancyButton';
+import PersonalInfos from '../components/PersonalInfos';
 
 export default function Form() {
 
     const router = useRouter()
 
+    const searchParams = useSearchParams()
+    const consent = searchParams.get('consent')
+
+    const [formIsCompleted, setFormIsCompleted] = useState(false)
+
     const [activeTab, setActiveTab] = useState(0)
 
-    const formElements = [
-        <GameHabits key={"gamehabits"} />,
-        <DeepForm key={"deepform"} />,
-        <BigFive key={"bigfive"} />
-    ]
+    const [formElements, setFormElements] = useState([])
+
+    const [formValues, setFormValues] = useState({})
 
     useEffect(() => {
+        if (consent === 'false') {
+            setFormElements([<DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />])
+        } else {
+            setFormElements([
+                <GameHabits setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"gamehabits"} />,
+                <DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />,
+                <BigFive setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"bigfive"} />,
+                <PersonalInfos setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"personalinfos"} />
+            ])
+        }
+    }, [consent])
 
-    }, [])
+    const handleOnClick = (callback) => {
+        // On check si le formulaire en cours est complet
+        if (formIsCompleted) {
+            setFormIsCompleted(false) // on reset l'etat de completion du formulaire en cours
+            // puis on fait l'action du bouton (NEXT ou REVEAL RESULTS)
+            callback()
+        } else {
+
+        }
+    }
+
+    useEffect(() => {
+        console.log(formValues)
+    }, [formValues])
+
+    if (!formElements.length) return <h1 className='text-white min-h-dvh flex justify-center items-center text-center'>Loading...</h1>
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
@@ -36,18 +67,22 @@ export default function Form() {
             </div>
 
             <div className='flex flex-wrap gap-x-6 mx-auto'>
-                <button
-                    disabled={activeTab === 0 ? "disabled" : ""}
-                    onClick={() => setActiveTab(prev => prev - 1)}
-                    className={`px-4 py-2 rounded-xl bg-blue-600 text-white ${activeTab === 0 ? "opacity-50 bg-slate-600" : "opacity-100"}`}>
-                    Back
-                </button>
-                <button
-                    disabled={activeTab === formElements.length - 1 ? "disabled" : ""}
-                    onClick={() => setActiveTab(prev => prev + 1)}
-                    className={`px-4 py-2 rounded-xl bg-blue-600 text-white ${activeTab === formElements.length - 1 ? "opacity-50 bg-slate-600" : "opacity-100"}`}>Next</button>
                 {
-                    activeTab === formElements.length - 1 ? <button className='px-4 py-2 rounded-xl bg-blue-600 text-white' onClick={() => console.log(data)}>Submit</button> : null
+                    activeTab === formElements.length - 1
+                        ?
+                        <FancyButton
+                            onClick={() => handleOnClick(() => router.push("/results"))}
+                            disabled={!formIsCompleted}
+                        >
+                            REVEAL MY RESULTS !
+                        </FancyButton>
+                        :
+                        <FancyButton
+                            onClick={() => handleOnClick(() => setActiveTab(prev => prev + 1))}
+                            disabled={!formIsCompleted}
+                        >
+                            NEXT
+                        </FancyButton>
                 }
             </div>
             <Footer />

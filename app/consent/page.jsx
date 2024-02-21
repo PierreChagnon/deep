@@ -34,7 +34,7 @@ export default function Home() {
                 </div>
                 <div className='flex flex-col items-center md:flex-row w-full justify-center gap-4 mt-8'>
                     <FancyButton onClick={() => router.push('/form?consent=true')}>Yes <span className='text-[10px] ml-4'>I give my informed consent for researchers to use my responses</span></FancyButton>
-                    <FancyButton>No <span className='text-[10px] ml-4'>I don’t want to share my responses, but still want to take the test </span></FancyButton>
+                    <FancyButton onClick={() => router.push('/form?consent=false')}>No <span className='text-[10px] ml-4'>I don’t want to share my responses, but still want to take the test </span></FancyButton>
                 </div>
             </div>
             <Footer />
