@@ -1,11 +1,50 @@
 export default function jsonToCSV(json) {
-    const items = json.items
-    const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
-    const header = Object.keys(items[0])
-    const csv = [
-        header.join(','), // header row first
-        ...items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-    ].join('\r\n')
 
-    console.log(csv)
+    function downloadCSV(csv, filename) {
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function generateUniqueId() {
+        const timestamp = new Date().getTime();
+        const random = Math.floor(Math.random() * 1000);
+        return `${timestamp}_${random}`;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    // on ajoute une colonne "id"
+    if (!Object.entries(json).includes("id")) {
+        json = { id: generateUniqueId(), ...json }
+    }
+
+    // on transforme le fichier brut en tableau d'objet (nécessaire pour la convertion en csv)
+    const data = [json]
+
+    // Obtenir les en-têtes (noms de clés) du premier objet
+    const headers = Object.keys(data[0]);
+
+    // Construire la ligne d'en-tête CSV
+    const headerRow = headers.join(',');
+
+    // Construire les lignes de données CSV
+    const rows = data.map(obj =>
+        Object.values(obj).join(',')
+    );
+
+    // Combiner les en-têtes et les lignes en une seule chaîne CSV
+    const csv = [headerRow, ...rows].join('\n');
+
+    if (headers.length > 3) {
+        downloadCSV(csv, 'data.csv');
+    }
+
+    return csv;
+
 }

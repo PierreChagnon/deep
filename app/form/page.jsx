@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import GameHabits from '../components/GameHabits';
 import FancyButton from '../components/FancyButton';
 import PersonalInfos from '../components/PersonalInfos';
+import jsonToCSV from '../utils/jsonToCSV';
 
 export default function Form() {
 
@@ -51,6 +52,7 @@ export default function Form() {
 
     useEffect(() => {
         console.log(formValues)
+        console.log("csv : ", jsonToCSV(formValues))
     }, [formValues])
 
     if (!formElements.length) return <h1 className='text-white min-h-dvh flex justify-center items-center text-center'>Loading...</h1>

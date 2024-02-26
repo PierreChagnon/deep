@@ -11,7 +11,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
   const radioValues = ["Not at all interested", "Not very interested", "Slightly interested", "Neutral", "Moderately interested", "Very interested", "extremely interested"]
 
   const [selectedOptions, setSelectedOptions] = useState({});
-  const [randomizedFileds, setRandomizedFields] = useState([])
+  const [randomizedFields, setRandomizedFields] = useState([])
 
   useEffect(() => {
     const dimensionsObject = {
@@ -26,11 +26,12 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
     Object.keys(dimensionsObject).forEach((key) => {
       for (let i = 0; i < dimensionsObject[key].length; i++) {
         const dimension = dimensionsObject[key]
-        const element = dimension[i];
-        temp.push(element)
+        const value = dimension[i];
+        const formatedKey = key + `_${i + 1}`
+        temp.push({ [formatedKey]: value })
       }
     })
-    console.log("temp : ", temp)
+    // console.log("temp : ", temp)
 
     // randomize temp
     function shuffleArray(array) {
@@ -42,7 +43,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
     }
     shuffleArray(temp)
     setRandomizedFields(temp)
-    console.log("shuffled :", temp)
+    // console.log("shuffled :", temp)
   }, [])
 
   useEffect(() => {
@@ -50,29 +51,40 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
       setFormIsCompleted(true)
     }
   }, [selectedOptions, setFormIsCompleted])
-  
-  const handleChange = (field, option) => {
+
+  const handleChange = (field, formatedKey, option, numericOption) => {
+    // on gere le cas spécial
+    if (field === "Skipping the cinematics.") {
+      numericOption = 8 - numericOption
+    }
+
+    //
+
+    // on met a jour les états
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
       [field]: option,
     }));
     setFormValues((prevValues) => ({
       ...prevValues,
-      [field]: option,
+      [formatedKey]: numericOption,
     }));
   };
-
-
-
 
   return (
     <div className='flex flex-col items-center'>
       <p className='px-8 md:px-20 mb-10'>Rate the statements below for how accurately they reflect how you generally feel about video games. Take your time. Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
-      {randomizedFileds.map((field, i) => {
+      {randomizedFields.map((field, i) => {
+        let sentence
+        let formatedKey
+        for (const [key, value] of Object.entries(field)) {
+          sentence = value
+          formatedKey = key
+        }
         return (
-          <div key={field} className='flex flex-col mb-10 w-full'>
+          <div key={sentence} className='flex flex-col mb-10 w-full'>
             <span className='bg-white h-0.5 w-full mb-10' />
-            <p className='text-center mb-10 text-lg'>{field}</p>
+            <p className='text-center mb-10 text-lg'>{sentence}</p>
             <div className='flex flex-col gap-8 w-full md:gap-2 md:h-32 items-center md:flex-row'>
 
               {/* 
@@ -90,16 +102,16 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
                   className="flex justify-center md:justify-between relative cursor-pointer w-3/4 h-full md:flex-col"
                 >
                   <input
-                    onChange={() => handleChange(field, value)}
+                    onChange={() => handleChange(sentence, formatedKey, value, index + 1)}
                     className='absolute cursor-pointer h-0 w-0 opacity-0'
                     type="radio"
-                    checked={selectedOptions[field] === value}
+                    checked={selectedOptions[sentence] === value}
                     value={value}
-                    name={`radio_${field}`}
+                    name={`radio_${sentence}`}
                   />
                   <div className='flex justify-center'>
                     <span
-                      className={`${selectedOptions[field] === value ? bgColors[index] : "bg-transparent"} border-[1px] ${borderColors[index]} ${scaleValues[index]} h-6 w-6 rounded-full hover:opacity-50 duration-200`}
+                      className={`${selectedOptions[sentence] === value ? bgColors[index] : "bg-transparent"} border-[1px] ${borderColors[index]} ${scaleValues[index]} h-6 w-6 rounded-full hover:opacity-50 duration-200`}
                     ></span>
                   </div>
                   <div className='flex flex-1 justify-center md:items-end'>
