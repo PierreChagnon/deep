@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function DeepForm({ setFormValues, setFormIsCompleted }) {
+  console.log('Component rendered'); // Ajout de ce log
 
   const bgColors = ["bg-[#8346E7]", "bg-[#A24CCC]", "bg-[#D256A2]", "bg-[#ffffff]", "bg-[#F26C6D]", "bg-[#F87F4C]", "bg-[#FC893A]"]
   const borderColors = ["border-[#8346E7]", "border-[#A24CCC]", "border-[#D256A2]", "border-[#ffffff]", "border-[#F26C6D]", "border-[#F87F4C]", "border-[#FC893A]"]
@@ -10,7 +11,46 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
   const radioValues = ["Not at all interested", "Not very interested", "Slightly interested", "Neutral", "Moderately interested", "Very interested", "extremely interested"]
 
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [randomizedFileds, setRandomizedFields] = useState([])
 
+  useEffect(() => {
+    const dimensionsObject = {
+      discovering: ["Fulfilling sidequests that lead to new information.", "Looking for and completing all the sidequests.", "Discovering new places.", "Exploring or discovering new items.", "Accumulating collectible items"],
+      expanding: ["Watching cinematics that explain the backstory.", "Skipping the cinematics.", "Listening to non-player characters.", "Finding out as many details of the story as possible.", "Relying on my understanding of the story."],
+      experimenting: ["Trying out new ways of using my weapons or tools.", "Inventing new strategies all the time.", "Discovering new ways to play.", "Experimenting things outside the role of my character.", "Executing new move or combo all the time."],
+      performing: ["Using the best move or combo over and over again.", "Following a predefined order of quests.", "Maintaining my strategy no matter what until it works.", "Using the same tool or weapon over and over again.", "Doing simple and repetitive tasks."],
+    }
+
+    // create one array with all fields in order
+    let temp = []
+    Object.keys(dimensionsObject).forEach((key) => {
+      for (let i = 0; i < dimensionsObject[key].length; i++) {
+        const dimension = dimensionsObject[key]
+        const element = dimension[i];
+        temp.push(element)
+      }
+    })
+    console.log("temp : ", temp)
+
+    // randomize temp
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    shuffleArray(temp)
+    setRandomizedFields(temp)
+    console.log("shuffled :", temp)
+  }, [])
+
+  useEffect(() => {
+    if (Object.keys(selectedOptions).length === 20) {
+      setFormIsCompleted(true)
+    }
+  }, [selectedOptions, setFormIsCompleted])
+  
   const handleChange = (field, option) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
@@ -22,22 +62,27 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
     }));
   };
 
-  useEffect(() => {
-    if (Object.keys(selectedOptions).length === 20) {
-      setFormIsCompleted(true)
-    }
-  }, [selectedOptions, setFormIsCompleted])
+
 
 
   return (
     <div className='flex flex-col items-center'>
       <p className='px-8 md:px-20 mb-10'>Rate the statements below for how accurately they reflect how you generally feel about video games. Take your time. Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
-      {fields.map((field, i) => {
+      {randomizedFileds.map((field, i) => {
         return (
           <div key={field} className='flex flex-col mb-10 w-full'>
             <span className='bg-white h-0.5 w-full mb-10' />
             <p className='text-center mb-10 text-lg'>{field}</p>
             <div className='flex flex-col gap-8 w-full md:gap-2 md:h-32 items-center md:flex-row'>
+
+              {/* 
+                  AUTRE FACON DE FAIRE les checkbox customisées avec Tailwind
+
+                  <label className="inline-flex items-center cursor-pointer">
+                        <input type='checkbox' value="" className='sr-only peer' />
+                        <div className="w-8 h-8 bg-transparent border-2 border-blue-600 rounded-full peer peer-checked:bg-blue-600"></div>
+                    </label> 
+              */}
 
               {radioValues.map((value, index) => (
                 <label
@@ -57,11 +102,6 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
                       className={`${selectedOptions[field] === value ? bgColors[index] : "bg-transparent"} border-[1px] ${borderColors[index]} ${scaleValues[index]} h-6 w-6 rounded-full hover:opacity-50 duration-200`}
                     ></span>
                   </div>
-                  {/* {selectedOptions[field] === value && (
-                      <span
-                        className="h-1 w-1 absolute top-0 left-0  bg-white rounded-full"
-                      ></span>
-                    )} */}
                   <div className='flex flex-1 justify-center md:items-end'>
                     <p className='flex md:justify-center md:items-center text-center md:flex-1 md:h-2/3'>{value}</p>
                   </div>
