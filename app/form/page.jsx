@@ -73,7 +73,10 @@ export default function Form() {
                     activeTab === formElements.length - 1
                         ?
                         <FancyButton
-                            onClick={() => handleOnClick(() => router.push("/results"))}
+                            onClick={() => handleOnClick(() => router.push({
+                                pathname: '/results',
+                                query: { data: JSON.stringify(formValues) },
+                            }))}
                             disabled={!formIsCompleted}
                         >
                             REVEAL MY RESULTS !

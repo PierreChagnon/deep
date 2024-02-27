@@ -42,7 +42,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
             <p className='mb-4'>What is your age ?</p>
             <div className='p-[2px] mb-10 max-w-xs rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <input onChange={(e) => {
-                    handleInputChange("What is your age ?", e.currentTarget.value)
+                    handleInputChange("age", e.currentTarget.value)
                     setAge(e.currentTarget.value)
                 }
                 }

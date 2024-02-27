@@ -2,13 +2,11 @@
 import React, { useState, useEffect } from 'react';
 
 export default function DeepForm({ setFormValues, setFormIsCompleted }) {
-  console.log('Component rendered'); // Ajout de ce log
 
   const bgColors = ["bg-[#8346E7]", "bg-[#A24CCC]", "bg-[#D256A2]", "bg-[#ffffff]", "bg-[#F26C6D]", "bg-[#F87F4C]", "bg-[#FC893A]"]
   const borderColors = ["border-[#8346E7]", "border-[#A24CCC]", "border-[#D256A2]", "border-[#ffffff]", "border-[#F26C6D]", "border-[#F87F4C]", "border-[#FC893A]"]
   const scaleValues = ["scale-[1.8] md:scale-[2.5]", "scale-[1.5] md:scale-[2]", "scale-125", "scale-100", "scale-125", "scale-[1.5] md:scale-[2]", "scale-[1.8] md:scale-[2.5]"]
-  const fields = ['Trying out new ways of using my weapons or tools', "Inventing new strategies all the time", "Discovering new ways to play", "Experimenting things outside the role of my character", "Executing new move or combo all the time", "Fulfilling sidequests that lead to new information", "Looking and completing all the sidequests", "Discovering new places", "Exploring or discovering new items", "Accumulating collectible items", "Using the best move or combo over and over again", "Following a predefined order of quests", "Maintaining my strategy no matter what until it works", "Using the same tool or weapon over and over again", "Doing simple and repetitive tasks", "Watching cinematics that explain the backstory", "Skipping the cinematics", "Listening to non-player characters", "Finding out as many details of the story as possible", "Relying on my understanding of the story"]
-  const radioValues = ["Not at all interested", "Not very interested", "Slightly interested", "Neutral", "Moderately interested", "Very interested", "extremely interested"]
+  const radioValues = ["Not at all interested", "Not very interested", "Slightly interested", "Neutral", "Moderately interested", "Very interested", "Extremely interested"]
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [randomizedFields, setRandomizedFields] = useState([])

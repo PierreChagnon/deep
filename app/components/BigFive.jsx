@@ -6,19 +6,21 @@ export default function BigFive({ setFormValues, setFormIsCompleted }) {
   const bgColors = ["bg-[#8346E7]", "bg-[#D256A2]", "bg-[#ffffff]", "bg-[#F26C6D]", "bg-[#FC893A]"]
   const borderColors = ["border-[#8346E7]", "border-[#D256A2]", "border-[#ffffff]", "border-[#F26C6D]", "border-[#FC893A]"]
   const scaleValues = ["scale-[1.8] md:scale-[2]", "scale-125", "scale-100", "scale-125", "scale-[1.8] md:scale-[2]"]
-  const fields = ['Trying out new ways of using my weapons or tools', "Inventing new strategies all the time", "Discovering new ways to play", "Experimenting things outside the role of my character", "Executing new move or combo all the time", "Fulfilling sidequests that lead to new information", "Looking and completing all the sidequests", "Discovering new places", "Exploring or discovering new items", "Accumulating collectible items", "Using the best move or combo over and over again", "Following a predefined order of quests", "Maintaining my strategy no matter what until it works", "Using the same tool or weapon over and over again", "Doing simple and repetitive tasks", "Watching cinematics that explain the backstory", "Skipping the cinematics", "Listening to non-player characters", "Finding out as many details of the story as possible", "Relying on my understanding of the story"]
+  const fields = ['Tends to be quiet.', "Is compassionate, has a soft heart.", "Tends to be disorganized.", "Worries a lot.", "Is fascinated by art, music, or literature.", "Is dominant, acts as a leader.", "Is sometimes rude to others.", "Has difficulty getting started on tasks.", "Tends to feel depressed, blue.", "Has little interest in abstract ideas.", "Is full of energy.", "Following a predefined order of quests.", "Assumes the best about people.", "Is reliable, can always be counted on.", "Doing simple and repetitive tasks.", "Is emotionally stable, not easily upset.", "Is original, comes up with new ideas.", "Is outgoing, sociable.", "Can be cold and uncaring.", "Keeps things neat and tidy.", "Is relaxed, handles stress well.", "Has few artistic interests.", "Prefers to have others take charge.", "Is respectful, treats others with respect.", "Is persistent, works until the task is finished.", "Feels secure, comfortable with self.", "Is complex, a deep thinker.", "Is less active than other people.", "Tends to find fault with others.", "Can be somewhat careless.", "Is temperamental, gets emotional easily.", "Has little creativity."]
   const radioValues = ["Disagree strongly", "Disagree a little", "Neutral/No opinion", "Agree a little", "Agree strongly"]
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  const handleChange = (field, option) => {
+  const handleChange = (field, option, index, numericOption) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
       [field]: option,
     }));
+
+    const formatedKey = "bigfive_" + (index + 1)
     setFormValues((prevValues) => ({
       ...prevValues,
-      [field]: option,
+      [formatedKey]: numericOption,
     }));
   };
 
@@ -45,7 +47,7 @@ export default function BigFive({ setFormValues, setFormIsCompleted }) {
                   className="flex justify-center md:justify-between relative cursor-pointer w-3/4 h-full md:flex-col"
                 >
                   <input
-                    onChange={() => handleChange(field, value)}
+                    onChange={() => handleChange(field, value, i, index + 1)}
                     className='absolute cursor-pointer h-0 w-0 opacity-0'
                     type="radio"
                     checked={selectedOptions[field] === value}
