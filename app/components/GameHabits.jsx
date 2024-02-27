@@ -57,24 +57,24 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
         }));
     };
     return (
-        <div className='flex flex-col mb-4 2xl:text-2xl'>
+        <div className='flex flex-col mb-4 text-base 3xl:text-2xl'>
             <p className='mb-4'>Counting all types of video games, across all platforms (including mobile games), how many different video games have you played in the last year, approximately?</p>
-            <div className='p-[2px] mb-10 max-w-xs rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='p-[2px] mb-10 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <input onChange={(e) => {
                     handleInputChange("n_gamesbyyear", e.currentTarget.value)
                     setNumberOfGames(e.currentTarget.value)
                 }
                 }
-                    placeholder='0' value={numberOfGames} type="number" className='h-full w-full bg-[#010018] p-2 2xl:py-4 rounded-md 2xl:rounded-xl' />
+                    placeholder='0' value={numberOfGames} type="number" className='h-full w-full bg-[#010018] p-2 3xl:py-4 rounded-md 3xl:rounded-xl' />
             </div>
             <p className='mb-4'>Counting all types of video games across all platforms (including mobile games), how much time do you play per week, on average?</p>
-            <div className='p-[2px] mb-10 max-w-xs rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='p-[2px] mb-10 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <input onChange={(e) => {
                     handleInputChange("n_hoursperweek", e.currentTarget.value)
                     setGamesPerWeek(e.currentTarget.value)
                 }
                 }
-                    placeholder='0' value={gamesPerWeek} type="number" className='h-full w-full bg-[#010018] p-2 2xl:py-4 rounded-md 2xl:rounded-xl' />
+                    placeholder='0' value={gamesPerWeek} type="number" className='h-full w-full bg-[#010018] p-2 3xl:py-4 rounded-md 3xl:rounded-xl' />
             </div>
             <p className='mb-4'>On what platforms do you usually play? You can select multiple choices.</p>
             <div className='flex flex-col md:flex-row items-center gap-2 mb-4'>
@@ -82,7 +82,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                     const formatedKey = ["homeconsoles", "handheldconsoles", "computers", "smartphones"]
                     return (
                         <button onClick={() => toggleOption(value, formatedKey[i])} key={value} className='p-[2px] w-full flex-1 rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center w'>
-                            <div className={`h-full w-full ${selectedOptions.includes(value) ? "from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r" : "bg-[#010018]"} py-2 px-2 2xl:py-4 rounded-md 2xl:rounded-xl`}>{value}</div>
+                            <div className={`h-full w-full ${selectedOptions.includes(value) ? "from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r" : "bg-[#010018]"} py-2 px-2 3xl:py-4 rounded-md 2xl:rounded-xl`}>{value}</div>
                         </button>
                     )
                 })}

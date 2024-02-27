@@ -71,7 +71,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
 
   return (
     <div className='flex flex-col items-center 2xl:px-32'>
-      <p className='md:px-20 mb-10'>Rate the statements below for how accurately they reflect how you generally feel about video games. Take your time. Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
+      <p className='md:px-20 mb-10 text-base'>Rate the statements below for how accurately they reflect how you generally feel about video games. Take your time. Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
       {randomizedFields.map((field, i) => {
         let sentence
         let formatedKey
@@ -81,8 +81,8 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
         }
         return (
           <div key={sentence} className='flex flex-col mb-10 w-full'>
-            <span className='bg-white h-0.5 w-full mb-10 2xl:mt-5' />
-            <p className='text-center mb-10 2xl:mb-20 2xl:mt-10 text-lg 2xl:text-2xl'>{sentence}</p>
+            <span className='bg-white h-0.5 w-full mb-10 3xl:mt-5' />
+            <p className='text-center mb-10 3xl:mb-20 3xl:mt-10 text-lg 3xl:text-2xl'>{sentence}</p>
             <div className='flex flex-col gap-8 w-full md:gap-2 md:h-32 items-center md:flex-row'>
 
               {/* 
@@ -113,7 +113,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
                     ></span>
                   </div>
                   <div className='flex flex-1 justify-center md:items-end'>
-                    <p className='flex md:justify-center md:items-center text-center md:flex-1 md:h-2/3'>{value}</p>
+                    <p className='flex md:justify-center text-sm md:items-center text-center md:flex-1 md:h-2/3'>{value}</p>
                   </div>
                 </label>
               ))}
