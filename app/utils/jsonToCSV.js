@@ -42,7 +42,7 @@ export default function jsonToCSV(json) {
     const csv = [headerRow, ...rows].join('\n');
 
     if (headers.length > 3) {
-        downloadCSV(csv, 'data.csv');
+        // downloadCSV(csv, 'data.csv');
     }
 
     return csv;

@@ -21,9 +21,9 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
     }, [age, setFormIsCompleted])
 
     return (
-        <div className='flex flex-col mb-4'>
+        <div className='flex flex-col mb-4 2xl:text-2xl 2xl:items-center'>
             <p className='mb-4'>Gender</p>
-            <div className='p-[2px] cursor-pointer mb-10 max-w-xs rounded-md from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='p-[2px] cursor-pointer mb-10 max-w-xs rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={option} onChange={(e) => {
                     setFormValues((prevValues) => ({
                         ...prevValues,
@@ -32,7 +32,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     setOption(e.target.value)
                 }
                 }
-                    name="cars" id="cars" className='h-full w-full bg-[#010018] p-2 rounded-md cursor-pointer'>
+                    name="cars" id="cars" className='h-full w-full bg-[#010018] p-2 2xl:py-4 rounded-md 2xl:rounded-xl cursor-pointer'>
                     <option className='cursor-pointer p-2' value="Male">Male</option>
                     <option className='cursor-pointer p-2' value="Female">Female</option>
                     <option className='cursor-pointer p-2' value="Non-binary / third gender">Non-binary / third gender</option>
@@ -40,13 +40,13 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 </select>
             </div>
             <p className='mb-4'>What is your age ?</p>
-            <div className='p-[2px] mb-10 max-w-xs rounded-md from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='p-[2px] mb-10 max-w-xs rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <input onChange={(e) => {
                     handleInputChange("What is your age ?", e.currentTarget.value)
                     setAge(e.currentTarget.value)
                 }
                 }
-                    placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 rounded-md' />
+                    placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 2xl:py-4 rounded-md 2xl:rounded-xl' />
             </div>
         </div>
     )

@@ -30,8 +30,8 @@ export default function BigFive({ setFormValues, setFormIsCompleted }) {
 
   return (
     <div className='flex flex-col items-center'>
-      <p className='px-8 md:px-20 mb-10'>Here are a number of characteristics that may or may not apply to you. For example, do you agree that you are someone who likes to spend time with others? Please indicate the extent to which you agree or disagree with that statement.</p>
-      <p className='px-8 md:px-20 mb-10'>I am someone who...</p>
+      <p className='md:px-20 mb-10'>Here are a number of characteristics that may or may not apply to you. For example, do you agree that you are someone who likes to spend time with others? Please indicate the extent to which you agree or disagree with that statement.</p>
+      <p className='md:px-20 mb-10'>I am someone who...</p>
       {fields.map((field, i) => {
         return (
           <div key={field} className='flex flex-col mb-10 w-full'>

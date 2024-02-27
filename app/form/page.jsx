@@ -62,7 +62,7 @@ export default function Form() {
             <Navbar />
 
             {/* FORMULAIRE */}
-            <div className='h-full px-8 md:px-20 flex flex-col gap-4'>
+            <div className='h-full px-8 md:px-20 2xl:px-48 flex flex-col gap-4 2xl:text-xl'>
                 {
                     formElements[activeTab]
                 }
