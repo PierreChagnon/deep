@@ -21,7 +21,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
     }, [age, setFormIsCompleted])
 
     return (
-        <div className='flex flex-col mb-4 text-base 3xl:text-2xl 2xl:items-center'>
+        <div className='flex flex-col mb-4 text-base 3xl:text-2xl items-center'>
             <p className='mb-4'>Gender</p>
             <div className='p-[2px] cursor-pointer mb-10 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={option} onChange={(e) => {
