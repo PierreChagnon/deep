@@ -70,7 +70,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
   };
 
   return (
-    <div className='flex flex-col items-center 2xl:px-32'>
+    <div className='flex flex-col items-center 2xl:px-32 3xl:px-96'>
       <p className='md:px-20 mb-10 text-base'>Rate the statements below for how accurately they reflect how you generally feel about video games. Take your time. Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
       {randomizedFields.map((field, i) => {
         let sentence
