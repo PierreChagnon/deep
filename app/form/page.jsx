@@ -10,6 +10,7 @@ import GameHabits from '../components/GameHabits';
 import FancyButton from '../components/FancyButton';
 import PersonalInfos from '../components/PersonalInfos';
 import jsonToCSV from '../utils/jsonToCSV';
+import calcDeepScore from '../utils/calcDeepScore';
 
 export default function Form() {
 
@@ -50,6 +51,18 @@ export default function Form() {
         }
     }
 
+    const handleRevealResultsNavigation = () => {
+        const res = calcDeepScore(formValues)
+        console.log("res = " + res)
+
+        router.push('/results?'
+            + 'disc=' + res[0] + '&'
+            + 'expa=' + res[1] + '&'
+            + 'expe=' + res[2] + '&'
+            + 'perf=' + res[3]
+        )
+    }
+
     useEffect(() => {
         console.log(formValues)
         console.log("csv : ", jsonToCSV(formValues))
@@ -67,16 +80,14 @@ export default function Form() {
                     formElements[activeTab]
                 }
             </div>
+            <button onClick={handleRevealResultsNavigation}>test</button>
 
             <div className='flex flex-wrap gap-x-6 mx-auto'>
                 {
                     activeTab === formElements.length - 1
                         ?
                         <FancyButton
-                            onClick={() => handleOnClick(() => router.push({
-                                pathname: '/results',
-                                query: { data: JSON.stringify(formValues) },
-                            }))}
+                            onClick={handleRevealResultsNavigation}
                             disabled={!formIsCompleted}
                         >
                             REVEAL MY RESULTS !
