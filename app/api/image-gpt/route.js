@@ -8,7 +8,7 @@ export async function POST(request) {
 
     // Grabbing user's input
     const params = await request.json()
-    const prompt = `${params.lastSentence} Generate a visual game card featuring a video game character based on this gaming persona. Focus on specific, visually representable elements. Avoid ambiguous language that could be interpreted as including text.`
+    const prompt = `${params.lastSentence} Generate a video game character based on this gaming persona. Focus on specific, visually representable elements. Avoid ambiguous language that could be interpreted as including text. digital art`
     console.log("PROMPT : ", prompt)
 
     // Passing it to chat GPT API
