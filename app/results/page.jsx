@@ -13,6 +13,7 @@ import Card from '../components/Card'
 import { AnimatePresence, motion } from "framer-motion";
 
 import GameAkser from '../components/GameAkser';
+import LoadingTextSkeleton from '../components/LoadingTextSkeleton';
 
 
 export default function Results() {
@@ -47,9 +48,7 @@ export default function Results() {
     }
 
     useEffect(() => {
-        if (disc !== null && expa !== null && expe !== null && perf !== null) {
-            apiCall();
-        }
+        apiCall();
     }, [])
 
 
@@ -91,13 +90,17 @@ export default function Results() {
                         </BentoElement> */}
 
                         <BentoElement>
-                            <div className='flex w-full flex-col gap-4 md:overflow-y-auto'>
-                                {choices.map((choice, i) => {
-                                    return (
-                                        <p key={i}>{choice.message.content}</p>
-                                    )
-                                })}
-                            </div>
+                            {choices.length > 0 ?
+                                <div className='flex w-full flex-col gap-4 md:overflow-y-auto'>
+                                    {choices.map((choice, i) => {
+                                        return (
+                                            <p key={i}>{choice.message.content}</p>
+                                        )
+                                    })}
+                                </div>
+                                :
+                                <LoadingTextSkeleton />
+                            }
                         </BentoElement>
 
                     </div>
