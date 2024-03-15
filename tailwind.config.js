@@ -8,12 +8,13 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        'texture': "url('/assets/texture.png')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       screens: {
-        "3xl" : '1800px'
+        "3xl": '1800px'
       }
     },
   },

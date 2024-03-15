@@ -1,12 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import React from 'react'
+import React, { useState, useRef, useEffect, Suspense } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { bungee } from '../fonts';
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import BentoElement from '../components/BentoElement'
 import BarChart from '../components/BarChart'
+import Card from '../components/Card'
+import { AnimatePresence, motion } from "framer-motion";
+
+import GameAkser from '../components/GameAkser';
+
 
 export default function Results() {
     const router = useRouter()
@@ -16,7 +23,35 @@ export default function Results() {
     const expe = searchParams.get('expe')
     const perf = searchParams.get('perf')
 
-    console.log(disc, expa, expe, perf)
+    //API CALL
+    const [choices, setChoices] = useState([])
+
+
+    const apiCall = async () => {
+        try {
+            const response = await fetch("/api/chat-gpt", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    scores: [disc, expa, expe, perf]
+                })
+            });
+
+            const data = await response.json();
+            setChoices(data.choices);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    useEffect(() => {
+        if (disc !== null && expa !== null && expe !== null && perf !== null) {
+            apiCall();
+        }
+    }, [])
+
 
     // mise a l'echelle sur 100
     const discPercent = disc * 100 / 7
@@ -24,28 +59,91 @@ export default function Results() {
     const expePercent = expe * 100 / 7
     const perfPercent = perf * 100 / 7
 
-    console.log(discPercent, expaPercent, expePercent, perfPercent)
+    const discPercentFloored = Math.floor(discPercent)
+    const expaPercentFloored = Math.floor(expaPercent)
+    const expePercentFloored = Math.floor(expePercent)
+    const perfPercentFloored = Math.floor(perfPercent)
+
+    //Games recommendation
+    const [items, setItems] = useState(["jeudezefzefzefzefzfzx 1", "jeux 2", "jeux 3"]);
+    const [shownAskers, setShownAskers] = useState(["jeudezefzefzefzefzfzx 1", "jeux 2", "jeux 3"])
+    console.log(shownAskers)
+    const count = useRef(0)
+
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
             <Navbar />
-            <div className='flex flex-wrap gap-4 px-12 lg:px-36'>
+            <h3 className={`${bungee.className} text-2xl text-center mb-4`}>Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :</h3>
+            <div className='flex flex-wrap justify-center gap-4 px-4 md:px-16 lg:px-36'>
+                <div className='flex flex-col md:flex-row gap-4 w-full items-center'>
+                    <Card discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
+                    <div className='md:h-96 w-full'>
+                        {/* <BentoElement>
+                            <div className='flex flex-col gap-4 md:overflow-y-auto'>
+                                <p>
+                                    Your gaming style reveals a unique blend of curiosity and action, where the thrill of Experimenting and mastering new challenges defines your play. Unlike those who delve into the mysteries of Discovering or the depths of Expanding, you thrive on the immediate gratification that comes from exploring different strategies, tools, and mechanics to achieve concrete goals. This preference indicates a gamer who's less attracted to wandering through expansive lore or uncovering every hidden secret, but rather one who seeks out games that offer a variety of ways to tackle challenges head-on. Your adeptness at Performing suggests you're also committed to honing your skills, favoring games that demand precision and technique over those that primarily focus on narrative depth or exploration. You likely gravitate towards action-packed, skill-based titles or puzzle games that offer novel problems to solve, rather than immersive RPGs or open-world adventures.
+                                </p>
+                                <p>
+                                    Your gaming persona is one of a strategist and tactician, always on the lookout for the next engaging challenge to conquer.
+                                </p>
+                            </div>
+                        </BentoElement> */}
+
+                        <BentoElement>
+                            <div className='flex w-full flex-col gap-4 md:overflow-y-auto'>
+                                {choices.map((choice, i) => {
+                                    return (
+                                        <p key={i}>{choice.message.content}</p>
+                                    )
+                                })}
+                            </div>
+                        </BentoElement>
+
+                    </div>
+
+                </div>
                 <BentoElement>
-                    <p>
-                        Your gaming style reveals a unique blend of curiosity and action, where the thrill of Experimenting and mastering new challenges defines your play. Unlike those who delve into the mysteries of Discovering or the depths of Expanding, you thrive on the immediate gratification that comes from exploring different strategies, tools, and mechanics to achieve concrete goals. This preference indicates a gamer who's less attracted to wandering through expansive lore or uncovering every hidden secret, but rather one who seeks out games that offer a variety of ways to tackle challenges head-on. Your adeptness at Performing suggests you're also committed to honing your skills, favoring games that demand precision and technique over those that primarily focus on narrative depth or exploration. You likely gravitate towards action-packed, skill-based titles or puzzle games that offer novel problems to solve, rather than immersive RPGs or open-world adventures.
-                    </p>
-                    <p>
-                        Your gaming persona is one of a strategist and tactician, always on the lookout for the next engaging challenge to conquer.
-                    </p>
+                    <BarChart uid={'barchart1'} mean={50} scoreColor="text-[#43297F]" textColor="text-[#7A45F0]" bgColors={["bg-[#7A45F0]", "bg-[#43297F]"]} name='discovering' value={discPercent} />
+                    <BarChart uid={'barchart2'} mean={40} scoreColor="text-[#622F64]" textColor="text-[#B751BA]" bgColors={["bg-[#B751BA]", "bg-[#622F64]"]} name='expanding' value={expaPercent} />
+                    <BarChart uid={'barchart3'} mean={30} scoreColor="text-[#7D354C]" textColor="text-[#ED5C8A]" bgColors={["bg-[#ED5C8A]", "bg-[#7D354C]"]} name='experimenting' value={expePercent} />
+                    <BarChart uid={'barchart4'} mean={60} scoreColor="text-[#86501C]" textColor="text-[#FF922B]" bgColors={["bg-[#FF922B]", "bg-[#86501C]"]} name='performing' value={perfPercent} />
                 </BentoElement>
-                <BentoElement>
-                    <BarChart uid={'barchart1'} mean={50} textColor="text-[#7A45F0]" bgColors={["bg-[#7A45F0]", "bg-[#43297F]"]} name='discovering' value={discPercent} />
-                    <BarChart uid={'barchart2'} mean={40} textColor="text-[#B751BA]" bgColors={["bg-[#B751BA]", "bg-[#622F64]"]} name='expanding' value={expaPercent} />
-                    <BarChart uid={'barchart3'} mean={30} textColor="text-[#ED5C8A]" bgColors={["bg-[#ED5C8A]", "bg-[#7D354C]"]} name='expperimenting' value={expePercent} />
-                    <BarChart uid={'barchart4'} mean={60} textColor="text-[#FF922B]" bgColors={["bg-[#FF922B]", "bg-[#86501C]"]} name='performing' value={perfPercent} />
-                </BentoElement>
-            </div>
+                <div className='flex flex-col w-full mt-8 gap-4 items-center'>
+                    <h3 className={`${bungee.className} text-2xl mb-4`}
+                        onClick={() => {
+                            count.current++
+                            setItems([...items, count.current])
+                            setShownAskers([...shownAskers, count.current])
+                        }}>
+                        <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>games</span> you might like :
+                    </h3>
+                    <ul className='flex flex-col gap-6 w-full'>
+                        <AnimatePresence>
+                            {items.map((item, i) => (
+                                <motion.li
+                                    layout
+                                    className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-md from-white'
+                                    // initial={{ scale: 0.8, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    transition={{ type: "spring", duration: 0.6 }}
+                                    key={item}
+                                >
+                                    <div className='flex flex-col gap-2 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-md p-4'>
+                                        <p className='py-2 flex w-full justify-center'>{item}</p>
+                                        <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-2' />
+                                        {
+                                            shownAskers.includes(item) &&
+                                            <GameAkser shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
+                                        }
+                                    </div>
+                                </motion.li>
+                            ))}
+                        </AnimatePresence>
+                    </ul>
+                </div>
+            </div >
             <Footer />
-        </main>
+        </main >
     )
 }
