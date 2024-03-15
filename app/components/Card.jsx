@@ -12,7 +12,7 @@ export default function Card({ discPercent = 0, expaPercent = 0, expePercent = 0
                             <Image src={imageURL} alt='avatar image' fill objectFit='contain' />
                         </div>
                         :
-                        <div className='relative h-40 w-40 bg-neutral-600 border-2 rounded-full overflow-hidden'>
+                        <div className='relative h-40 w-40 bg-gradient-to-br animate-pulse from-white via-white/20 to-white/50 opacity-20 border-2 rounded-full overflow-hidden'>
                             
                         </div>
                 }
