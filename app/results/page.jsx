@@ -26,9 +26,11 @@ export default function Results() {
 
     //API CALL
     const [choices, setChoices] = useState([])
+    const [imageURL, setImageURL] = useState('')
 
 
     const apiCall = async () => {
+        console.log("apiCall")
         try {
             const response = await fetch("/api/chat-gpt", {
                 method: "POST",
@@ -41,14 +43,37 @@ export default function Results() {
             });
 
             const data = await response.json();
+            // console.log("data", data)
             setChoices(data.choices);
+            // console.log("choices : ", data.choices)
+
+            const text = await data.choices[0].message.content
+            const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
+            const lastSentence = text.match(regex)[0];
+
+            const responseURL = await fetch("/api/image-gpt", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    lastSentence: lastSentence
+                })
+            });
+
+            const URL = await responseURL.json()
+            // console.log("URL : ", URL)
+            setImageURL(URL)
+
+
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     }
 
+
     useEffect(() => {
-        apiCall();
+        apiCall()
     }, [])
 
 
@@ -66,7 +91,7 @@ export default function Results() {
     //Games recommendation
     const [items, setItems] = useState(["jeudezefzefzefzefzfzx 1", "jeux 2", "jeux 3"]);
     const [shownAskers, setShownAskers] = useState(["jeudezefzefzefzefzfzx 1", "jeux 2", "jeux 3"])
-    console.log(shownAskers)
+    // console.log(shownAskers)
     const count = useRef(0)
 
 
@@ -74,27 +99,16 @@ export default function Results() {
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
             <Navbar />
             <h3 className={`${bungee.className} text-2xl text-center mb-4`}>Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :</h3>
-            <div className='flex flex-wrap justify-center gap-4 px-4 md:px-16 lg:px-36'>
+            <div className='flex flex-wrap justify-center gap-4 px-4 md:px-16 lg:px-52'>
                 <div className='flex flex-col md:flex-row gap-4 w-full items-center'>
-                    <Card discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
+                    <Card imageURL={imageURL} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
                     <div className='md:h-96 w-full'>
-                        {/* <BentoElement>
-                            <div className='flex flex-col gap-4 md:overflow-y-auto'>
-                                <p>
-                                    Your gaming style reveals a unique blend of curiosity and action, where the thrill of Experimenting and mastering new challenges defines your play. Unlike those who delve into the mysteries of Discovering or the depths of Expanding, you thrive on the immediate gratification that comes from exploring different strategies, tools, and mechanics to achieve concrete goals. This preference indicates a gamer who's less attracted to wandering through expansive lore or uncovering every hidden secret, but rather one who seeks out games that offer a variety of ways to tackle challenges head-on. Your adeptness at Performing suggests you're also committed to honing your skills, favoring games that demand precision and technique over those that primarily focus on narrative depth or exploration. You likely gravitate towards action-packed, skill-based titles or puzzle games that offer novel problems to solve, rather than immersive RPGs or open-world adventures.
-                                </p>
-                                <p>
-                                    Your gaming persona is one of a strategist and tactician, always on the lookout for the next engaging challenge to conquer.
-                                </p>
-                            </div>
-                        </BentoElement> */}
-
                         <BentoElement>
                             {choices.length > 0 ?
                                 <div className='flex w-full flex-col gap-4 md:overflow-y-auto'>
                                     {choices.map((choice, i) => {
                                         return (
-                                            <p key={i}>{choice.message.content}</p>
+                                            <p className='select-text' key={i}>{choice.message.content}</p>
                                         )
                                     })}
                                 </div>
