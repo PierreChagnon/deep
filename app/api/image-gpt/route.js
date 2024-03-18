@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
+export const maxDuration = 30; // This function can run for a maximum of 30 seconds
+export const dynamic = 'force-dynamic';
+// https://vercel.com/docs/functions/configuring-functions/duration
+
 export async function POST(request) {
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY
