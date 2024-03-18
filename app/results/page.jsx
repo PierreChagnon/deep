@@ -27,6 +27,7 @@ export default function Results() {
     //API CALL
     const [choices, setChoices] = useState([])
     const [imageURL, setImageURL] = useState('')
+    const [gamingPersona, setGamingPersona] = useState('')
 
 
     const apiCall = async () => {
@@ -64,6 +65,7 @@ export default function Results() {
             const URL = await responseURL.json()
             // console.log("URL : ", URL)
             setImageURL(URL)
+            setGamingPersona(lastSentence)
 
 
         } catch (error) {
@@ -98,14 +100,14 @@ export default function Results() {
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
             <Navbar />
-            <h3 className={`${bungee.className} text-2xl text-center mb-4`}>Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :</h3>
-            <div className='flex flex-wrap justify-center gap-4 px-4 md:px-16 lg:px-52'>
-                <div className='flex flex-col md:flex-row gap-4 w-full items-center'>
-                    <Card imageURL={imageURL} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
-                    <div className='md:h-96 w-full'>
+            <h3 className={`${bungee.className} text-2xl text-center mb-8`}>Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :</h3>
+            <div className='flex flex-col justify-center gap-4 px-4 md:px-16 lg:px-40'>
+                <div className='flex flex-col md:flex-row gap-4 lg:gap-8 w-full items-center'>
+                    <Card imageURL={imageURL} gamingPersona={gamingPersona} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
+                    <div className='md:h-96'>
                         <BentoElement>
                             {choices.length > 0 ?
-                                <div className='flex w-full flex-col gap-4 md:overflow-y-auto'>
+                                <div className='flex w-full flex-col text-sm leading-relaxed gap-4 md:overflow-y-auto'>
                                     {choices.map((choice, i) => {
                                         return (
                                             <p className='select-text' key={i}>{choice.message.content}</p>
@@ -126,13 +128,8 @@ export default function Results() {
                     <BarChart uid={'barchart3'} mean={30} scoreColor="text-[#7D354C]" textColor="text-[#ED5C8A]" bgColors={["bg-[#ED5C8A]", "bg-[#7D354C]"]} name='experimenting' value={expePercent} />
                     <BarChart uid={'barchart4'} mean={60} scoreColor="text-[#86501C]" textColor="text-[#FF922B]" bgColors={["bg-[#FF922B]", "bg-[#86501C]"]} name='performing' value={perfPercent} />
                 </BentoElement>
-                <div className='flex flex-col w-full mt-8 gap-4 items-center'>
-                    <h3 className={`${bungee.className} text-2xl mb-4`}
-                        onClick={() => {
-                            count.current++
-                            setItems([...items, count.current])
-                            setShownAskers([...shownAskers, count.current])
-                        }}>
+                <div className='flex flex-col w-full mt-16 gap-4 items-center'>
+                    <h3 className={`${bungee.className} text-2xl mb-4`}>
                         <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>games</span> you might like :
                     </h3>
                     <ul className='flex flex-col gap-6 w-full'>
