@@ -30,7 +30,5 @@ export async function POST(request) {
         model: "gpt-3.5-turbo",
     });
 
-    // console.log(completion.choices[0])
-
     return NextResponse.json(completion)
 }
