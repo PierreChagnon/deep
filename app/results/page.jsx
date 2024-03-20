@@ -70,13 +70,15 @@ export default function Results() {
             });
             const list = await responseList.json()
             const jsonList = JSON.parse(list.choices[0].message.content)
-            const jsonListSpliced = [...jsonList.game_list].splice(0, 5)
             console.log("LIST = ", jsonList.game_list)
             // on setup les states en fonction du consent (5 jeux pour consent = false)
-            if (consent) {
+            if (consent === 'true') {
                 setGameList(jsonList.game_list)
                 setShownAskers(jsonList.game_list) // on montre les questions pour tous les jeux
             } else {
+                const temp = jsonList.game_list
+                const jsonListSpliced = temp.splice(0, 5)
+                console.log("consent = false ", jsonListSpliced)
                 setGameList(jsonListSpliced)
                 // on ne set pas shownAskers pour ne pas poser les questions
             }
@@ -171,10 +173,12 @@ export default function Results() {
                                 >
                                     <div className='flex flex-col gap-2 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-md p-4'>
                                         <p className='py-2 flex w-full justify-center'>{item}</p>
-                                        <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-2' />
                                         {
-                                            shownAskers.includes(item) && consent &&
-                                            <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
+                                            shownAskers.includes(item) && consent === 'true' &&
+                                            <div className='flex flex-col items-center w-full'>
+                                                <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-2' />
+                                                <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
+                                            </div>
                                         }
                                     </div>
                                 </motion.li>
