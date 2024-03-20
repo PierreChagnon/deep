@@ -12,7 +12,7 @@ import BarChart from '../components/BarChart'
 import Card from '../components/Card'
 import { AnimatePresence, motion } from "framer-motion";
 
-import GameAkser from '../components/GameAkser';
+import GameAsker from '../components/GameAsker';
 import LoadingTextSkeleton from '../components/LoadingTextSkeleton';
 
 
@@ -23,16 +23,21 @@ export default function Results() {
     const expa = searchParams.get('expa')
     const expe = searchParams.get('expe')
     const perf = searchParams.get('perf')
+    const consent = searchParams.get('consent')
 
     //API CALL
     const [choices, setChoices] = useState([])
     const [imageURL, setImageURL] = useState('')
     const [gamingPersona, setGamingPersona] = useState('')
+    const [gameList, setGameList] = useState([])
+    const [shownAskers, setShownAskers] = useState([])
 
 
     const apiCall = async () => {
         console.log("apiCall")
         try {
+
+            //CHAT API
             const response = await fetch("/api/chat-gpt", {
                 method: "POST",
                 headers: {
@@ -52,6 +57,33 @@ export default function Results() {
             const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
             const lastSentence = text.match(regex)[0];
 
+
+            //LIST API
+            const responseList = await fetch("/api/list-gpt", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    scores: [disc, expa, expe, perf]
+                })
+            });
+            const list = await responseList.json()
+            const jsonList = JSON.parse(list.choices[0].message.content)
+            const jsonListSpliced = [...jsonList.game_list].splice(0, 5)
+            console.log("LIST = ", jsonList.game_list)
+            // on setup les states en fonction du consent (5 jeux pour consent = false)
+            if (consent) {
+                setGameList(jsonList.game_list)
+                setShownAskers(jsonList.game_list) // on montre les questions pour tous les jeux
+            } else {
+                setGameList(jsonListSpliced)
+                // on ne set pas shownAskers pour ne pas poser les questions
+            }
+
+
+
+            //IMAGE API
             const responseURL = await fetch("/api/image-gpt", {
                 method: "POST",
                 headers: {
@@ -90,12 +122,6 @@ export default function Results() {
     const expePercentFloored = Math.floor(expePercent)
     const perfPercentFloored = Math.floor(perfPercent)
 
-    //Games recommendation
-    const [items, setItems] = useState(["jeudezefzefzefzefzfzx 1", "jeux 2", "jeux 3"]);
-    const [shownAskers, setShownAskers] = useState(["jeudezefzefzefzefzfzx 1", "jeux 2", "jeux 3"])
-    // console.log(shownAskers)
-    const count = useRef(0)
-
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
@@ -104,7 +130,7 @@ export default function Results() {
             <div className='flex flex-col justify-center gap-4 px-4 md:px-16 lg:px-40'>
                 <div className='flex flex-col md:flex-row gap-4 lg:gap-8 w-full items-center'>
                     <Card imageURL={imageURL} gamingPersona={gamingPersona} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
-                    <div className='md:h-96'>
+                    <div className='md:h-96 w-full'>
                         <BentoElement>
                             {choices.length > 0 ?
                                 <div className='flex w-full flex-col text-sm leading-relaxed gap-4 md:overflow-y-auto'>
@@ -134,7 +160,7 @@ export default function Results() {
                     </h3>
                     <ul className='flex flex-col gap-6 w-full'>
                         <AnimatePresence>
-                            {items.map((item, i) => (
+                            {gameList?.length > 0 && gameList.map((item, i) => (
                                 <motion.li
                                     layout
                                     className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-md from-white'
@@ -147,8 +173,8 @@ export default function Results() {
                                         <p className='py-2 flex w-full justify-center'>{item}</p>
                                         <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-2' />
                                         {
-                                            shownAskers.includes(item) &&
-                                            <GameAkser shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
+                                            shownAskers.includes(item) && consent &&
+                                            <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
                                         }
                                     </div>
                                 </motion.li>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from "framer-motion";
 
-export default function GameAkser({ item, setShownAskers, shownAskers }) {
+export default function GameAsker({ item, setShownAskers, shownAskers }) {
     const [everPlayedGames, setEverPlayedGames] = useState([])
 
     return (

@@ -56,6 +56,7 @@ export default function Form() {
         console.log("res = " + res)
 
         router.push('/results?'
+            + 'consent=' + consent + '&'
             + 'disc=' + res[0] + '&'
             + 'expa=' + res[1] + '&'
             + 'expe=' + res[2] + '&'
