@@ -81,7 +81,7 @@ export default function Form() {
                     formElements[activeTab]
                 }
             </div>
-            <button onClick={handleRevealResultsNavigation}>test</button>
+            {/* <button onClick={handleRevealResultsNavigation}>test</button> */}
 
             <div className='flex flex-wrap gap-x-6 mx-auto'>
                 {

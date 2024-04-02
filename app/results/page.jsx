@@ -15,7 +15,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import GameAsker from '../components/GameAsker';
 import LoadingTextSkeleton from '../components/LoadingTextSkeleton';
 
-
 export default function Results() {
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -53,9 +52,6 @@ export default function Results() {
             setChoices(data.choices);
             // console.log("choices : ", data.choices)
 
-            const text = await data.choices[0].message.content
-            const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
-            const lastSentence = text.match(regex)[0];
 
 
             //LIST API
@@ -70,13 +66,14 @@ export default function Results() {
             });
             const list = await responseList.json()
             const jsonList = JSON.parse(list.choices[0].message.content)
-            console.log("LIST = ", jsonList.game_list)
+            console.log("RESPONSE = ", list)
+            console.log("LIST = ", jsonList)
             // on setup les states en fonction du consent (5 jeux pour consent = false)
             if (consent === 'true') {
-                setGameList(jsonList.game_list)
-                setShownAskers(jsonList.game_list) // on montre les questions pour tous les jeux
+                setGameList(jsonList)
+                setShownAskers(jsonList) // on montre les questions pour tous les jeux
             } else {
-                const temp = jsonList.game_list
+                const temp = jsonList
                 const jsonListSpliced = temp.splice(0, 5)
                 console.log("consent = false ", jsonListSpliced)
                 setGameList(jsonListSpliced)
@@ -86,6 +83,10 @@ export default function Results() {
 
 
             //IMAGE API
+            const text = await data.choices[0].message.content
+            const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
+            const lastSentence = text.match(regex)[0];
+
             const responseURL = await fetch("/api/image-gpt", {
                 method: "POST",
                 headers: {
@@ -129,7 +130,7 @@ export default function Results() {
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
             <Navbar />
             <h3 className={`${bungee.className} text-2xl text-center mb-8`}>Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :</h3>
-            <div className='flex flex-col justify-center gap-4 px-4 md:px-16 lg:px-40'>
+            <div className='flex flex-col justify-center gap-4 px-4 md:px-16 lg:px-40 3xl:px-96'>
                 <div className='flex flex-col md:flex-row gap-4 lg:gap-8 w-full items-center'>
                     <Card imageURL={imageURL} gamingPersona={gamingPersona} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
                     <div className='md:h-96 w-full'>
@@ -162,7 +163,7 @@ export default function Results() {
                     </h3>
                     <ul className='flex flex-col gap-6 w-full'>
                         <AnimatePresence>
-                            {gameList?.length > 0 && gameList.map((item, i) => (
+                            {gameList?.length > 0 ? gameList.map((item, i) => (
                                 <motion.li
                                     layout
                                     className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-md from-white'
@@ -175,14 +176,23 @@ export default function Results() {
                                         <p className='py-2 flex w-full justify-center'>{item}</p>
                                         {
                                             shownAskers.includes(item) && consent === 'true' &&
-                                            <div className='flex flex-col items-center w-full'>
-                                                <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-2' />
+                                            <div className='flex flex-col items-center pb-2 w-full'>
+                                                <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-8' />
                                                 <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
                                             </div>
                                         }
                                     </div>
                                 </motion.li>
-                            ))}
+                            ))
+                                :
+                                [0, 1, 2, 3, 4].map((item) => (
+                                    <div key={item} className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-md from-white'>
+                                        <div className='flex bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-md p-4'>
+                                            <span className='flex-1 h-6 bg-gradient-to-r from-white/50 via-white/20 to-white/50 opacity-20 rounded-full animate-pulse' />
+                                        </div>
+                                    </div>
+                                ))
+                            }
                         </AnimatePresence>
                     </ul>
                 </div>

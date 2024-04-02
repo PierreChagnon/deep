@@ -33,10 +33,10 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 }
                 }
                     name="cars" id="cars" className='h-full w-full bg-[#010018] p-2 3xl:py-4 rounded-md 3xl:rounded-xl cursor-pointer'>
-                    <option className='cursor-pointer p-2' value="Male">Male</option>
-                    <option className='cursor-pointer p-2' value="Female">Female</option>
-                    <option className='cursor-pointer p-2' value="Non-binary / third gender">Non-binary / third gender</option>
-                    <option className='cursor-pointer p-2' value="Prefer not to say">Prefer not to say</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Male">Male</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Female">Female</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Non-binary / third gender">Non-binary / third gender</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Prefer not to say">Prefer not to say</option>
                 </select>
             </div>
             <p className='mb-4'>What is your age ?</p>
