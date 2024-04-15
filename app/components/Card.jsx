@@ -4,7 +4,7 @@ import { bungee } from '../fonts'
 
 export default function Card({ discPercent = 0, expaPercent = 0, expePercent = 0, perfPercent = 0, imageURL, gamingPersona }) {
     return (
-        <div className='flex relative w-60 h-96 p-[2px] bg-gradient-to-b from-[#DCCFF7] via-[#88324D] to-[#704217] rounded-xl shadow-[0_0_24px_5px_rgba(255,255,255,0.25)]'>
+        <div id='card' className='flex relative w-60 h-96 p-[2px] bg-gradient-to-b from-[#DCCFF7] via-[#88324D] to-[#704217] rounded-xl shadow-[0_0_24px_5px_rgba(255,255,255,0.25)]'>
             <div className='flex flex-1 flex-col justify-between items-center p-6 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] rounded-xl'>
                 {
                     imageURL ?
@@ -12,8 +12,9 @@ export default function Card({ discPercent = 0, expaPercent = 0, expePercent = 0
                             <Image src={imageURL} alt='avatar image' fill objectFit='contain' />
                         </div>
                         :
-                        <div className='relative h-40 w-40 bg-gradient-to-br animate-pulse from-white via-white/20 to-white/50 opacity-20 border-2 rounded-full overflow-hidden'>
-
+                        <div className='relative flex justify-center flex-col items-center h-40 w-40 bg-gradient-to-br animate-pulse from-white via-white/20 to-white/50 opacity-20 border-2 rounded-full overflow-hidden'>
+                            <p className='text-center text-sm text-white'>Almost there! </p>
+                            <p className='text-center text-sm text-white'>Your one-of-a-kind gaming avatar is about to emerge. </p>
                         </div>
                 }
                 <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent' />

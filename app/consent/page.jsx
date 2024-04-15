@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
 import FancyButton from '../components/FancyButton';
 import { useRouter } from 'next/navigation';
-import { bungee } from '../fonts';
+import { bungee, inter } from '../fonts';
 
 export default function Home() {
 
@@ -13,7 +13,6 @@ export default function Home() {
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
-            <Navbar />
             <div className='h-full px-8 md:px-20 3xl:px-48 flex flex-col 2xl:items-center gap-4 2xl:gap-16 3xl:text-2xl'>
                 <h1 className={`${bungee.className} my-4 text-center text-2xl 3xl:text-[3rem]`}>Consent and data collection</h1>
                 <div className='2xl:w-2/3'>
@@ -34,8 +33,8 @@ export default function Home() {
                     </p>
                 </div>
                 <div className='flex flex-col items-center md:flex-row w-full justify-center gap-4 2xl:gap-16 mt-8'>
-                    <FancyButton onClick={() => router.push('/form?consent=true')}>Yes <span className='text-[10px] 2xl:text-xs ml-4'>I give my informed consent for researchers to use my responses</span></FancyButton>
-                    <FancyButton onClick={() => router.push('/form?consent=false')}>No <span className='text-[10px] 2xl:text-xs ml-4'>I don’t want to share my responses, but still want to take the test </span></FancyButton>
+                    <FancyButton onClick={() => router.push('/form?consent=true')}>Yes <span className={`${inter.className} text-left text-sm border-l-[3px] pl-4 ml-4`}>I give my informed consent for researchers to use my responses</span></FancyButton>
+                    <FancyButton onClick={() => router.push('/form?consent=false')}>No <span className={`${inter.className} text-left text-sm border-l-[3px] pl-4 ml-4`}>I don’t want to share my responses, but still want to take the test </span></FancyButton>
                 </div>
             </div>
             <Footer />

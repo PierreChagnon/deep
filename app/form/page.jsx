@@ -32,13 +32,18 @@ export default function Form() {
             setFormElements([<DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />])
         } else {
             setFormElements([
+                <PersonalInfos setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"personalinfos"} />,
                 <GameHabits setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"gamehabits"} />,
                 <DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />,
                 <BigFive setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"bigfive"} />,
-                <PersonalInfos setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"personalinfos"} />
             ])
         }
     }, [consent])
+
+    // Fonction de useEffect qui permet de reset le scroll à chaque changement de activeTab
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [activeTab])
 
     const handleOnClick = (callback) => {
         // On check si le formulaire en cours est complet
@@ -73,7 +78,6 @@ export default function Form() {
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
-            <Navbar />
 
             {/* FORMULAIRE */}
             <div className='h-full px-8 md:px-20 2xl:px-48 flex flex-col gap-4 2xl:text-xl'>

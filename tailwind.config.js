@@ -28,6 +28,7 @@ module.exports = {
       },
       boxShadow: {
         'dark': '5px 3px 9px 4px rgba(0, 0, 0, 0.3)',
+        'hot' : '0 0 10px 5px rgba(255, 146, 43, 0.3)',
       },
     },
   },

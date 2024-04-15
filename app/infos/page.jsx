@@ -13,7 +13,6 @@ export default function Results() {
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
-            <Navbar />
             <div className="flex flex-1 flex-col items-center px-8 gap-8 mb-8 md:overflow-hidden">
                 <h1 className={`${bungee.className} text-2xl mb-8 3xl:text-3xl`}>THE DEEP MODEL</h1>
                 <div className='flex flex-col px-2 2xl:px-32 3xl:px-96 items-center md:flex-row md:justify-around md:flex-wrap gap-8'>

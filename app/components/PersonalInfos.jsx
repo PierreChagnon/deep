@@ -6,8 +6,16 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
 
     const [age, setAge] = useState("")
     const [option, setOption] = useState("Prefer not to say")
+    // show error state
+    const [error, setError] = useState(false)
+
 
     const handleInputChange = (field, value) => {
+        if (value < 15) {
+            setError(true)
+            return
+        }
+        setError(false)
         setFormValues((prevValues) => ({
             ...prevValues,
             [field]: value,
@@ -15,8 +23,11 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
     };
 
     useEffect(() => {
-        if (age !== "") {
+        if (age !== "" && age >= 15) {
             setFormIsCompleted(true)
+        }
+        else {
+            setFormIsCompleted(false)
         }
     }, [age, setFormIsCompleted])
 
@@ -40,6 +51,9 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 </select>
             </div>
             <p className='mb-4'>What is your age ?</p>
+            {
+                error && <p className='text-red-500 mb-2 -mt-2'>You must be at least 15 years old</p>
+            }
             <div className='p-[2px] mb-10 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <input onChange={(e) => {
                     handleInputChange("age", e.currentTarget.value)
