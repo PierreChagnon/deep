@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import GameAsker from '../components/GameAsker';
 import LoadingTextSkeleton from '../components/LoadingTextSkeleton';
+import ChartComponent from '../components/ChartComponent';
 
 export default function Results() {
     const router = useRouter()
@@ -115,7 +116,7 @@ export default function Results() {
 
 
     useEffect(() => {
-        apiCall()
+        // apiCall()
     }, [])
 
 
@@ -163,18 +164,11 @@ export default function Results() {
                 initial="hidden"
                 animate="show"
                 className='flex flex-col justify-center gap-4 px-4 md:px-16 lg:px-40 3xl:px-96'>
-                <motion.div variants={item}>
-                    <BentoElement>
-                        <BarChart uid={'barchart1'} scoreColor="text-[#43297F]" textColor="text-[#7A45F0]" bgColors={["bg-[#7A45F0]", "bg-[#43297F]"]} name='discovering' value={discPercent} />
-                        <BarChart uid={'barchart2'} scoreColor="text-[#622F64]" textColor="text-[#B751BA]" bgColors={["bg-[#B751BA]", "bg-[#622F64]"]} name='expanding' value={expaPercent} />
-                        <BarChart uid={'barchart3'} scoreColor="text-[#7D354C]" textColor="text-[#ED5C8A]" bgColors={["bg-[#ED5C8A]", "bg-[#7D354C]"]} name='experimenting' value={expePercent} />
-                        <BarChart uid={'barchart4'} scoreColor="text-[#86501C]" textColor="text-[#FF922B]" bgColors={["bg-[#FF922B]", "bg-[#86501C]"]} name='performing' value={perfPercent} />
-                    </BentoElement>
-                </motion.div>
+
                 <motion.div
                     variants={item}
-                    className='flex flex-col md:flex-row gap-4 lg:gap-8 w-full items-center md:items-stretch'>
-                    <div className='flex flex-col gap-2'>
+                    className='flex flex-col md:flex-row gap-4 w-full items-center md:items-stretch'>
+                    <div className='flex flex-col gap-4'>
                         <Card imageURL={imageURL} gamingPersona={gamingPersona} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
                         {/* button to download card blob as png */}
                         <motion.button
@@ -202,7 +196,7 @@ export default function Results() {
                     <div className='w-full'>
                         <BentoElement>
                             {choices.length > 0 ?
-                                <div className='flex w-full h-full flex-col text-sm leading-relaxed gap-4 md:overflow-y-auto'>
+                                <div className='flex flex-col text-sm leading-relaxed gap-4 md:overflow-y-auto'>
                                     {choices.map((choice, i) => {
                                         return (
                                             <p className='select-text' key={i}>{choice.message.content}</p>
@@ -216,37 +210,45 @@ export default function Results() {
                     </div>
 
                 </motion.div>
+                <motion.div variants={item}>
+                    <BentoElement>
+                        <BarChart uid={'barchart1'} scoreColor="text-[#43297F]" textColor="text-[#7A45F0]" bgColors={["bg-[#7A45F0]", "bg-[#43297F]"]} name='discovering' value={discPercent} />
+                        <BarChart uid={'barchart2'} scoreColor="text-[#622F64]" textColor="text-[#B751BA]" bgColors={["bg-[#B751BA]", "bg-[#622F64]"]} name='expanding' value={expaPercent} />
+                        <BarChart uid={'barchart3'} scoreColor="text-[#7D354C]" textColor="text-[#ED5C8A]" bgColors={["bg-[#ED5C8A]", "bg-[#7D354C]"]} name='experimenting' value={expePercent} />
+                        <BarChart uid={'barchart4'} scoreColor="text-[#86501C]" textColor="text-[#FF922B]" bgColors={["bg-[#FF922B]", "bg-[#86501C]"]} name='performing' value={perfPercent} />
+                    </BentoElement>
+                </motion.div>
 
-                {/* maping the four graph representing each dimension */}
-                {
-                    ["discovering", "expanding", "experimenting", "performing"].map((dimension, i) => (
-                        <motion.div variants={item} key={i} className='flex flex-col md:flex-row gap-4 lg:gap-8 w-full items-center md:items-stretch'>
-                            <div>
-                                <BentoElement>
-                                    <span>{dimension}</span>
-                                </BentoElement>
-                            </div>
-                        </motion.div>
-                    ))
-                }
-
-                <motion.div
-                    variants={item}
-                    className='flex flex-col md:flex-row gap-4 lg:gap-8 w-full items-center md:items-stretch'>
-                    <div className='flex flex-col gap-2'>
+                <motion.div variants={item}
+                    className='flex flex-col gap-4 w-full items-center md:items-stretch'>
+                    <div className='md:items-stretch'>
                         <BentoElement>
-                            <div className='flex flex-col px-2 2xl:px-32 3xl:px-96 relative lg:flex-row lg:justify-center lg:py-10 lg:gap-16 lg:my-10 flex-wrap items-center text-xs gap-4'>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#ED5C8A]'>Expanding</span>: High scorers here are attracted to games with rich narratives and thematic depth. They find games like Mass Effect or The Witcher series captivating, where immersing in the story is key. Gamers with lower scores in Expanding may prefer games that focus less on narrative and more on immediate gameplay mechanics.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#B751BA]'>Experimenting</span>: Gamers who score high in Experimenting enjoy hands-on experimentation and learning through direct interaction. They thrive in games like Minecraft or Kerbal Space Program, where trial and error lead to tangible outcomes. A lower score in this dimension might suggest a preference for games with more defined rules or structured gameplay.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#7A45F0]'>Discovering</span>: This dimension measures a player's interest in exploring abstract concepts within a game. High scorers are drawn to games that offer rich, complex worlds to unravel, like the intricate lore in The Elder Scrolls series or the boundless universe of No Man's Sky. Lower scores might indicate a preference for more straightforward, action-focused gameplay.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#FF922A]'>Performing</span>: Those who score high in Performing excel in and enjoy games where skill, precision, and efficiency are vital. Titles like Dark Souls and competitive esports games like League of Legends are typical favorites. A lower score in this dimension might indicate a preference for games that are less about mastery and more about exploration or narrative.</p>
+                            <div className='flex flex-col relative lg:flex-row lg:justify-center lg:py-10 lg:gap-16 lg:my-10 flex-wrap items-center text-xs gap-4'>
+                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#B751BA]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
+                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#ED5C8A]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
+                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#ED5C8A]'>Experimenting</span>: High scorers enjoy hands-on experimentation and learning through direct interaction. A lower score suggest a preference for games with more defined rules.</p>
+                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#FF922A]'>Performing</span>: High scorers enjoy games where skill, precision, and efficiency are vital. A lower score  suggest a preference for games that are less about mastery.</p>
                                 <div className='lg:absolute relative h-80 w-full lg:w-full lg:h-full'>
-                                    <Image className='object-contain lg:scale-[1.15]' src='/assets/cross.png' alt='cross scheme' fill />
+                                    <Image className='object-contain lg:scale-[1.1]' src='/assets/cross.png' alt='cross scheme' fill />
                                 </div>
                             </div>
                         </BentoElement>
                     </div>
-
+                    {/* maping the four graph representing each dimension */}
+                    <div className='flex flex-wrap justify-between md:justify-normal gap-4 w-full'>
+                        {
+                            ["Discovering", "Expanding", "Experimenting", "Performing"].map((dimension, i) => {
+                                const colors = ["#7A45F0", "#ED5C8A", "#B751BA", "#FF922A"]
+                                return (
+                                    <div key={i} className='flex w-[45%] h-min'>
+                                        <BentoElement>
+                                            <ChartComponent title={dimension} color={colors[i]} />
+                                        </BentoElement>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </motion.div>
                 <div className='flex flex-col w-full mt-16 gap-4 items-center'>
                     <h3 className={`${bungee.className} text-2xl mb-4`}>
