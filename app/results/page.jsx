@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import { bungee } from '../fonts';
 import html2canvas from 'html2canvas';
 import Image from 'next/image'
+import { discoveringScores, expandingScores, experimentingScores, performingScores } from '../utils/deepData'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import BentoElement from '../components/BentoElement'
@@ -172,9 +173,10 @@ export default function Results() {
                         <Card imageURL={imageURL} gamingPersona={gamingPersona} discPercent={discPercentFloored} expaPercent={expaPercentFloored} expePercent={expePercentFloored} perfPercent={perfPercentFloored} />
                         {/* button to download card blob as png */}
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className='bg-gradient-to-r from-[#7944F0] via-[#ED5C8A] to-[#FF922A] px-4 py-2 rounded-md'
+                            disabled={imageURL === '' ? true : false}
+                            whileHover={{ scale: imageURL === '' ? 1 : 1.05 }}
+                            whileTap={{ scale: imageURL === '' ? 1 : 0.95 }}
+                            className='bg-gradient-to-r disabled:opacity-50 from-[#7944F0] via-[#ED5C8A] to-[#FF922A] px-4 py-2 rounded-md'
                             onClick={() => {
                                 const card = document.getElementById('card')
                                 html2canvas(card).then(canvas => {
@@ -224,8 +226,8 @@ export default function Results() {
                     <div className='md:items-stretch'>
                         <BentoElement>
                             <div className='flex flex-col relative lg:flex-row lg:justify-center lg:py-10 lg:gap-16 lg:my-10 flex-wrap items-center text-xs gap-4'>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#B751BA]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#ED5C8A]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
+                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#7A45F0]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
+                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#B751BA]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
                                 <p className='lg:w-1/3 lg:px-4'><span className='text-[#ED5C8A]'>Experimenting</span>: High scorers enjoy hands-on experimentation and learning through direct interaction. A lower score suggest a preference for games with more defined rules.</p>
                                 <p className='lg:w-1/3 lg:px-4'><span className='text-[#FF922A]'>Performing</span>: High scorers enjoy games where skill, precision, and efficiency are vital. A lower score  suggest a preference for games that are less about mastery.</p>
                                 <div className='lg:absolute relative h-80 w-full lg:w-full lg:h-full'>
@@ -235,14 +237,18 @@ export default function Results() {
                         </BentoElement>
                     </div>
                     {/* maping the four graph representing each dimension */}
-                    <div className='flex flex-wrap justify-between md:justify-normal gap-4 w-full'>
+                    <div className='flex flex-col md:flex-row md:flex-wrap justify-between md:justify-normal gap-4 w-full'>
                         {
                             ["Discovering", "Expanding", "Experimenting", "Performing"].map((dimension, i) => {
                                 const colors = ["#7A45F0", "#ED5C8A", "#B751BA", "#FF922A"]
+                                const scores = [discoveringScores, expandingScores, experimentingScores, performingScores]
+                                
                                 return (
-                                    <div key={i} className='flex w-[45%] h-min'>
+                                    <div key={i} className='flex flex-1'>
                                         <BentoElement>
-                                            <ChartComponent title={dimension} color={colors[i]} />
+                                            <div className='flex flex-1 items-center justify-center'>
+                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} />
+                                            </div>
                                         </BentoElement>
                                     </div>
                                 )
@@ -259,13 +265,13 @@ export default function Results() {
                             {gameList?.length > 0 ? gameList.map((item, i) => (
                                 <motion.li
                                     layout
-                                    className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-md from-white'
+                                    className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-3xl from-[#ffffff00]'
                                     // initial={{ scale: 0.8, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ type: "spring", duration: 0.6 }}
                                     key={item}
                                 >
-                                    <div className='flex flex-col gap-2 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-md p-4'>
+                                    <div className='flex flex-col gap-2 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-3xl p-6 md:p-8'>
                                         <p className='py-2 flex w-full justify-center'>{item}</p>
                                         {
                                             shownAskers.includes(item) && consent === 'true' &&
@@ -279,9 +285,9 @@ export default function Results() {
                             ))
                                 :
                                 [0, 1, 2, 3, 4].map((item) => (
-                                    <div key={item} className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-md from-white'>
-                                        <div className='flex bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-md p-4'>
-                                            <span className='flex-1 h-6 bg-gradient-to-r from-white/50 via-white/20 to-white/50 opacity-20 rounded-full animate-pulse' />
+                                    <div key={item} className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-3xl from-[#ffffff00]'>
+                                        <div className='flex bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-3xl p-6 md:p-8'>
+                                            <span className='flex-1 h-6 my-2 bg-gradient-to-r from-white/50 via-white/20 to-white/50 opacity-20 rounded-full animate-pulse' />
                                         </div>
                                     </div>
                                 ))

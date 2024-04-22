@@ -4,33 +4,19 @@
 
 import React, { useRef, useEffect, useMemo, useState } from 'react'
 import Chart from 'chart.js/auto'
-import { discoveringScores, expandingScores, experimentingScores, performingScores } from '../utils/deepData'
 
-export default function ChartComponent({ color = 'red', title = 'Custom Chart Title' }) {
+export default function ChartComponent({ color = 'red', title = 'Custom Chart Title', scores = [] }) {
   const chartRef = useRef(null)
-  const [scores, setScores] = useState([])
 
-  useEffect(() => {
-    switch (title) {
-      case 'Discovering':
-        setScores(discoveringScores)
-        break
-      case 'Expanding':
-        setScores(expandingScores)
-        break
-      case 'Experimenting':
-        setScores(experimentingScores)
-        break
-      case 'Performing':
-        setScores(performingScores)
-        break
-      default:
-        break
-    }
-  }, [title])
+  const mean = useMemo(() => {
+    if (scores.length === 0) return
+    const mean = scores.reduce((acc, value) => acc + value, 0) / scores.length
+    return Math.round(mean * 100) / 100 // arrondi à 2 chiffres après la virgule
+  }, [scores])
+
+
   const hist = useMemo(() => {
     if (scores.length === 0) return
-    console.log('starting histogram calculation...')
 
     /// Création de l'objet de fréquence
     const frequency = {};
@@ -47,29 +33,42 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
 
     const hist = [];
     for (let i = 1; i <= 7; i++) {
-      hist.push(frequency[i] || 0);
+      const percent = (frequency[i] || 0) / scores.length * 100;
+      hist.push(percent || 0);
+
     }
 
-    console.log('histogram calculated:', hist)
     return hist
 
   }, [scores])
 
   useEffect(() => {
+    // Si le canvas n'est pas encore chargé ou si l'histogramme n'est pas encore calculé, on ne fait rien
     if (!chartRef.current || !hist) return
-    console.log('create chart...')
+
+    // Création du graphique
     const data = {
       labels: [1, 2, 3, 4, 5, 6, 7],
       datasets: [
         {
-          label: 'My First Dataset',
+          label: 'Mean',
+          data: [{ x: mean, y: 0 }, { x: mean, y: 50 }],
+          borderColor: 'white',
+          backgroundColor: 'white',
+          borderWidth: 1,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: '% of people',
           data: hist,
           borderColor: color,
           backgroundColor: color,
           borderWidth: 1,
           tension: 0.4,
           fill: true
-        }
+        },
+
       ]
     }
 
@@ -84,8 +83,26 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
         responsive: true,
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            max: 50,
+            title: {
+              display: true,
+              text: 'Frequency (%)'
+            }
           },
+          x: {
+            title: {
+              display: true,
+              text: 'Scores'
+            },
+            type: 'linear',
+            position: 'bottom',
+            ticks: {
+              min: 1,  // Définir la valeur minimale de l'axe x
+              max: 7,  // Définir la valeur maximale de l'axe x
+              stepSize: 1,  // Le pas entre chaque tick (pour les nombres entiers 1-7)
+            }
+          }
         },
         plugins: {
           legend: {
@@ -100,9 +117,9 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
     })
 
     return () => myChart.destroy()
-  }, [hist, color, title])
+  }, [hist, color, title, mean])
   return (
-    <div className='relative md:w-48 md:h-48'>
+    <div className='relative flex w-48 h-48 items-center justify-center'>
       <canvas ref={chartRef} />
     </div>
   )

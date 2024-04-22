@@ -31,7 +31,7 @@ export default function Home() {
         }
     }
     return (
-        <main className='text-white flex flex-col flex-1 h-full overflow-hidden relative'>
+        <main className='text-white flex flex-col flex-1 min-h-dvh overflow-x-hidden relative'>
             <div
                 className='absolute bottom-0 2xl:mx-64 -right-24 md:-right-10 -z-10 w-80 2xl:w-[600px] h-96 2xl:h-1/2'>
                 <Image src='/assets/ashe.png' alt='ashe image' fill objectFit='contain' />
@@ -44,7 +44,7 @@ export default function Home() {
                 variants={container}
                 initial='hidden'
                 animate='show'
-                className='h-full px-8 md:px-20 2xl:px-32 flex flex-col flex-1 items-center justify-around'>
+                className='h-full px-8 md:px-20 2xl:px-32 flex flex-col gap-16 mb-12 flex-1 items-center justify-around'>
                 <motion.h1
                     variants={item}
                     initial='hidden'
@@ -56,7 +56,7 @@ export default function Home() {
                     variants={item}
                     initial='hidden'
                     animate='show'
-                    className='px-4 md:px-16 3xl:px-48 2xl:w-1/2 3xl:text-2xl 2xl:leading-loose'>
+                    className='px-4 md:px-24 3xl:px-48 2xl:w-1/2 3xl:text-2xl 2xl:leading-loose'>
                     The <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> model, elaborated by researchers at the École normale supérieure in PSL University, discerns four key dimensions of player agency in video games: Discovering, Experimenting, Expanding, and Performing.
                 </motion.p>
                 <motion.p
