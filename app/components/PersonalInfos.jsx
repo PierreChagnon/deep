@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import React, { useState, useEffect } from 'react'
@@ -6,6 +7,18 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
 
     const [age, setAge] = useState("")
     const [option, setOption] = useState("Prefer not to say")
+    const [levelOfEnglish, setLevelOfEnglish] = useState("Intermediate")
+    const [alreadyDone, setAlreadyDone] = useState("No")
+
+    const handleClick = (option) => {
+        setAlreadyDone(option)
+        const temp = option === "Yes" ? 1 : 0
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            "already_done": temp,
+        }));
+    };
+
     // show error state
     const [error, setError] = useState(false)
 
@@ -33,8 +46,19 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
 
     return (
         <div className='flex flex-col mb-4 text-base 3xl:text-2xl items-center'>
-            <p className='mb-4'>Gender</p>
-            <div className='p-[2px] cursor-pointer mb-10 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <p className='mb-4 mt-8 md:text-lg'>Have you already taken this test? (It's ok if you have) </p>
+            <div className='flex md:w-1/2 3xl:w-1/3 w-full items-center gap-2 3xl:gap-4 mb-4'>
+                {["Yes", "No"].map((value) => {
+                    const active = alreadyDone === value
+                    return (
+                        <button onClick={() => handleClick(value)} key={value} className='p-[2px] md:w-1/2 3xl:w-1/3 w-full flex-1 rounded-md 2xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center w'>
+                            <div className={`h-full w-full ${active ? "from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r" : "bg-[#010018]"} p-2 md:p-4 rounded-md 2xl:rounded-xl`}>{value}</div>
+                        </button>
+                    )
+                })}
+            </div>
+            <p className='mb-4 mt-8 md:text-lg'>Gender</p>
+            <div className='p-[2px] md:w-1/2 3xl:w-1/3 w-full cursor-pointer mb-10 rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={option} onChange={(e) => {
                     setFormValues((prevValues) => ({
                         ...prevValues,
@@ -43,24 +67,42 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     setOption(e.target.value)
                 }
                 }
-                    name="cars" id="cars" className='h-full w-full bg-[#010018] p-2 3xl:py-4 rounded-md 3xl:rounded-xl cursor-pointer'>
+                    name="gender" id="gender" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
                     <option className='cursor-pointer p-2 text-sm' value="Male">Male</option>
                     <option className='cursor-pointer p-2 text-sm' value="Female">Female</option>
                     <option className='cursor-pointer p-2 text-sm' value="Non-binary / third gender">Non-binary / third gender</option>
                     <option className='cursor-pointer p-2 text-sm' value="Prefer not to say">Prefer not to say</option>
                 </select>
             </div>
-            <p className='mb-4'>What is your age ?</p>
+            <p className='mb-4 mt-8 md:text-lg'>What is your age ?</p>
             {
                 error && <p className='text-red-500 mb-2 -mt-2'>You must be at least 15 years old</p>
             }
-            <div className='p-[2px] mb-10 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='p-[2px] md:w-1/2 3xl:w-1/3 w-full mb-10 rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <input onChange={(e) => {
                     handleInputChange("age", e.currentTarget.value)
                     setAge(e.currentTarget.value)
                 }
                 }
-                    placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 3xl:py-4 rounded-md 3xl:rounded-xl' />
+                    placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl' />
+            </div>
+            <p className='mb-4 mt-8 md:text-lg'>How would you rate your level of english proeficiency ?</p>
+            <div className='p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+                <select value={levelOfEnglish} onChange={(e) => {
+                    setFormValues((prevValues) => ({
+                        ...prevValues,
+                        "level_of_english": e.target.value,
+                    }));
+                    setLevelOfEnglish(e.target.value)
+                }
+                }
+                    name="level" id="level" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
+                    <option className='cursor-pointer p-2 text-sm' value="Beginner">Beginner</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Intermediate">Intermediate</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Advanced">Advanced</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Bilingual">Bilingual</option>
+                    <option className='cursor-pointer p-2 text-sm' value="Native speaker">Native speaker</option>
+                </select>
             </div>
         </div>
     )

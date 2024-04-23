@@ -176,7 +176,7 @@ export default function Results() {
                             disabled={imageURL === '' ? true : false}
                             whileHover={{ scale: imageURL === '' ? 1 : 1.05 }}
                             whileTap={{ scale: imageURL === '' ? 1 : 0.95 }}
-                            className='bg-gradient-to-r disabled:opacity-50 from-[#7944F0] via-[#ED5C8A] to-[#FF922A] px-4 py-2 rounded-md'
+                            className='bg-gradient-to-r disabled:opacity-50 from-[#7944F0] via-[#ED5C8A] to-[#FF922A] px-4 py-2 3xl:py-4 rounded-lg'
                             onClick={() => {
                                 const card = document.getElementById('card')
                                 html2canvas(card).then(canvas => {
@@ -198,7 +198,7 @@ export default function Results() {
                     <div className='w-full'>
                         <BentoElement>
                             {choices.length > 0 ?
-                                <div className='flex flex-col text-sm leading-relaxed gap-4 md:overflow-y-auto'>
+                                <div className='flex flex-col text-sm 3xl:text-lg leading-relaxed gap-4 md:overflow-y-auto'>
                                     {choices.map((choice, i) => {
                                         return (
                                             <p className='select-text' key={i}>{choice.message.content}</p>
@@ -226,11 +226,11 @@ export default function Results() {
                     <div className='md:items-stretch'>
                         <BentoElement>
                             <div className='flex flex-col relative lg:flex-row lg:justify-center lg:py-10 lg:gap-16 lg:my-10 flex-wrap items-center text-xs gap-4'>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#7A45F0]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#B751BA]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#ED5C8A]'>Experimenting</span>: High scorers enjoy hands-on experimentation and learning through direct interaction. A lower score suggest a preference for games with more defined rules.</p>
-                                <p className='lg:w-1/3 lg:px-4'><span className='text-[#FF922A]'>Performing</span>: High scorers enjoy games where skill, precision, and efficiency are vital. A lower score  suggest a preference for games that are less about mastery.</p>
-                                <div className='lg:absolute relative h-80 w-full lg:w-full lg:h-full'>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#7A45F0]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#B751BA]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#ED5C8A]'>Experimenting</span>: High scorers enjoy hands-on experimentation and learning through direct interaction. A lower score suggest a preference for games with more defined rules.</p>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#FF922A]'>Performing</span>: High scorers enjoy games where skill, precision, and efficiency are vital. A lower score  suggest a preference for games that are less about mastery.</p>
+                                <div className='lg:absolute relative h-80 3xl:h-[442px] w-full lg:w-full lg:h-full'>
                                     <Image className='object-contain lg:scale-[1.1]' src='/assets/cross.png' alt='cross scheme' fill />
                                 </div>
                             </div>

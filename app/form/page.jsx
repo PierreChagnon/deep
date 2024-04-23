@@ -11,6 +11,8 @@ import FancyButton from '../components/FancyButton';
 import PersonalInfos from '../components/PersonalInfos';
 import jsonToCSV from '../utils/jsonToCSV';
 import calcDeepScore from '../utils/calcDeepScore';
+import FavouriteGames from '../components/FavouriteGames';
+import Understanding from '../components/Understanding';
 
 export default function Form() {
 
@@ -35,7 +37,9 @@ export default function Form() {
                 <PersonalInfos setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"personalinfos"} />,
                 <GameHabits setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"gamehabits"} />,
                 <DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />,
+                <FavouriteGames setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"favouritegames"} />,
                 <BigFive setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"bigfive"} />,
+                <Understanding setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"understanding"} />
             ])
         }
     }, [consent])
@@ -87,7 +91,7 @@ export default function Form() {
             </div>
             {/* <button onClick={handleRevealResultsNavigation}>test</button> */}
 
-            <div className='flex flex-wrap gap-x-6 mx-auto'>
+            <div className='flex flex-wrap gap-x-6 mt-12 mx-auto'>
                 {
                     activeTab === formElements.length - 1
                         ?
