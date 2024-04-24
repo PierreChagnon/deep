@@ -181,7 +181,7 @@ export default function Results() {
                                 const card = document.getElementById('card')
                                 html2canvas(card).then(canvas => {
                                     const imgData = canvas.toDataURL('image/png')
-                                    const img = new Image()
+                                    const img = document.createElement('img')
                                     img.src = imgData
                                     const link = document.createElement('a')
                                     link.download = 'DEEP-Profile.png'

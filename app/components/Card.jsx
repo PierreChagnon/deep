@@ -8,7 +8,7 @@ export default function Card({ discPercent = 0, expaPercent = 0, expePercent = 0
             <div className='flex flex-1 flex-col justify-between items-center p-6 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] rounded-xl'>
                 {
                     imageURL ?
-                        <div className='relative h-40 w-40 3xl:w-44 3xl:h-44 border-2 rounded-full overflow-hidden'>
+                        <div className='relative h-40 w-40 3xl:w-48 3xl:h-48 border-2 rounded-full overflow-hidden'>
                             <Image src={imageURL} alt='avatar image' fill objectFit='contain' />
                         </div>
                         :
@@ -39,7 +39,7 @@ export default function Card({ discPercent = 0, expaPercent = 0, expePercent = 0
                 <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent' />
                 {
                     gamingPersona !== '' ?
-                        <p className='w-full text-[0.5rem] 3xl:textsm text-center px-4'>{gamingPersona}</p>
+                        <p className='w-full text-[0.5rem] 3xl:textsm text-center px-4 3xl:px-8'>{gamingPersona}</p>
                         :
                         <div className='flex animate-pulse flex-col gap-1 w-full items-center px-4'>
                             <span className='h-2 bg-gradient-to-r from-white via-white/20 to-white/50 opacity-20 rounded-full w-2/3' />
