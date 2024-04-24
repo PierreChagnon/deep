@@ -49,7 +49,7 @@ export default function Results() {
                     scores: [disc, expa, expe, perf]
                 })
             });
-
+            
             const data = await response.json();
             // console.log("data", data)
             setChoices(data.choices);
