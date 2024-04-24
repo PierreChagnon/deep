@@ -46,7 +46,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
 
     return (
         <div className='flex flex-col mb-4 text-base 3xl:text-2xl items-center'>
-            <p className='mb-4 mt-8 md:text-lg'>Have you already taken this test? (It's ok if you have) </p>
+            <p className='mb-4 mt-8 md:text-xl'>Have you already taken this test? (It's ok if you have) </p>
             <div className='flex md:w-1/2 3xl:w-1/3 w-full items-center gap-2 3xl:gap-4 mb-4'>
                 {["Yes", "No"].map((value) => {
                     const active = alreadyDone === value
@@ -57,7 +57,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     )
                 })}
             </div>
-            <p className='mb-4 mt-8 md:text-lg'>Gender</p>
+            <p className='mb-4 mt-8 md:text-xl'>Gender</p>
             <div className='p-[2px] md:w-1/2 3xl:w-1/3 w-full cursor-pointer mb-10 rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={option} onChange={(e) => {
                     setFormValues((prevValues) => ({
@@ -74,7 +74,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     <option className='cursor-pointer p-2 text-sm' value="Prefer not to say">Prefer not to say</option>
                 </select>
             </div>
-            <p className='mb-4 mt-8 md:text-lg'>What is your age ?</p>
+            <p className='mb-4 mt-8 md:text-xl'>What is your age ?</p>
             {
                 error && <p className='text-red-500 mb-2 -mt-2'>You must be at least 15 years old</p>
             }
@@ -86,7 +86,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 }
                     placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl' />
             </div>
-            <p className='mb-4 mt-8 md:text-lg'>How would you rate your level of english proeficiency ?</p>
+            <p className='mb-4 mt-8 md:text-xl'>How would you rate your level of english proeficiency ?</p>
             <div className='p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={levelOfEnglish} onChange={(e) => {
                     setFormValues((prevValues) => ({

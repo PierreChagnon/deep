@@ -49,7 +49,7 @@ export default function Home() {
                     variants={item}
                     initial='hidden'
                     animate='show'
-                    className={`${bungee.className} text-2xl md:text-[3rem]`}>
+                    className={`${bungee.className} text-2xl md:text-5xl 3xl:text-7xl`}>
                     Wich <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>gamer</span> are you?
                 </motion.h1>
                 <motion.p

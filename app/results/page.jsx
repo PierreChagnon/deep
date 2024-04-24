@@ -117,7 +117,7 @@ export default function Results() {
 
 
     useEffect(() => {
-        // apiCall()
+        apiCall()
     }, [])
 
 
@@ -153,18 +153,18 @@ export default function Results() {
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
-            <motion.h3
+            <motion.h2
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
-                className={`${bungee.className} text-2xl text-center mb-8`}>
+                className={`${bungee.className} text-2xl 3xl:text-5xl text-center mb-8`}>
                 Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :
-            </motion.h3>
+            </motion.h2>
             <motion.div
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className='flex flex-col justify-center gap-4 px-4 md:px-16 lg:px-40 3xl:px-96'>
+                className='flex flex-col justify-center gap-4 3xl:gap-8 px-4 md:px-16 lg:px-40 3xl:px-96'>
 
                 <motion.div
                     variants={item}
@@ -198,10 +198,10 @@ export default function Results() {
                     <div className='w-full'>
                         <BentoElement>
                             {choices.length > 0 ?
-                                <div className='flex flex-col text-sm 3xl:text-lg leading-relaxed gap-4 md:overflow-y-auto'>
+                                <div className='flex flex-col 3xl:text-xl gap-4 md:overflow-y-auto'>
                                     {choices.map((choice, i) => {
                                         return (
-                                            <p className='select-text' key={i}>{choice.message.content}</p>
+                                            <p className='select-text text-base md:text-sm lg:text-base 3xl:text-xl md:leading-relaxed 3xl:leading-loose' key={i}>{choice.message.content}</p>
                                         )
                                     })}
                                 </div>
@@ -225,11 +225,11 @@ export default function Results() {
                     className='flex flex-col gap-4 w-full items-center md:items-stretch'>
                     <div className='md:items-stretch'>
                         <BentoElement>
-                            <div className='flex flex-col relative lg:flex-row lg:justify-center lg:py-10 lg:gap-16 lg:my-10 flex-wrap items-center text-xs gap-4'>
-                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#7A45F0]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
-                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#B751BA]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
-                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#ED5C8A]'>Experimenting</span>: High scorers enjoy hands-on experimentation and learning through direct interaction. A lower score suggest a preference for games with more defined rules.</p>
-                                <p className='lg:w-1/3 lg:px-4 3xl:text-lg'><span className='text-[#FF922A]'>Performing</span>: High scorers enjoy games where skill, precision, and efficiency are vital. A lower score  suggest a preference for games that are less about mastery.</p>
+                            <div className='flex flex-col relative lg:flex-row lg:justify-center lg:py-10 lg:gap-16 lg:my-10 flex-wrap items-center gap-4'>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-xl'><span className='text-[#7A45F0]'>Discovering</span>: High scorers are interested in exploring abstract concepts within a game. Lower scores suggest a preference for more straightforward, action-focused gameplay.</p>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-xl'><span className='text-[#B751BA]'>Expanding</span>: High scorers are attracted to games with rich narratives and thematic depth. Lower score suggest a preference for games that focus less on narrative.</p>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-xl'><span className='text-[#ED5C8A]'>Experimenting</span>: High scorers enjoy hands-on experimentation and learning through direct interaction. A lower score suggest a preference for games with more defined rules.</p>
+                                <p className='lg:w-1/3 lg:px-4 3xl:text-xl'><span className='text-[#FF922A]'>Performing</span>: High scorers enjoy games where skill, precision, and efficiency are vital. A lower score  suggest a preference for games that are less about mastery.</p>
                                 <div className='lg:absolute relative h-80 3xl:h-[442px] w-full lg:w-full lg:h-full'>
                                     <Image className='object-contain lg:scale-[1.1]' src='/assets/cross.png' alt='cross scheme' fill />
                                 </div>
@@ -237,12 +237,12 @@ export default function Results() {
                         </BentoElement>
                     </div>
                     {/* maping the four graph representing each dimension */}
-                    <div className='flex flex-col md:flex-row md:flex-wrap justify-between md:justify-normal gap-4 w-full'>
+                    <div className='flex flex-col md:flex-row md:flex-wrap justify-between md:justify-normal gap-4 3xl:gap-8 w-full'>
                         {
                             ["Discovering", "Expanding", "Experimenting", "Performing"].map((dimension, i) => {
                                 const colors = ["#7A45F0", "#ED5C8A", "#B751BA", "#FF922A"]
                                 const scores = [discoveringScores, expandingScores, experimentingScores, performingScores]
-                                
+
                                 return (
                                     <div key={i} className='flex flex-1'>
                                         <BentoElement>
@@ -256,10 +256,10 @@ export default function Results() {
                         }
                     </div>
                 </motion.div>
-                <div className='flex flex-col w-full mt-16 gap-4 items-center'>
-                    <h3 className={`${bungee.className} text-2xl mb-4`}>
+                <div className='flex flex-col w-full mt-16 gap-4 3xl:gap-8 items-center'>
+                    <h2 className={`${bungee.className} text-2xl 3xl:text-5xl mb-4`}>
                         <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>games</span> you might like :
-                    </h3>
+                    </h2>
                     <ul className='flex flex-col gap-6 w-full'>
                         <AnimatePresence>
                             {gameList?.length > 0 ? gameList.map((item, i) => (
@@ -269,10 +269,10 @@ export default function Results() {
                                     // initial={{ scale: 0.8, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ type: "spring", duration: 0.6 }}
-                                    key={item}
+                                    key={item + i}
                                 >
                                     <div className='flex flex-col gap-2 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-3xl p-6 md:p-8'>
-                                        <p className='py-2 flex w-full justify-center'>{item}</p>
+                                        <p className='py-2 flex w-full justify-center md:text-lg 3xl:text-2xl'>{item}</p>
                                         {
                                             shownAskers.includes(item) && consent === 'true' &&
                                             <div className='flex flex-col items-center pb-2 w-full'>

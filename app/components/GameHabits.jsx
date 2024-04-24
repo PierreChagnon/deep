@@ -97,7 +97,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
     return (
         <div className='flex flex-col items-center mb-8 text-base 3xl:text-2xl'>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-lg'>Counting all types of video games, across all platforms (including mobile games), how many different video games have you played in the last year, approximately?</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Counting all types of video games, across all platforms (including mobile games), how many different video games have you played in the last year, approximately?</p>
                 <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <input onChange={(e) => {
                         handleInputChange("n_gamesbyyear", e.currentTarget.value)
@@ -108,7 +108,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                 </div>
             </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-lg'>Counting all types of video games across all platforms (including mobile games), how much time do you play per week, on average?</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Counting all types of video games across all platforms (including mobile games), how much time do you play per week, on average?</p>
                 <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <input onChange={(e) => {
                         handleInputChange("n_hoursperweek", e.currentTarget.value)
@@ -119,7 +119,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                 </div>
             </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-lg'>On what platforms do you usually play? You can select multiple choices.</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>On what platforms do you usually play? You can select multiple choices.</p>
                 <div className='flex flex-col mb-16 md:flex-row items-center gap-4 3xl:gap-8'>
                     {["Home consoles", "Handheld consoles", "Computers", "Smartphones"].map((value, i) => {
                         const formatedKey = ["homeconsoles", "handheldconsoles", "computers", "smartphones"]
@@ -132,7 +132,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                 </div>
             </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-lg'>Which game genres do you enjoy ? You can select multiple choices.</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Which game genres do you enjoy ? You can select multiple choices.</p>
                 <div className='flex flex-col mb-16 md:flex-row md:flex-wrap items-center gap-4 3xl:gap-8'>
                     {["Action", "Adventure", "Role-Playing (RPG)", "Simulation", "Strategy", "Puzzle", "Sports", "Racing", "Fighting", "Shooter", "Horror", "Sandbox", "Tower Defense", "Platformer", "Massive Multiplayer Online (MMO)", "Survival"].map((value, i) => {
                         const formatedKey = ["action", "adventure", "roleplaying", "simulation", "strategy", "puzzle", "sports", "racing", "fighting", "shooter", "horror", "sandbox", "towerdefense", "platformer", "massivemultiplayeronline", "survival"]

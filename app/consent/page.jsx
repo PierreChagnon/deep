@@ -14,7 +14,7 @@ export default function Home() {
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
             <div className='h-full px-8 md:px-20 3xl:px-48 flex flex-col 2xl:items-center gap-4 2xl:gap-16 3xl:text-2xl'>
-                <h1 className={`${bungee.className} my-4 text-center text-2xl 3xl:text-[3rem]`}>Consent and data collection</h1>
+                <h1 className={`${bungee.className} my-4 text-center text-2xl 3xl:text-5xl`}>Consent and data collection</h1>
                 <div className='2xl:w-2/3'>
                     <h2 className='font-bold'>Discover Your Gaming Preferences</h2>
                     <p>Dive into our  questionnaire designed to assess your gaming preferences along four distinct dimensions. As you navigate through these 20  questions, you can also contribute to a pioneering gaming research project!</p>

@@ -18,7 +18,7 @@ export default function Understanding({ setFormValues, setFormIsCompleted }) {
     return (
         <div className='flex flex-col items-center mb-4 text-base 3xl:text-2xl'>
             <div className='flex flex-col'>
-                <p className='mb-8 mt-8 md:text-lg'>How well have you understood all the questions presented to you ?</p>
+                <p className='mb-8 mt-8 md:text-2xl'>How well have you understood all the questions presented to you ?</p>
                 <div className='p-[2px] cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <select value={levelOfUnderstanding} onChange={(e) => {
                         setFormValues((prevValues) => ({

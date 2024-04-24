@@ -17,6 +17,29 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
       expanding: ["Watching cinematics that explain the backstory.", "Skipping the cinematics.", "Listening to non-player characters.", "Finding out as many details of the story as possible.", "Relying on my understanding of the story."],
       experimenting: ["Trying out new ways of using my weapons or tools.", "Inventing new strategies all the time.", "Discovering new ways to play.", "Experimenting things outside the role of my character.", "Executing new move or combo all the time."],
       performing: ["Using the best move or combo over and over again.", "Following a predefined order of quests.", "Maintaining my strategy no matter what until it works.", "Using the same tool or weapon over and over again.", "Doing simple and repetitive tasks."],
+      other: [
+        "Playing along with other people.",
+        "Playing against other people.",
+        "Playing collaboratively with other people.",
+        "Comparing my performance with that of others.",
+        "Watching other people playing.",
+        "Role-playing my character in interactions with other players or NPCs.",
+        "Pursuing long-term objectives.",
+        "Anticipating my opponent's moves.",
+        "Planning my game actions ahead of time.",
+        "Having control over all the consequences of my in-game actions.",
+        "Optimizing resource management.",
+        "Prioritizing objectives and targets.",
+        "Negotiating with my opponents and/or Non-Player Characters.",
+        "Playing games with predictable patterns or outcomes.",
+        "Roaming the game world without any specific destination in mind.",
+        "Enjoying the game's scenery and environment purely for aesthetic pleasure.",
+        "Experimenting with the game's physics or mechanics just to see what happens.",
+        "Crafting or gathering resources without a specific purpose.",
+        "Simply sitting or standing in various locations within the game to immerse in the virtual atmosphere.",
+        "Tweaking existing in-game items to enhance their performance or aesthetics.",
+        "Experimenting with different combinations of materials or ingredients to discover new crafting outcomes."
+      ]
     }
 
     // create one array with all fields in order

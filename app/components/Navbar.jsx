@@ -17,7 +17,7 @@ export default function Navbar() {
             <div className='hidden md:flex items-center justify-between gap-2 md:gap-8 3xl:gap-16 text-sm md:text-base 3xl:text-2xl text-white'>
                 <Link className={`${pathname === "/about-us" ? "text-[#ED5C8A]" : "text-white"} hover:opacity-50 duration-200'`} href="/about-us">About us</Link>
                 <Link className={`${pathname === "/infos" ? "text-[#ED5C8A]" : "text-white"} hover:opacity-50 duration-200'`} href="/infos">The deep model</Link>
-                <Link href="/" className='p-[2px] rounded-full from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+                <Link href="/research" className='p-[2px] rounded-full from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <div className='h-full w-full text-center hover:bg-transparent transition-all duration-300 ease-in-out bg-[#010018] py-2 px-4 md:px-8 rounded-full'>
                         Resercher area
                     </div>

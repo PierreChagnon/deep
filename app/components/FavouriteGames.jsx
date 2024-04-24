@@ -31,11 +31,11 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
 
     return (
         <div className='flex flex-col md:px-8 lg:px-16 3xl:px-48 mb-16 text-base 3xl:text-2xl items-center'>
-            <p className='mb-16 md:text-lg'>Please now list the 5 titles of video games you have dedicated substancial time to in your recent gaming experiences. Include all type of video games from all platforms (including mobile games).</p>
+            <p className='mb-16 md:text-xl'>Please now list the 5 titles of video games you have dedicated substancial time to in your recent gaming experiences. Include all type of video games from all platforms (including mobile games).</p>
             <div className='flex flex-col gap-8 md:px-24 w-full'>
 
                 <div className='flex items-center gap-4 w-full'>
-                    <p className=''>1.</p>
+                    <p className='md:text-2xl'>1.</p>
                     <div className='p-[2px] w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                         <input
                             onChange={(e) => {
@@ -50,7 +50,7 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
                 </div>
 
                 <div className='flex items-center gap-4 w-full'>
-                    <p className=''>2.</p>
+                    <p className='md:text-2xl'>2.</p>
                     <div className='p-[2px] w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                         <input
                             onChange={(e) => {
@@ -65,7 +65,7 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
                 </div>
 
                 <div className='flex items-center gap-4 w-full'>
-                    <p className=''>3.</p>
+                    <p className='md:text-2xl'>3.</p>
                     <div className='p-[2px] w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                         <input
                             onChange={(e) => {
@@ -80,7 +80,7 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
                 </div>
 
                 <div className='flex items-center gap-4 w-full'>
-                    <p className=''>4.</p>
+                    <p className='md:text-2xl'>4.</p>
                     <div className='p-[2px] w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                         <input
                             onChange={(e) => {
@@ -95,7 +95,7 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
                 </div>
 
                 <div className='flex items-center gap-4 w-full'>
-                    <p className=''>5.</p>
+                    <p className='md:text-2xl'>5.</p>
                     <div className='p-[2px] w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                         <input
                             onChange={(e) => {
