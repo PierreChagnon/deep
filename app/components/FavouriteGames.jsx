@@ -6,6 +6,18 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
 
     const [favGames, setFavGames] = useState(["", "", "", "", ""])
 
+    // useEffect to set the initial form values
+    useEffect(() => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            favourite_1: "",
+            favourite_2: "",
+            favourite_3: "",
+            favourite_4: "",
+            favourite_5: "",
+        }));
+    }, [setFormValues])
+
     const handleInputChange = (field, value, index) => {
         setFormValues((prevValues) => ({
             ...prevValues,

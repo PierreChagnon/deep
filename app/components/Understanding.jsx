@@ -6,6 +6,13 @@ export default function Understanding({ setFormValues, setFormIsCompleted }) {
 
     const [levelOfUnderstanding, setLevelOfUnderstanding] = useState("Mostly")
 
+    // useEffect to set the initial form values
+    useEffect(() => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            level_of_understanding: "Mostly",
+        }));
+    }, [setFormValues])
 
     useEffect(() => {
         if (levelOfUnderstanding !== "") {

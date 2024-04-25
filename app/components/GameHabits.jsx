@@ -10,6 +10,36 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
     const [numberOfGames, setNumberOfGames] = useState("")
     const [gamesPerWeek, setGamesPerWeek] = useState("")
 
+    // useEffect to set the initial form values
+    useEffect(() => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            n_gamesbyyear: "",
+            n_hoursperweek: "",
+            homeconsoles: 0,
+            handheldconsoles: 0,
+            computers: 0,
+            smartphones: 0,
+            action: 0,
+            adventure: 0,
+            roleplaying: 0,
+            simulation: 0,
+            strategy: 0,
+            puzzle: 0,
+            sports: 0,
+            racing: 0,
+            fighting: 0,
+            shooter: 0,
+            horror: 0,
+            sandbox: 0,
+            towerdefense: 0,
+            platformer: 0,
+            massivemultiplayeronline: 0,
+            survival: 0,
+
+        }));
+    }, [setFormValues])
+
     const toggleOption = (option, formatedOption) => {
         // Vérifier si l'option est déjà sélectionnée
         if (selectedOptions.includes(option)) {

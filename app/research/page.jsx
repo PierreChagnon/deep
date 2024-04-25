@@ -10,10 +10,10 @@ export default function page() {
     return (
         <main className='text-white flex flex-col items-center justify-between min-h-dvh relative px-2'>
             <div className='flex flex-col justify-center gap-8 px-2 3xl:text-xl md:px-28 2xl:px-32 3xl:px-96'>
-                <h1 className={`${bungee.className} text-center text-3xl mb-8 3xl:text-4xl`}>About Us</h1>
+                <h1 className={`${bungee.className} text-center text-3xl mb-8 3xl:text-4xl`}>Researcher area</h1>
                 <p className='3xl:text-xl' >This dedicated area provides resources to delve deeper into the DEEP model, a new framework in gaming research, developed by Edgar Dubourg and Valérian Chambon, in the Institut Jean Nicod, at Ecole normale supérieure-PSL.</p>
                 <div className='flex items-center justify-between my-4'>
-                    <Link target='blank' href="https://docs.google.com/document/d/1-W8kYAnJ5N5NsJy4ybGHWpmSkKOnAgDB/edit#heading=h.gjdgxs" className='flex gap-2 items-center cursor-pointer hover:opacity-50 duration-200'>
+                    <Link target='blank' href="/" className='flex gap-2 items-center cursor-pointer hover:opacity-50 duration-200'>
                         <span className='text-3xl text-red-400'><FaFileDownload /></span>
                         <button className='underline'>Download the first paper</button>
                     </Link>

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
 import DeepForm from '../components/DeepForm';
 import BigFive from '../components/BigFive'
@@ -28,6 +27,17 @@ export default function Form() {
     const [formElements, setFormElements] = useState([])
 
     const [formValues, setFormValues] = useState({})
+
+    const NUMBER_OF_ITEMS = 105
+
+    const [progress, setProgress] = useState(0)
+
+    useEffect(() => {
+        const percent = Math.floor(Object.keys(formValues).length / NUMBER_OF_ITEMS * 100)
+        setProgress(percent)
+        console.log(Object.keys(formValues).length)
+        console.log("progress = " + percent)
+    }, [formValues])
 
     useEffect(() => {
         if (consent === 'false') {
@@ -78,10 +88,20 @@ export default function Form() {
         console.log("csv : ", jsonToCSV(formValues))
     }, [formValues])
 
-    if (!formElements.length) return <h1 className='text-white min-h-dvh flex justify-center items-center text-center'>Loading...</h1>
+    if (!formElements.length) return <h1 className='text-white min-h-dvh flex flex-1 justify-center items-center text-center'>Loading...</h1>
 
     return (
         <main className='text-white flex flex-col justify-between min-h-dvh relative'>
+            {/* Progress bar */}
+            {
+                consent === 'true' &&
+                <div className='flex justify-center backdrop-blur-md z-50 py-4 w-full sticky top-0 items-center gap-4 mb-8 -mt-8'>
+                    <p>{progress}%</p>
+                    <div className='flex w-4/5 bg-slate-600 h-1 rounded-full'>
+                        <span style={{ width: `${progress}%` }} className='h-full bg-[#ED5C8A] rounded-full' />
+                    </div>
+                </div>
+            }
 
             {/* FORMULAIRE */}
             <div className='h-full px-8 md:px-20 2xl:px-48 flex flex-col gap-4 2xl:text-xl'>

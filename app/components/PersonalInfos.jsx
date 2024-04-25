@@ -10,6 +10,18 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
     const [levelOfEnglish, setLevelOfEnglish] = useState("Intermediate")
     const [alreadyDone, setAlreadyDone] = useState("No")
 
+    // useEffect to set the initial form values
+    useEffect(() => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            age: "",
+            already_done: 0,
+            level_of_english: "Intermediate",
+            gender: "Prefer not to say"
+        }));
+    }, [setFormValues])
+
+
     const handleClick = (option) => {
         setAlreadyDone(option)
         const temp = option === "Yes" ? 1 : 0
@@ -62,7 +74,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 <select value={option} onChange={(e) => {
                     setFormValues((prevValues) => ({
                         ...prevValues,
-                        "Gender": e.target.value,
+                        "gender": e.target.value,
                     }));
                     setOption(e.target.value)
                 }
