@@ -57,15 +57,15 @@ export default function Home() {
                         variants={item}
                         initial='hidden'
                         animate='show'
-                        className='px-4 md:px-24 3xl:px-48 2xl:w-1/2 3xl:text-2xl 2xl:leading-loose'>
+                        className='px-4 py-6 md:px-24 3xl:px-48 2xl:w-1/2 3xl:text-2xl 2xl:leading-loose'>
                         The <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> model, elaborated by researchers at the École normale supérieure in PSL University, discerns four key dimensions of player agency in video games: Discovering, Experimenting, Expanding, and Performing.
                     </motion.p>
                     <motion.p
                         variants={item}
                         initial='hidden'
                         animate='show'
-                        className='3xl:text-2xl 2xl:leading-loose'>
-                        1,394 gamers already took the test.
+                        className='3xl:text-2xl text-lg 2xl:leading-loose'>
+                        <span className='font-bold'>1,394</span> gamers already took the test.
                     </motion.p>
                     <motion.div
                         variants={item}
