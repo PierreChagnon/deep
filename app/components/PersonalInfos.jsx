@@ -70,7 +70,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 })}
             </div>
             <p className='mb-4 mt-8 md:text-xl'>Gender</p>
-            <div className='p-[2px] md:w-1/2 3xl:w-1/3 w-full cursor-pointer mb-10 rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='relative p-[2px] md:w-1/2 3xl:w-1/3 w-full cursor-pointer mb-10 rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={option} onChange={(e) => {
                     setFormValues((prevValues) => ({
                         ...prevValues,
@@ -79,12 +79,14 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     setOption(e.target.value)
                 }
                 }
-                    name="gender" id="gender" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
+                    name="gender" id="gender" className='appearance-none h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
                     <option className='cursor-pointer p-2 text-sm' value="Male">Male</option>
                     <option className='cursor-pointer p-2 text-sm' value="Female">Female</option>
                     <option className='cursor-pointer p-2 text-sm' value="Non-binary / third gender">Non-binary / third gender</option>
                     <option className='cursor-pointer p-2 text-sm' value="Prefer not to say">Prefer not to say</option>
                 </select>
+                {/* arrow */}
+                <span className='absolute right-4 w-2 h-2 border-b-2 border-r-2 rotate-45' />
             </div>
             <p className='mb-4 mt-8 md:text-xl'>What is your age ?</p>
             {
@@ -99,7 +101,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl' />
             </div>
             <p className='mb-4 mt-8 md:text-xl'>How would you rate your level of english proeficiency ?</p>
-            <div className='p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+            <div className='relative p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={levelOfEnglish} onChange={(e) => {
                     setFormValues((prevValues) => ({
                         ...prevValues,
@@ -108,13 +110,15 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                     setLevelOfEnglish(e.target.value)
                 }
                 }
-                    name="level" id="level" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
+                    name="level" id="level" className='appearance-none h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
                     <option className='cursor-pointer p-2 text-sm' value="Beginner">Beginner</option>
                     <option className='cursor-pointer p-2 text-sm' value="Intermediate">Intermediate</option>
                     <option className='cursor-pointer p-2 text-sm' value="Advanced">Advanced</option>
                     <option className='cursor-pointer p-2 text-sm' value="Bilingual">Bilingual</option>
                     <option className='cursor-pointer p-2 text-sm' value="Native speaker">Native speaker</option>
                 </select>
+                {/* arrow */}
+                <span className='absolute right-4 w-2 h-2 border-b-2 border-r-2 rotate-45' />
             </div>
         </div>
     )
