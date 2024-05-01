@@ -1,12 +1,19 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { bungee } from '../fonts'
 import { motion } from 'framer-motion'
+import { MdClose } from "react-icons/md";
 
 export default function Navbar() {
     const pathname = usePathname()
+    const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+        setIsOpen(false)
+    }, [pathname])
+
     return (
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
@@ -23,11 +30,21 @@ export default function Navbar() {
                     </div>
                 </Link>
             </div>
-            <div className='md:hidden'>
+            <div onClick={() => setIsOpen(!isOpen)} className='md:hidden'>
                 <svg xmlns="http://www.w3.org/2000/svg" className='h-8 w-8 text-[#ED5C8A]' fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </div>
+            {
+                isOpen && (
+                    <div className='md:hidden z-30 absolute top-0 right-0 flex flex-col gap-4 bg-[#060615] border-l-2 text-white p-4 h-dvh'>
+                        <button onClick={() => setIsOpen(false)} className='text-3xl text-[#ED5C8A] flex self-end mb-4'><MdClose /></button>
+                        <Link href="/about-us" className={`${pathname === "/about-us" ? "text-[#ED5C8A]" : "text-white"} mx-4 hover:opacity-50 duration-200'`}>About us</Link>
+                        <Link href="/infos" className={`${pathname === "/infos" ? "text-[#ED5C8A]" : "text-white"} mx-4 hover:opacity-50 duration-200'`}>The deep model</Link>
+                        <Link href="/research" className={`${pathname === "/research" ? "text-[#ED5C8A]" : "text-white"} mx-4 hover:opacity-50 duration-200'`}>Researcher area</Link>
+                    </div>
+                )
+            }
             <span className='absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-white/50 to-transparent' />
         </motion.nav>
     )

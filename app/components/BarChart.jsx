@@ -9,7 +9,7 @@ export default function BarChart({ value = 20, scoreColor, name, textColor, bgCo
 
     return (
         <div className={`${bungee.className} ${textColor} flex text-sm flex-col gap-2 md:flex-row`}>
-            <p className='w-1/3 3xl:text-2xl'>{name}</p>
+            <p className='w-1/3 md:text-base xl:text-xl 3xl:text-3xl'>{name}</p>
             <div className='w-full'>
                 <span
                     className={`relative group cursor-pointer flex flex-1 ${bgColors[1]} items-center h-4 lg:h-5 3xl:h-8 rounded-e-full`}

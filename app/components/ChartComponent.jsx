@@ -5,15 +5,15 @@
 import React, { useRef, useEffect, useMemo, useState } from 'react'
 import Chart from 'chart.js/auto'
 
-export default function ChartComponent({ color = 'red', title = 'Custom Chart Title', scores = [] }) {
+export default function ChartComponent({ color = 'red', title = 'Custom Chart Title', scores = [], userScore = 0 }) {
   const chartRef = useRef(null)
 
-  const mean = useMemo(() => {
+  const topPercent = useMemo(() => {
     if (scores.length === 0) return
-    const mean = scores.reduce((acc, value) => acc + value, 0) / scores.length
-    return Math.round(mean * 100) / 100 // arrondi à 2 chiffres après la virgule
-  }, [scores])
 
+    const top = scores.filter(score => score >= userScore).length
+    return Math.floor(top / scores.length * 100)
+  }, [scores, userScore])
 
   const hist = useMemo(() => {
     if (scores.length === 0) return
@@ -51,8 +51,8 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
       labels: [1, 2, 3, 4, 5, 6, 7],
       datasets: [
         {
-          label: 'Mean',
-          data: [{ x: mean, y: 0 }, { x: mean, y: 50 }],
+          label: 'Your score',
+          data: [{ x: userScore, y: 0 }, { x: userScore, y: 50 }],
           borderColor: 'white',
           backgroundColor: 'white',
           borderWidth: 1,
@@ -60,7 +60,7 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
           fill: true
         },
         {
-          label: '% of people',
+          label: 'Number of people',
           data: hist,
           borderColor: color,
           backgroundColor: color,
@@ -72,6 +72,8 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
       ]
     }
 
+    data.datasets[0].pointStyle = false
+
     const context = chartRef.current.getContext('2d')
 
     const myChart = new Chart(context, {
@@ -79,8 +81,8 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
       data: data,
       options: {
         aspectRatio: 1,
-        pointStyle: false,
-        responsive: true,
+        pointStyle: true,
+        responsive: false,
         scales: {
           y: {
             beginAtZero: true,
@@ -106,18 +108,32 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
         },
         plugins: {
           legend: {
-            display: false
+            display: true
           },
           title: {
             display: true,
             text: title
-          }
+          },
         }
-      }
+      },
+      plugins: [{
+        id: 'textCenter',
+        afterDraw: chart => {
+          const ctx = chart.ctx;
+          const xAxis = chart.scales['x'];
+          const yAxis = chart.scales['y'];
+          ctx.save();
+          ctx.textAlign = 'start';
+          ctx.fillStyle = 'white';
+          ctx.font = 'bold 12px Arial';
+          ctx.fillText('You are top ' + topPercent + ' %', chart.width / 2, yAxis.getPixelForValue(40) - 10);
+          ctx.restore();
+        }
+      }]
     })
 
     return () => myChart.destroy()
-  }, [hist, color, title, mean])
+  }, [hist, color, title, userScore, topPercent])
   return (
     <div className='relative flex w-48 h-48 items-center justify-center'>
       <canvas ref={chartRef} />

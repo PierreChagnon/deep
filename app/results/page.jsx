@@ -49,7 +49,7 @@ export default function Results() {
                     scores: [disc, expa, expe, perf]
                 })
             });
-            
+
             const data = await response.json();
             // console.log("data", data)
             setChoices(data.choices);
@@ -236,18 +236,20 @@ export default function Results() {
                             </div>
                         </BentoElement>
                     </div>
+
                     {/* maping the four graph representing each dimension */}
-                    <div className='flex flex-col md:flex-row md:flex-wrap justify-between md:justify-normal gap-4 3xl:gap-8 w-full'>
+                    <div className='flex flex-col md:flex-row md:flex-wrap justify-between md:justify-normal gap-4 3xl:gap-8 3xl:mt-4 w-full'>
                         {
                             ["Discovering", "Expanding", "Experimenting", "Performing"].map((dimension, i) => {
                                 const colors = ["#7A45F0", "#ED5C8A", "#B751BA", "#FF922A"]
                                 const scores = [discoveringScores, expandingScores, experimentingScores, performingScores]
+                                const userScores = [disc, expa, expe, perf]
 
                                 return (
                                     <div key={i} className='flex flex-1'>
                                         <BentoElement>
-                                            <div className='flex flex-1 items-center justify-center'>
-                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} />
+                                            <div className='flex flex-1 p-8 items-center justify-center'>
+                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} userScore={userScores[i]} />
                                             </div>
                                         </BentoElement>
                                     </div>
