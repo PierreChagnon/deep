@@ -28,15 +28,13 @@ export default function Form() {
 
     const [formValues, setFormValues] = useState({})
 
-    const NUMBER_OF_ITEMS = 105
+    const NUMBER_OF_ITEMS = 110
 
     const [progress, setProgress] = useState(0)
 
     useEffect(() => {
         const percent = Math.floor(Object.keys(formValues).length / NUMBER_OF_ITEMS * 100)
         setProgress(percent)
-        console.log(Object.keys(formValues).length)
-        console.log("progress = " + percent)
     }, [formValues])
 
     useEffect(() => {
