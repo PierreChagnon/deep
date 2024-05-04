@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 
-export default function DeepForm({ setFormValues, setFormIsCompleted }) {
+export default function DeepForm({ setFormValues, setFormIsCompleted, consent }) {
 
   const bgColors = ["bg-[#8346E7]", "bg-[#A24CCC]", "bg-[#D256A2]", "bg-[#ffffff]", "bg-[#F26C6D]", "bg-[#F87F4C]", "bg-[#FC893A]"]
   const borderColors = ["border-[#8346E7]", "border-[#A24CCC]", "border-[#D256A2]", "border-[#ffffff]", "border-[#F26C6D]", "border-[#F87F4C]", "border-[#FC893A]"]
@@ -17,7 +17,10 @@ export default function DeepForm({ setFormValues, setFormIsCompleted }) {
       expanding: ["Watching cinematics that explain the backstory.", "Skipping the cinematics.", "Listening to non-player characters.", "Finding out as many details of the story as possible.", "Relying on my understanding of the story."],
       experimenting: ["Trying out new ways of using my weapons or tools.", "Inventing new strategies all the time.", "Discovering new ways to play.", "Experimenting things outside the role of my character.", "Executing new move or combo all the time."],
       performing: ["Using the best move or combo over and over again.", "Following a predefined order of quests.", "Maintaining my strategy no matter what until it works.", "Using the same tool or weapon over and over again.", "Doing simple and repetitive tasks."],
-      other: [
+    }
+
+    if (consent === 'true') {
+      dimensionsObject['other'] = [
         "Playing along with other people.",
         "Playing against other people.",
         "Playing collaboratively with other people.",

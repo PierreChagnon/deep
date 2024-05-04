@@ -81,7 +81,7 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
       data: data,
       options: {
         aspectRatio: 1,
-        pointStyle: true,
+        pointStyle: false,
         responsive: false,
         scales: {
           y: {
@@ -114,6 +114,9 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
             display: true,
             text: title
           },
+          tooltip: {
+            enabled: false
+          }
         }
       },
       plugins: [{

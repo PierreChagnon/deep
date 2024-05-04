@@ -8,6 +8,9 @@ import html2canvas from 'html2canvas';
 import Image from 'next/image'
 import { discoveringScores, expandingScores, experimentingScores, performingScores } from '../utils/deepData'
 
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../../firebase/firebase';
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import BentoElement from '../components/BentoElement'
 import BarChart from '../components/BarChart'
@@ -27,6 +30,27 @@ export default function Results() {
     const perf = searchParams.get('perf')
     const consent = searchParams.get('consent')
 
+    const [isNewUser, setIsNewUser] = useState(true)
+
+
+    // on vérifie s'il exesite des scores dans le session storage et s'ils sont différents des scores actuels
+    useEffect(() => {
+        if (!sessionStorage.getItem('scores')) {
+            console.log("no scores in session storage")
+            sessionStorage.setItem('scores', [disc, expa, expe, perf]);
+            setIsNewUser(true)
+        } else {
+            console.log("scores in session storage", sessionStorage.getItem('scores'))
+            const scores = sessionStorage.getItem('scores')
+            if (scores[0] !== disc || scores[1] !== expa || scores[2] !== expe || scores[3] !== perf) {
+                console.log("scores are different")
+                setIsNewUser(true)
+            }
+            sessionStorage.setItem('scores', [disc, expa, expe, perf]);
+        }
+    }, [disc, expa, expe, perf])
+
+
     //API CALL
     const [choices, setChoices] = useState([])
     const [imageURL, setImageURL] = useState('')
@@ -34,81 +58,118 @@ export default function Results() {
     const [gameList, setGameList] = useState([])
     const [shownAskers, setShownAskers] = useState([])
 
+    // Utilitaire pour récupérer les données en cache depuis le local storage
+    const getCacheData = (key) => {
+        const cachedData = sessionStorage.getItem(key);
+        if (cachedData) {
+            const parsedData = JSON.parse(cachedData);
+            return parsedData;
+        }
+        return null;
+    }
+
+    // Utilitaire pour mettre en cache les données dans le local storage
+    const setCacheData = (key, data) => {
+        sessionStorage.setItem(key, JSON.stringify(data));
+    }
+
 
     const apiCall = async () => {
         console.log("apiCall")
         try {
 
-            //CHAT API
-            const response = await fetch("/api/chat-gpt", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    scores: [disc, expa, expe, perf]
-                })
-            });
-
-            const data = await response.json();
-            // console.log("data", data)
-            setChoices(data.choices);
-            // console.log("choices : ", data.choices)
-
-
-
-            //LIST API
-            const responseList = await fetch("/api/list-gpt", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    scores: [disc, expa, expe, perf]
-                })
-            });
-            const list = await responseList.json()
-            const jsonList = JSON.parse(list.choices[0].message.content)
-            console.log("RESPONSE = ", list)
-            console.log("LIST = ", jsonList)
-
-            // on radomize la liste
-            jsonList.sort(() => Math.random() - 0.5)
-
-            // on setup les states en fonction du consent (5 jeux pour consent = false)
-            if (consent === 'true') {
-                setGameList(jsonList)
-                setShownAskers(jsonList) // on montre les questions pour tous les jeux
+            // Vérifier les données en cache
+            const cachedData = getCacheData('apiData');
+            if (cachedData && isNewUser === false) {
+                console.log("using cachedData", cachedData)
+                // Utiliser les données en cache
+                setChoices(cachedData.choices);
+                setImageURL(cachedData.imageURL);
+                setGamingPersona(cachedData.gamingPersona);
+                setGameList(cachedData.gameList);
+                setShownAskers(cachedData.shownAskers);
             } else {
-                const temp = jsonList
-                const jsonListSpliced = temp.splice(0, 5)
-                console.log("consent = false ", jsonListSpliced)
-                setGameList(jsonListSpliced)
-                // on ne set pas shownAskers pour ne pas poser les questions
+                //CHAT API
+                const response = await fetch("/api/chat-gpt", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        scores: [disc, expa, expe, perf]
+                    })
+                });
+
+                const data = await response.json();
+                // console.log("data", data)
+                setChoices(data.choices);
+                // console.log("choices : ", data.choices)
+
+
+
+                //LIST API
+                const responseList = await fetch("/api/list-gpt", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        scores: [disc, expa, expe, perf]
+                    })
+                });
+                const list = await responseList.json()
+                const jsonList = JSON.parse(list.choices[0].message.content)
+                console.log("RESPONSE = ", list)
+                console.log("LIST = ", jsonList)
+
+                // on radomize la liste
+                jsonList.sort(() => Math.random() - 0.5)
+                let temp = jsonList
+                // on setup les states en fonction du consent (5 jeux pour consent = false)
+                if (consent === 'true') {
+                    // on prend seulement les 10 premiers
+                    const jsonListSpliced = temp.splice(0, 10)
+                    console.log("LIST SPLICED = ", jsonListSpliced)
+                    setGameList(jsonListSpliced)
+                    setShownAskers(jsonListSpliced) // on montre les questions pour tous les jeux
+                    temp = jsonListSpliced
+                } else {
+                    const jsonListSpliced = temp.splice(0, 5)
+                    console.log("consent = false ", jsonListSpliced)
+                    setGameList(jsonListSpliced)
+                    // on ne set pas shownAskers pour ne pas poser les questions
+                }
+
+
+
+                //IMAGE API
+                const text = await data.choices[0].message.content
+                const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
+                const lastSentence = text.match(regex)[0];
+
+                const responseURL = await fetch("/api/image-gpt", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        lastSentence: lastSentence
+                    })
+                }, { cache: 'force-cache' });
+
+                const URL = await responseURL.json()
+                // console.log("URL : ", URL)
+                setImageURL(URL)
+                setGamingPersona(lastSentence)
+
+                setCacheData('apiData', {
+                    choices: data.choices,
+                    imageURL: URL,
+                    gamingPersona: lastSentence,
+                    gameList: temp,
+                    shownAskers: consent === 'true' ? temp : []
+                });
             }
-
-
-
-            //IMAGE API
-            const text = await data.choices[0].message.content
-            const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
-            const lastSentence = text.match(regex)[0];
-
-            const responseURL = await fetch("/api/image-gpt", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    lastSentence: lastSentence
-                })
-            });
-
-            const URL = await responseURL.json()
-            // console.log("URL : ", URL)
-            setImageURL(URL)
-            setGamingPersona(lastSentence)
-
 
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -160,6 +221,18 @@ export default function Results() {
                 className={`${bungee.className} text-2xl 3xl:text-5xl text-center mb-8`}>
                 Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :
             </motion.h2>
+            <button
+                className='w-16 h-8 self-center flex justify-center items-center rounded-full mb-4 hover:opacity-50 duration-300 p-8 bg-white text-black'
+                onClick={async () => {
+                    const querySnapshot = await getDocs(collection(db, "users"));
+                    querySnapshot.forEach((doc) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, " => ", doc.data());
+                    });
+                }}
+            >
+                test
+            </button>
             <motion.div
                 variants={container}
                 initial="hidden"
@@ -246,7 +319,7 @@ export default function Results() {
                                 const userScores = [disc, expa, expe, perf]
 
                                 return (
-                                    <div key={i} className='flex flex-1'>
+                                    <div key={i} className='flex flex-1 basis-1/3'>
                                         <BentoElement>
                                             <div className='flex flex-1 p-8 items-center justify-center'>
                                                 <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} userScore={userScores[i]} />
@@ -276,7 +349,7 @@ export default function Results() {
                                     <div className='flex flex-col gap-2 bg-gradient-to-br from-[#141414] via-[#070707] to-[#141414] justify-between items-center w-full rounded-3xl p-6 md:p-8'>
                                         <p className='py-2 flex w-full justify-center md:text-lg 3xl:text-2xl'>{item}</p>
                                         {
-                                            shownAskers.includes(item) && consent === 'true' &&
+                                            shownAskers && shownAskers.includes(item) && consent === 'true' &&
                                             <div className='flex flex-col items-center pb-2 w-full'>
                                                 <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-8' />
                                                 <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />

@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function GameAsker({ item, setShownAskers, shownAskers }) {
-    const [everPlayedGames, setEverPlayedGames] = useState([])
+    const [showEverPlayedQuestion , setShowEverPlayedQuestion] = useState(true)
 
     return (
         <div className='w-full'>
             <AnimatePresence mode='popLayout'>
-                {!everPlayedGames.includes(item) &&
+                {showEverPlayedQuestion &&
                     <motion.div
                         className='flex flex-col w-full items-center'
                         exit={{ y: -50, opacity: 0 }}
@@ -21,7 +21,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
                             <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} className='p-[2px] max-w-56 w-full shadow-md shadow-white/15 rounded-md from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                                 <button
                                     onClick={() => {
-                                        setEverPlayedGames([...everPlayedGames, item])
+                                        setShowEverPlayedQuestion(false)
                                     }}
                                     className='w-full 3xl:text-xl bg-[#090909] text-white py-2 px-4 md:px-8 rounded-md'>
                                     Yes
@@ -30,7 +30,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
                             <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} className='p-[2px] max-w-56 w-full shadow-md shadow-white/15 rounded-md from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                                 <button
                                     onClick={() => {
-                                        setEverPlayedGames([...everPlayedGames, item])
+                                        setShowEverPlayedQuestion(false)
                                     }}
                                     className='w-full 3xl:text-xl bg-[#090909] text-white py-2 px-4 md:px-8 rounded-md'>
                                     No
@@ -42,7 +42,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
             </AnimatePresence>
 
 
-            {everPlayedGames.includes(item) &&
+            {!showEverPlayedQuestion &&
                 <motion.div
                     className='flex flex-col w-full items-center'
                     initial={{ y: 50, opacity: 0 }}

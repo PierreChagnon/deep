@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { collection, addDoc } from "firebase/firestore";
 import Footer from '../components/Footer';
 import DeepForm from '../components/DeepForm';
 import BigFive from '../components/BigFive'
@@ -12,6 +13,7 @@ import jsonToCSV from '../utils/jsonToCSV';
 import calcDeepScore from '../utils/calcDeepScore';
 import FavouriteGames from '../components/FavouriteGames';
 import Understanding from '../components/Understanding';
+import { db } from '../../firebase/firebase';
 
 export default function Form() {
 
@@ -28,7 +30,7 @@ export default function Form() {
 
     const [formValues, setFormValues] = useState({})
 
-    const NUMBER_OF_ITEMS = 110
+    const NUMBER_OF_ITEMS = 107
 
     const [progress, setProgress] = useState(0)
 
@@ -39,12 +41,12 @@ export default function Form() {
 
     useEffect(() => {
         if (consent === 'false') {
-            setFormElements([<DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />])
+            setFormElements([<DeepForm consent={consent} setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />])
         } else {
             setFormElements([
                 <PersonalInfos setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"personalinfos"} />,
                 <GameHabits setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"gamehabits"} />,
-                <DeepForm setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />,
+                <DeepForm consent={consent} setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />,
                 <FavouriteGames setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"favouritegames"} />,
                 <BigFive setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"bigfive"} />,
                 <Understanding setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"understanding"} />
@@ -68,9 +70,18 @@ export default function Form() {
         }
     }
 
-    const handleRevealResultsNavigation = () => {
+    const handleRevealResultsNavigation = async () => {
         const res = calcDeepScore(formValues)
         console.log("res = " + res)
+
+        try {
+            const docRef = await addDoc(collection(db, "users"), {
+                data: formValues,
+            });
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
 
         router.push('/results?'
             + 'consent=' + consent + '&'
