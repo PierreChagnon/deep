@@ -28,27 +28,30 @@ export default function Results() {
     const expa = searchParams.get('expa')
     const expe = searchParams.get('expe')
     const perf = searchParams.get('perf')
+    console.log("disc = ", disc, "expa = ", expa, "expe = ", expe, "perf = ", perf)
     const consent = searchParams.get('consent')
 
-    const [isNewUser, setIsNewUser] = useState(true)
+    const [isNewUser, setIsNewUser] = useState(null)
 
 
     // on vérifie s'il exesite des scores dans le session storage et s'ils sont différents des scores actuels
     useEffect(() => {
-        if (!sessionStorage.getItem('scores')) {
-            console.log("no scores in session storage")
-            sessionStorage.setItem('scores', [disc, expa, expe, perf]);
-            setIsNewUser(true)
+        const storedScores = sessionStorage.getItem('scores');
+        const currentScores = [disc, expa, expe, perf].join(',');
+        if (!storedScores) {
+            console.log("no scores in session storage");
+            setIsNewUser(true);
         } else {
-            console.log("scores in session storage", sessionStorage.getItem('scores'))
-            const scores = sessionStorage.getItem('scores')
-            if (scores[0] !== disc || scores[1] !== expa || scores[2] !== expe || scores[3] !== perf) {
-                console.log("scores are different")
-                setIsNewUser(true)
+            console.log("scores in session storage", storedScores);
+            if (storedScores === currentScores) {
+                console.log("scores are the same");
+                setIsNewUser(false);
+            } else {
+                console.log("scores are different");
+                setIsNewUser(true);
             }
-            sessionStorage.setItem('scores', [disc, expa, expe, perf]);
         }
-    }, [disc, expa, expe, perf])
+    }, [disc, expa, expe, perf]);
 
 
     //API CALL
@@ -80,6 +83,7 @@ export default function Results() {
 
             // Vérifier les données en cache
             const cachedData = getCacheData('apiData');
+            console.log('new user = ', isNewUser)
             if (cachedData && isNewUser === false) {
                 console.log("using cachedData", cachedData)
                 // Utiliser les données en cache
@@ -178,8 +182,11 @@ export default function Results() {
 
 
     useEffect(() => {
-        apiCall()
-    }, [])
+        if (isNewUser !== null) {
+            sessionStorage.setItem('scores', [disc, expa, expe, perf].join(','));
+            apiCall()
+        }
+    }, [isNewUser, consent, disc, expa, expe, perf])
 
 
     // mise a l'echelle sur 100
