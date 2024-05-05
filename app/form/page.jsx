@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { collection, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import Footer from '../components/Footer';
 import DeepForm from '../components/DeepForm';
 import BigFive from '../components/BigFive'
@@ -39,6 +39,24 @@ export default function Form() {
         setProgress(percent)
     }, [formValues])
 
+    function generateUniqueId() {
+        const timestamp = new Date().getTime();
+        const random = Math.floor(Math.random() * 1000);
+        return `${timestamp}_${random}`;
+    }
+
+    useEffect(() => {
+
+        // on ajoute une colonne "id"
+
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            id: generateUniqueId()
+        }));
+
+    }, [])
+
+
     useEffect(() => {
         if (consent === 'false') {
             setFormElements([<DeepForm consent={consent} setFormIsCompleted={setFormIsCompleted} setFormValues={setFormValues} key={"deepform"} />])
@@ -74,13 +92,16 @@ export default function Form() {
         const res = calcDeepScore(formValues)
         console.log("res = " + res)
 
-        try {
-            const docRef = await addDoc(collection(db, "users"), {
-                data: formValues,
-            });
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        if (consent === 'true') {
+            console.log("submitting form to firestore at id : ", formValues.id)
+            try {
+                const docRef = await setDoc(doc(db, "users", formValues.id), {
+                    data: formValues,
+                });
+                console.log("Document written with ID: ", formValues.id);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
         }
 
         router.push('/results?'
@@ -88,7 +109,8 @@ export default function Form() {
             + 'disc=' + res[0] + '&'
             + 'expa=' + res[1] + '&'
             + 'expe=' + res[2] + '&'
-            + 'perf=' + res[3]
+            + 'perf=' + res[3] + '&'
+            + 'id=' + formValues.id
         )
     }
 

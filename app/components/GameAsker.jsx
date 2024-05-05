@@ -1,9 +1,38 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from "framer-motion";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from '../../firebase/firebase';
 
-export default function GameAsker({ item, setShownAskers, shownAskers }) {
+export default function GameAsker({ item, setShownAskers, shownAskers, id, index }) {
     const [showEverPlayedQuestion, setShowEverPlayedQuestion] = useState(true)
+
     const [everPlayed, setEverPlayed] = useState(null)
+    const liked = useRef(null)
+    const wouldLiked = useRef(null)
+
+    const docRef = doc(db, "users", id);
+
+
+    const updateFirestore = async () => {
+        const titleKey = "proposed_game_" + index
+        const everPlayedKey = "proposed_game_" + index + "_ever_played"
+        const likedKey = "proposed_game_" + index + "_liked"
+        const wouldLikedKey = "proposed_game_" + index + "_would_liked"
+
+        try {
+            await updateDoc(docRef, {
+                [`data.${titleKey}`]: item,
+                [`data.${everPlayedKey}`]: everPlayed,
+                [`data.${likedKey}`]: liked.current,
+                [`data.${wouldLikedKey}`]: wouldLiked.current,
+            });
+            console.log("Document successfully updated!");
+        } catch (error) {
+            console.error("Error updating document: ", error);
+        }
+    }
+
+
 
     return (
         <div className='w-full'>
@@ -67,6 +96,8 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
                                     const index = temp.indexOf(item)
                                     temp.splice(index, 1)
                                     setShownAskers(temp)
+                                    liked.current = true
+                                    updateFirestore()
                                 }}
                                 className='w-full 3xl:text-xl bg-[#090909] text-white py-2 px-4 md:px-8 rounded-md'>
                                 Yes
@@ -79,6 +110,8 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
                                     const index = temp.indexOf(item)
                                     temp.splice(index, 1)
                                     setShownAskers(temp)
+                                    liked.current = false
+                                    updateFirestore()
                                 }}
                                 className='w-full 3xl:text-xl bg-[#090909] text-white py-2 px-4 md:px-8 rounded-md'>
                                 No
@@ -105,6 +138,8 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
                                     const index = temp.indexOf(item)
                                     temp.splice(index, 1)
                                     setShownAskers(temp)
+                                    wouldLiked.current = true
+                                    updateFirestore()
                                 }}
                                 className='w-full 3xl:text-xl bg-[#090909] text-white py-2 px-4 md:px-8 rounded-md'>
                                 Yes
@@ -117,6 +152,8 @@ export default function GameAsker({ item, setShownAskers, shownAskers }) {
                                     const index = temp.indexOf(item)
                                     temp.splice(index, 1)
                                     setShownAskers(temp)
+                                    wouldLiked.current = false
+                                    updateFirestore()
                                 }}
                                 className='w-full 3xl:text-xl bg-[#090909] text-white py-2 px-4 md:px-8 rounded-md'>
                                 No

@@ -10,20 +10,6 @@ export default function jsonToCSV(json) {
         document.body.removeChild(link);
     }
 
-    function generateUniqueId() {
-        const timestamp = new Date().getTime();
-        const random = Math.floor(Math.random() * 1000);
-        return `${timestamp}_${random}`;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    // on ajoute une colonne "id"
-    if (!Object.entries(json).includes("id")) {
-        json = { id: generateUniqueId(), ...json }
-    }
-
     // on transforme le fichier brut en tableau d'objet (nécessaire pour la convertion en csv)
     const data = [json]
 

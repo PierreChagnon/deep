@@ -28,6 +28,7 @@ export default function Results() {
     const expa = searchParams.get('expa')
     const expe = searchParams.get('expe')
     const perf = searchParams.get('perf')
+    const id = searchParams.get('id')
     console.log("disc = ", disc, "expa = ", expa, "expe = ", expe, "perf = ", perf)
     const consent = searchParams.get('consent')
 
@@ -359,7 +360,7 @@ export default function Results() {
                                             shownAskers && shownAskers.includes(item) && consent === 'true' &&
                                             <div className='flex flex-col items-center pb-2 w-full'>
                                                 <span className='h-[1px] w-full bg-gradient-to-r from-transparent via-white to-transparent mb-8' />
-                                                <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} />
+                                                <GameAsker shownAskers={shownAskers} setShownAskers={setShownAskers} item={item} id={id} index={i} />
                                             </div>
                                         }
                                     </div>
