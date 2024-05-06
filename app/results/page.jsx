@@ -315,12 +315,13 @@ export default function Results() {
                                 const scores = [discoveringScores, expandingScores, experimentingScores, performingScores]
                                 const userScores = [disc, expa, expe, perf]
                                 const scores_100 = [discoveringScores_100, expandingScores_100, experimentingScores_100, performingScores_100]
+                                const userScores_100 = [discPercent, expaPercent, expePercent, perfPercent]
 
                                 return (
                                     <div key={dimension + i} className='flex flex-1 basis-1/3'>
                                         <BentoElement>
                                             <div className='flex flex-1 p-8 items-center justify-center'>
-                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} scores_100={scores_100[i]} userScore={userScores[i]} />
+                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} scores_100={scores_100[i]} userScore={userScores[i]} userScore_100={userScores_100[i]} />
                                             </div>
                                         </BentoElement>
                                     </div>
