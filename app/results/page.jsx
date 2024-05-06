@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 import { bungee } from '../fonts';
 import html2canvas from 'html2canvas';
 import Image from 'next/image'
-import { discoveringScores, expandingScores, experimentingScores, performingScores } from '../utils/deepData'
+import { discoveringScores, expandingScores, experimentingScores, performingScores, discoveringScores_100, performingScores_100, expandingScores_100, experimentingScores_100 } from '../utils/deepData'
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../firebase/firebase';
@@ -229,18 +229,7 @@ export default function Results() {
                 className={`${bungee.className} text-2xl 3xl:text-5xl text-center mb-8`}>
                 Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :
             </motion.h2>
-            <button
-                className='w-16 h-8 self-center flex justify-center items-center rounded-full mb-4 hover:opacity-50 duration-300 p-8 bg-white text-black'
-                onClick={async () => {
-                    const querySnapshot = await getDocs(collection(db, "users"));
-                    querySnapshot.forEach((doc) => {
-                        // doc.data() is never undefined for query doc snapshots
-                        console.log(doc.id, " => ", doc.data());
-                    });
-                }}
-            >
-                test
-            </button>
+            
             <motion.div
                 variants={container}
                 initial="hidden"
@@ -325,12 +314,13 @@ export default function Results() {
                                 const colors = ["#7A45F0", "#ED5C8A", "#B751BA", "#FF922A"]
                                 const scores = [discoveringScores, expandingScores, experimentingScores, performingScores]
                                 const userScores = [disc, expa, expe, perf]
+                                const scores_100 = [discoveringScores_100, expandingScores_100, experimentingScores_100, performingScores_100]
 
                                 return (
-                                    <div key={i} className='flex flex-1 basis-1/3'>
+                                    <div key={dimension + i} className='flex flex-1 basis-1/3'>
                                         <BentoElement>
                                             <div className='flex flex-1 p-8 items-center justify-center'>
-                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} userScore={userScores[i]} />
+                                                <ChartComponent title={dimension} color={colors[i]} scores={scores[i]} scores_100={scores_100[i]} userScore={userScores[i]} />
                                             </div>
                                         </BentoElement>
                                     </div>

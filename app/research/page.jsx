@@ -17,7 +17,7 @@ export default function page() {
                         <span className='text-3xl text-red-400'><FaFileDownload /></span>
                         <button className='underline'>Download the first paper</button>
                     </Link>
-                    <p className='md:w-1/2'>Our foundational paper, published in Computers in Human Behavior, provides detailed insights into and empirical tests of the DEEP model.</p>
+                    <p className='md:w-1/2'>Our foundational paper provides detailed insights into and empirical tests of the DEEP model.</p>
                 </div>
                 <p className='mt-12'>As you engage with the DEEP model and its associated resources, we welcome your inquiries and are prepared to provide scholarly support. Our team is open to discussing collaborative opportunities and values any scientific suggestions that could refine and advance this model.</p>
                 <p>We look forward to fruitful academic exchanges and the continued evolution of gaming research.</p>
