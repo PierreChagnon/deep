@@ -7,6 +7,8 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
     const [showEverPlayedQuestion, setShowEverPlayedQuestion] = useState(true)
 
     const [everPlayed, setEverPlayed] = useState(null)
+
+    const played = useRef(null)
     const liked = useRef(null)
     const wouldLiked = useRef(null)
 
@@ -22,7 +24,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
         try {
             await updateDoc(docRef, {
                 [`data.${titleKey}`]: item,
-                [`data.${everPlayedKey}`]: everPlayed,
+                [`data.${everPlayedKey}`]: played.current,
                 [`data.${likedKey}`]: liked.current,
                 [`data.${wouldLikedKey}`]: wouldLiked.current,
             });
@@ -51,6 +53,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
                             <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} className='p-[2px] max-w-56 w-full shadow-md shadow-white/15 rounded-md from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                                 <button
                                     onClick={() => {
+                                        played.current = true
                                         setShowEverPlayedQuestion(false)
                                         setEverPlayed(true)
                                     }}
@@ -61,6 +64,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
                             <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} className='p-[2px] max-w-56 w-full shadow-md shadow-white/15 rounded-md from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                                 <button
                                     onClick={() => {
+                                        played.current = false
                                         setShowEverPlayedQuestion(false)
                                         setEverPlayed(false)
                                     }}

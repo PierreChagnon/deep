@@ -27,9 +27,9 @@ export default function jsonToCSV(json) {
     // Combiner les en-têtes et les lignes en une seule chaîne CSV
     const csv = [headerRow, ...rows].join('\n');
 
-    if (headers.length > 3) {
-        // downloadCSV(csv, 'data.csv');
-    }
+
+    downloadCSV(csv, 'data.csv');
+
 
     return csv;
 
