@@ -10,6 +10,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [randomizedFields, setRandomizedFields] = useState([])
+  const [numberOfFields, setNumberOfFields] = useState(0)
 
   useEffect(() => {
     const dimensionsObject = {
@@ -45,6 +46,13 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
       ]
     }
 
+    // on compte le nombre de champs dans dimensionsObject
+    let count = 0
+    Object.keys(dimensionsObject).forEach((key) => {
+      count += dimensionsObject[key].length
+    })
+    setNumberOfFields(count)
+
     // create one array with all fields in order
     let temp = []
     Object.keys(dimensionsObject).forEach((key) => {
@@ -71,10 +79,10 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
   }, [])
 
   useEffect(() => {
-    if (Object.keys(selectedOptions).length === 20) {
+    if (Object.keys(selectedOptions).length === numberOfFields) {
       setFormIsCompleted(true)
     }
-  }, [selectedOptions, setFormIsCompleted])
+  }, [selectedOptions, setFormIsCompleted, numberOfFields])
 
   const handleChange = (field, formatedKey, option, numericOption) => {
     // on gere le cas spécial
