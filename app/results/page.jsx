@@ -336,7 +336,7 @@ export default function Results() {
                             {gameList?.length > 0 ? gameList.map((item, i) => (
                                 <motion.li
                                     layout
-                                    className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-3xl from-[#ffffff00]'
+                                    className='flex w-full h-full p-[1px] bg-gradient-to-br rounded-3xl from-[#ffffff00] shadow-gray-500/30 shadow-sm'
                                     // initial={{ scale: 0.8, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ type: "spring", duration: 0.6 }}
