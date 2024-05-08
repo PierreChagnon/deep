@@ -1,15 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import React, { useState, useRef, useEffect, Suspense } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from '../components/Footer'
 import { bungee } from '../fonts';
 import html2canvas from 'html2canvas';
 import Image from 'next/image'
 import { discoveringScores, expandingScores, experimentingScores, performingScores, discoveringScores_100, performingScores_100, expandingScores_100, experimentingScores_100 } from '../utils/deepData'
-
-import { collection, getDocs } from "firebase/firestore";
-import { db } from '../../firebase/firebase';
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import BentoElement from '../components/BentoElement'
@@ -29,7 +26,7 @@ export default function Results() {
     const expe = searchParams.get('expe')
     const perf = searchParams.get('perf')
     const id = searchParams.get('id')
-    console.log("disc = ", disc, "expa = ", expa, "expe = ", expe, "perf = ", perf)
+    // console.log("disc = ", disc, "expa = ", expa, "expe = ", expe, "perf = ", perf)
     const consent = searchParams.get('consent')
 
     const [isNewUser, setIsNewUser] = useState(null)

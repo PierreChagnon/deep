@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { bungee } from '../fonts';
 import Footer from '../components/Footer';
 import Image from 'next/image';
@@ -8,8 +8,23 @@ import { useRouter } from 'next/navigation';
 import FancyButton from '../components/FancyButton';
 import { motion } from 'framer-motion';
 
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from '../../firebase/firebase';
+
 export default function Home() {
     const router = useRouter()
+
+    const [userCount, setUserCount] = useState(0);
+
+    useEffect(() => {
+        const fetchUserCount = async () => {
+            const querySnapshot = await getDocs(collection(db, "users"));
+            console.log(querySnapshot.size);
+            setUserCount(querySnapshot.size);
+        };
+
+        fetchUserCount();
+    }, []);
 
     const container = {
         hidden: { opacity: 0 },
@@ -30,6 +45,9 @@ export default function Home() {
             transition: { duration: 1 }
         }
     }
+
+
+
     return (
         <main className='text-white flex flex-col flex-1 min-h-dvh overflow-x-hidden'>
             <div className='flex flex-col flex-1 relative'>
@@ -65,7 +83,7 @@ export default function Home() {
                         initial='hidden'
                         animate='show'
                         className='3xl:text-2xl text-lg 2xl:leading-loose'>
-                        <span className='font-bold'>1,394</span> gamers already took the test.
+                        <span className='font-bold'>{userCount + 1300}</span> gamers already took the test.
                     </motion.p>
                     <motion.div
                         variants={item}
