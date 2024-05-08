@@ -83,7 +83,7 @@ export default function Home() {
                         initial='hidden'
                         animate='show'
                         className='3xl:text-2xl text-lg 2xl:leading-loose'>
-                        <span className='font-bold'>{userCount + 1300}</span> gamers already took the test.
+                        <span className='font-bold'>{userCount + 100}</span> gamers already took the test.
                     </motion.p>
                     <motion.div
                         variants={item}
