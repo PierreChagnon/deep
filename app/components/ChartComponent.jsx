@@ -180,7 +180,7 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
           ctx.textAlign = 'start';
           ctx.fillStyle = 'white';
           ctx.font = 'bold 12px Arial';
-          ctx.fillText(topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are below ' + topPercent + ' %', chart.width / 2, yAxis.getPixelForValue(40) - 10);
+          ctx.fillText(topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are bottom ' + topPercent + ' %', chart.width / 2, yAxis.getPixelForValue(40) - 10);
           ctx.restore();
         }
       }]
