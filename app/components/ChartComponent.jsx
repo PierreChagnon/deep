@@ -64,6 +64,16 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
     // Si le canvas n'est pas encore chargé ou si l'histogramme n'est pas encore calculé, on ne fait rien
     if (!chartRef.current || !hist) return
 
+
+    const context = chartRef.current.getContext('2d');
+
+    // Créer un gradient vertical
+    const gradient = context.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, color);
+    gradient.addColorStop(0.4, color + '80');
+    gradient.addColorStop(1, 'transparent');
+
+
     // Création du graphique
     const data = {
       labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
@@ -75,13 +85,13 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
           backgroundColor: 'white',
           borderWidth: 1,
           tension: 0.4,
-          fill: false
+          fill: false,
         },
         {
           label: 'Number of people',
           data: hist,
           borderColor: color,
-          backgroundColor: color,
+          backgroundColor: gradient,
           borderWidth: 1,
           tension: 0.4,
           fill: true
@@ -91,8 +101,6 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
     }
 
     data.datasets[0].pointStyle = false
-
-    const context = chartRef.current.getContext('2d')
 
     const myChart = new Chart(context, {
       type: 'line',
@@ -133,7 +141,32 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
             text: title
           },
           tooltip: {
-            enabled: false
+            enabled: true,
+            intersect: false,
+            callbacks: {
+              label: function (tooltipItem) {
+                // Personnaliser ici le texte affiché
+                if (tooltipItem.datasetIndex === 0) {
+                  return ''
+                }
+                let label = tooltipItem.dataset.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                label += `${tooltipItem.parsed.y.toFixed(2)}%`; // Format avec deux décimales
+                return label;
+              },
+              title: function (tooltipItems) {
+                // Accéder au premier élément du tableau tooltipItems
+                const tooltipItem = tooltipItems[0];
+                if (tooltipItem.datasetIndex === 0) {
+                  const score = tooltipItem.parsed.x.toFixed(2);
+                  return `Your score: ${score}`;
+                }
+                // Personnaliser ici le titre
+                return `Score: ${tooltipItem.label}`;
+              },
+            }
           }
         }
       },
