@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Footer() {
@@ -22,7 +23,10 @@ export default function Footer() {
           <Image src='/assets/funders/nicod.png' objectFit='contain' fill alt='logo funder' />
         </div>
       </div>
-      <p>© 2024 - Beyond Games</p>
+      <div className='flex flex-wrap w-full gap-8 md:gap-12 lg:gap-20 items-center justify-center'>
+        <Link className='hover:underline opacity-50' href="https://www.beyondgames.fr">© 2024 - Beyond Games SAS. All rights reserved.</Link>
+        <Link className='hover:underline opacity-50' href="/legal">Legal</Link>
+      </div>
     </div>
   )
 }
