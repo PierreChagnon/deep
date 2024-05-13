@@ -24,7 +24,7 @@ export default function Home() {
                     <p>This can be more than a survey to explore your gaming profile; it can be an opportunity to be part of an innovative citizen science project. By participating, you help us enhance our understanding of the diverse gaming community. Your anonymous responses will be invaluable in refining our model to capture the rich variety of gamers' preferences. Remember, your privacy is our priority, and your data will be used solely for research purposes by our team.</p>
                 </div>
                 <div className='2xl:w-2/3 mb-4'>
-                    <h2 className='font-bold mb-2'>Contribute to Gaming Research</h2>
+                    <h2 className='font-bold mb-2'>Risk and Data Usage</h2>
                     <p>There's absolutely no risk associated with participating in this study. Your only task will be to answer a brief set of questions, which typically takes around 10 to 15 minutes. Feel free to pause or exit the questionnaire whenever you like. If you exit before the end, you will not have the results of the test. Additionally, if you ever wish to withdraw from the study, even after completion, simply send us an email (email addresses can be found on our "About us" page). You can also reach out via these email addresses to request the study's results.</p>
                 </div>
                 <div className='2xl:w-2/3'>
