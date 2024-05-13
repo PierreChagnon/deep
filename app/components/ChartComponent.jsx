@@ -116,13 +116,19 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
             max: 50,
             title: {
               display: true,
-              text: 'Frequency (%)'
+              text: 'Frequency (%)',
+              font: {
+                size: 16,
+              }
             }
           },
           x: {
             title: {
               display: true,
-              text: 'Scores'
+              text: 'Scores',
+              font: {
+                size: 16,
+              }
             },
             type: 'linear',
             position: 'bottom',
@@ -138,11 +144,17 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
             display: true,
             labels: {
               boxHeight: 1,
+              font: {
+                size: 12
+              }
             }
           },
           title: {
             display: true,
-            text: title
+            text: title,
+            font: {
+              size: 18
+            }
           },
           tooltip: {
             enabled: true,
@@ -181,16 +193,30 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
           const xAxis = chart.scales['x'];
           const yAxis = chart.scales['y'];
           ctx.save();
-          ctx.textAlign = 'start';
+          ctx.textAlign = 'center';  // Utilisez 'center' pour centrer le texte horizontalement
           ctx.fillStyle = 'white';
           ctx.font = 'bold 12px Arial';
-          const invertedTopPercent = 100 - topPercent
-          // rouding to 1 decimal
-          const invertedTopPercentRounded = Math.round(invertedTopPercent * 10) / 10
-          ctx.fillText(topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are bottom ' + invertedTopPercentRounded + ' %', chart.width / 2, yAxis.getPixelForValue(40) - 10);
+
+          // Calcule le pourcentage inverse et l'arrondit à une décimale
+          const invertedTopPercent = 100 - topPercent;
+          const invertedTopPercentRounded = Math.round(invertedTopPercent * 10) / 10;
+
+          // Détermine la position Y du texte en fonction du score de l'utilisateur
+          const userScoreYPosition = yAxis.getPixelForValue(0); // Obtenez la position Y pour le score de l'utilisateur
+          let textPositionY = userScoreYPosition - 140;  // Position par défaut au-dessus de la ligne
+
+          // Ajustez la position si elle est trop proche de la ligne du score
+          if (Math.abs(userScoreYPosition - yAxis.getPixelForValue(40)) < 20) {
+            textPositionY = userScoreYPosition + 20;  // Déplacez le texte en dessous si trop proche
+          }
+
+          // Affichage conditionnel du texte basé sur le pourcentage
+          const text = topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are bottom ' + invertedTopPercentRounded + ' %';
+          ctx.fillText(text, chart.width / 2, textPositionY);
           ctx.restore();
         }
       }]
+
     })
 
     return () => myChart.destroy()
