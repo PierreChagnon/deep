@@ -16,7 +16,7 @@ export default function Home() {
                 <h1 className={`${bungee.className} my-4 text-center text-2xl 3xl:text-5xl`}>Consent and data collection</h1>
                 <div className='2xl:w-2/3 mb-4'>
                     <h2 className='font-bold mb-2'>Discover Your Gaming Preferences</h2>
-                    <p>Dive into our  questionnaire designed to assess your gaming preferences along four distinct dimensions. As you navigate through these 20  questions, you can also contribute to a pioneering gaming research project!</p>
+                    <p>Dive into our questionnaire designed to assess your gaming preferences along four distinct dimensions. As you navigate through these 20  questions, you can also contribute to a pioneering gaming research project!</p>
                 </div>
                 <div className='2xl:w-2/3 mb-4'>
                     <h2 className='font-bold mb-2'>Contribute to Gaming Research</h2>
