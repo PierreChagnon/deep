@@ -7,19 +7,19 @@ export default function Footer() {
     <div className='p-8 gap-6 flex flex-col items-center justify-center mt-16'>
       <span className='w-full bg-gradient-to-r from-transparent via-white/50 h-[1px]' />
       <div className='flex flex-wrap w-full gap-8 md:gap-12 lg:gap-20 items-center justify-around'>
-        <div className='w-8 h-8 md:w-16 md:h-16 relative'>
+        <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-36 3xl:h-36 relative'>
           <Image src='/assets/funders/ANR.png' objectFit='contain' fill alt='logo funder' />
         </div>
-        <div className='w-8 h-8 md:w-16 md:h-16 relative'>
+        <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-36 3xl:h-36 relative'>
           <Image src='/assets/funders/CNRS.png' objectFit='contain' fill alt='logo funder' />
         </div>
-        <div className='w-8 h-8 md:w-16 md:h-16 relative'>
+        <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-48 3xl:h-36 relative'>
           <Image src='/assets/funders/ENS-DEC.png' objectFit='contain' fill alt='logo funder' />
         </div>
-        <div className='w-8 h-8 md:w-16 md:h-16 relative'>
+        <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-48 3xl:h-36 relative'>
           <Image src='/assets/funders/ENS-PSL.png' objectFit='contain' fill alt='logo funder' />
         </div>
-        <div className='w-8 h-8 md:w-16 md:h-16 relative'>
+        <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-36 3xl:h-36 relative'>
           <Image src='/assets/funders/nicod.png' objectFit='contain' fill alt='logo funder' />
         </div>
       </div>
