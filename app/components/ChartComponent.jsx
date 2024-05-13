@@ -16,6 +16,7 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
     const top = scores_100.filter(score => score >= userScore_100).length
     const topPercent = top / scores_100.length * 100
     const topPercentRounded_1 = Math.round(topPercent * 10) / 10
+    console.log("topPercentRounded_1 = " + topPercentRounded_1)
     return topPercentRounded_1
   }, [scores_100, userScore_100])
 
@@ -134,7 +135,10 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
         },
         plugins: {
           legend: {
-            display: true
+            display: true,
+            labels: {
+              boxHeight: 1,
+            }
           },
           title: {
             display: true,
@@ -180,7 +184,10 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
           ctx.textAlign = 'start';
           ctx.fillStyle = 'white';
           ctx.font = 'bold 12px Arial';
-          ctx.fillText(topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are bottom ' + topPercent + ' %', chart.width / 2, yAxis.getPixelForValue(40) - 10);
+          const invertedTopPercent = 100 - topPercent
+          // rouding to 1 decimal
+          const invertedTopPercentRounded = Math.round(invertedTopPercent * 10) / 10
+          ctx.fillText(topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are bottom ' + invertedTopPercentRounded + ' %', chart.width / 2, yAxis.getPixelForValue(40) - 10);
           ctx.restore();
         }
       }]
