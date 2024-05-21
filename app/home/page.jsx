@@ -76,7 +76,7 @@ export default function Home() {
                         initial='hidden'
                         animate='show'
                         className='px-4 py-6 md:px-24 3xl:px-48 2xl:w-1/2 3xl:text-2xl 2xl:leading-loose'>
-                        The <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> model, elaborated by researchers at the École normale supérieure in PSL University, discerns four key dimensions of player agency in video games: Discovering, Experimenting, Expanding, and Performing.
+                        The <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> model, developed by researchers at the École normale supérieure (PSL University), identifies four key dimensions of player agency in video games: Discovering, Experimenting, Expanding, and Performing
                     </motion.p>
                     <motion.p
                         variants={item}

@@ -211,7 +211,7 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
           }
 
           // Affichage conditionnel du texte basé sur le pourcentage
-          const text = topPercent < 50 ? 'You are top ' + topPercent + ' %' : 'You are bottom ' + invertedTopPercentRounded + ' %';
+          const text = topPercent < 25 ? 'You are top ' + topPercent + ' %' : topPercent > 75 ? 'You are bottom ' + invertedTopPercentRounded + ' %' : '';
           ctx.fillText(text, chart.width / 2, textPositionY);
           ctx.restore();
         }

@@ -13,10 +13,10 @@ export default function Footer() {
         <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-28 3xl:h-36 relative'>
           <Image src='/assets/funders/CNRS.png' objectFit='contain' fill alt='logo funder' />
         </div>
-        <div className='w-8 h-8 md:w-32 md:h-20 3xl:w-56 w 3xl:h-36 relative'>
+        <div className='w-8 h-8 md:w-40 md:h-24 3xl:w-56 w 3xl:h-36 relative'>
           <Image src='/assets/funders/ENS-DEC.png' objectFit='contain' fill alt='logo funder' />
         </div>
-        <div className='w-8 h-8 md:w-32 md:h-20 3xl:w-56 3xl:h-36 relative'>
+        <div className='w-8 h-8 md:w-20 md:h-20 3xl:w-36 3xl:h-36 relative rounded-full bg-white'>
           <Image src='/assets/funders/ENS-PSL.png' objectFit='contain' fill alt='logo funder' />
         </div>
         <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-36 3xl:h-36 relative'>

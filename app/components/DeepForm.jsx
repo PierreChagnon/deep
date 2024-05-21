@@ -6,7 +6,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
   const bgColors = ["bg-[#8346E7]", "bg-[#A24CCC]", "bg-[#D256A2]", "bg-[#ffffff]", "bg-[#F26C6D]", "bg-[#F87F4C]", "bg-[#FC893A]"]
   const borderColors = ["border-[#8346E7]", "border-[#A24CCC]", "border-[#D256A2]", "border-[#ffffff]", "border-[#F26C6D]", "border-[#F87F4C]", "border-[#FC893A]"]
   const scaleValues = ["scale-[1.8] 3xl:scale[3] md:scale-[2.5]", "scale-[1.5] 3xl:scale[2.5] md:scale-[2]", "scale-125", "scale-100", "scale-125", "scale-[1.5] 3xl:scale[2.5] md:scale-[2]", "scale-[1.8] 3xl:scale[3] md:scale-[2.5]"]
-  const radioValues = ["Not at all interested", "Not very interested", "Slightly interested", "Neutral", "Moderately interested", "Very interested", "Extremely interested"]
+  const radioValues = ["Not at all interested", "Not very interested", "Slightly not interested", "Slightly interested", "Moderately interested", "Very interested", "Extremely interested"]
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [randomizedFields, setRandomizedFields] = useState([])
@@ -81,6 +81,8 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
   useEffect(() => {
     if (Object.keys(selectedOptions).length === numberOfFields) {
       setFormIsCompleted(true)
+    } else {
+      setFormIsCompleted(false)
     }
   }, [selectedOptions, setFormIsCompleted, numberOfFields])
 
@@ -105,7 +107,8 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
 
   return (
     <div className='flex flex-col items-center 2xl:px-32 3xl:px-96'>
-      <p className='md:px-20 mb-10 text-base 3xl:text-2xl'>Rate the statements below for how accurately they reflect how you generally feel about video games. Take your time. Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
+      <p className='md:px-20 mb-2 text-base 3xl:text-2xl'>Rate the statements below according to how accurate they are in relation to what you generally think about video games Take your time.</p>
+      <p className='md:px-20 mb-10 text-base 3xl:text-2xl'>Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
       {randomizedFields.map((field, i) => {
         let sentence
         let formatedKey

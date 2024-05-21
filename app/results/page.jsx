@@ -120,6 +120,7 @@ export default function Results() {
                     })
                 });
                 const list = await responseList.json()
+                console.log("parsing list", list.choices[0].message.content)
                 const jsonList = JSON.parse(list.choices[0].message.content)
                 console.log("RESPONSE = ", list)
                 console.log("LIST = ", jsonList)
@@ -226,7 +227,7 @@ export default function Results() {
                 className={`${bungee.className} text-2xl 3xl:text-5xl text-center mb-8`}>
                 Your <span className='from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r bg-clip-text text-transparent'>DEEP</span> profile :
             </motion.h2>
-            
+
             <motion.div
                 variants={container}
                 initial="hidden"
