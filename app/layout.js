@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import { Analytics } from '@vercel/analytics/react';
 import { inter } from "./fonts";
 import "./globals.css";
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} flex flex-col min-h-dvh from-[#010018] to-[#262449] bg-gradient-to-b`}>
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );
