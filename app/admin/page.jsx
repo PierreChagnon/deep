@@ -31,6 +31,9 @@ export default function Admin() {
                 <button
                     className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                     onClick={() => {
+                        console.log('clicked')
+                        console.log("password given : " + password);
+                        console.log("password : " + process.env.NEXT_PUBLIC_SECRET_ADMIN_PASSWORD)
                         if (password === process.env.NEXT_PUBLIC_SECRET_ADMIN_PASSWORD) {
                             console.log('logged in');
                             setIsLogged(true);
