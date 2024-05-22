@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-// export const maxDuration = 30; // This function can run for a maximum of 30 seconds
+export const maxDuration = 60; // This function can run for a maximum of 60 seconds
 // Error: Builder returned invalid maxDuration value for Serverless Function "api/image-gpt". Serverless Functions must have a maxDuration between 1 and 10 for plan hobby.
 export const dynamic = 'force-dynamic';
 // https://vercel.com/docs/functions/configuring-functions/duration
