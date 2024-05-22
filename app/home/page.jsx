@@ -19,7 +19,7 @@ export default function Home() {
     useEffect(() => {
         const fetchUserCount = async () => {
             const querySnapshot = await getDocs(collection(db, "users"));
-            console.log(querySnapshot.size);
+            // console.log(querySnapshot.size);
             setUserCount(querySnapshot.size);
         };
 

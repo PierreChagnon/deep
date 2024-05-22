@@ -14,7 +14,7 @@ export async function POST(request) {
     // Grabbing user's input
     const params = await request.json()
     const prompt = `${params.lastSentence} Generate a video game character based on this gaming persona. Focus on specific, visually representable elements. Avoid ambiguous language that could be interpreted as including text. Only display a portrait of the character in front of a background based on his theorical proper universe. digital art`
-    console.log("PROMPT : ", prompt)
+    // console.log("PROMPT : ", prompt)
 
     // Passing it to chat GPT API
     const response = await openai.images.generate({
@@ -25,7 +25,7 @@ export async function POST(request) {
         n: 1,
     });
 
-    console.log("response in api (image) : ", response.data[0].url)
+    // console.log("response in api (image) : ", response.data[0].url)
 
     return NextResponse.json(response.data[0].url)
 }

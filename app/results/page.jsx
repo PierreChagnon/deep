@@ -37,15 +37,15 @@ export default function Results() {
         const storedScores = sessionStorage.getItem('scores');
         const currentScores = [disc, expa, expe, perf].join(',');
         if (!storedScores) {
-            console.log("no scores in session storage");
+            // console.log("no scores in session storage");
             setIsNewUser(true);
         } else {
-            console.log("scores in session storage", storedScores);
+            // console.log("scores in session storage", storedScores);
             if (storedScores === currentScores) {
-                console.log("scores are the same");
+                // console.log("scores are the same");
                 setIsNewUser(false);
             } else {
-                console.log("scores are different");
+                // console.log("scores are different");
                 setIsNewUser(true);
             }
         }
@@ -75,112 +75,113 @@ export default function Results() {
     }
 
 
-    const apiCall = async () => {
-        console.log("apiCall")
-        try {
 
-            // Vérifier les données en cache
-            const cachedData = getCacheData('apiData');
-            console.log('new user = ', isNewUser)
-            if (cachedData && isNewUser === false) {
-                console.log("using cachedData", cachedData)
-                // Utiliser les données en cache
-                setChoices(cachedData.choices);
-                setImageURL(cachedData.imageURL);
-                setGamingPersona(cachedData.gamingPersona);
-                setGameList(cachedData.gameList);
-                setShownAskers(cachedData.shownAskers);
-            } else {
-                //CHAT API
-                const response = await fetch("/api/chat-gpt", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        scores: [disc, expa, expe, perf]
-                    })
-                });
-
-                const data = await response.json();
-                // console.log("data", data)
-                setChoices(data.choices);
-                // console.log("choices : ", data.choices)
-
-
-
-                //LIST API
-                const responseList = await fetch("/api/list-gpt", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        scores: [disc, expa, expe, perf]
-                    })
-                });
-                const list = await responseList.json()
-                console.log("parsing list", list.choices[0].message.content)
-                const jsonList = JSON.parse(list.choices[0].message.content)
-                console.log("RESPONSE = ", list)
-                console.log("LIST = ", jsonList)
-
-                // on radomize la liste
-                jsonList.sort(() => Math.random() - 0.5)
-                let temp = jsonList
-                // on setup les states en fonction du consent (5 jeux pour consent = false)
-                if (consent === 'true') {
-                    // on prend seulement les 10 premiers
-                    const jsonListSpliced = temp.splice(0, 10)
-                    console.log("LIST SPLICED = ", jsonListSpliced)
-                    setGameList(jsonListSpliced)
-                    setShownAskers(jsonListSpliced) // on montre les questions pour tous les jeux
-                    temp = jsonListSpliced
-                } else {
-                    const jsonListSpliced = temp.splice(0, 5)
-                    console.log("consent = false ", jsonListSpliced)
-                    setGameList(jsonListSpliced)
-                    // on ne set pas shownAskers pour ne pas poser les questions
-                }
-
-
-
-                //IMAGE API
-                const text = await data.choices[0].message.content
-                const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
-                const lastSentence = text.match(regex)[0];
-
-                const responseURL = await fetch("/api/image-gpt", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        lastSentence: lastSentence
-                    })
-                }, { cache: 'force-cache' });
-
-                const URL = await responseURL.json()
-                // console.log("URL : ", URL)
-                setImageURL(URL)
-                setGamingPersona(lastSentence)
-
-                setCacheData('apiData', {
-                    choices: data.choices,
-                    imageURL: URL,
-                    gamingPersona: lastSentence,
-                    gameList: temp,
-                    shownAskers: consent === 'true' ? temp : []
-                });
-            }
-
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
 
 
     useEffect(() => {
+        const apiCall = async () => {
+            // console.log("apiCall")
+            try {
+
+                // Vérifier les données en cache
+                const cachedData = getCacheData('apiData');
+                // console.log('new user = ', isNewUser)
+                if (cachedData && isNewUser === false) {
+                    // console.log("using cachedData", cachedData)
+                    // Utiliser les données en cache
+                    setChoices(cachedData.choices);
+                    setImageURL(cachedData.imageURL);
+                    setGamingPersona(cachedData.gamingPersona);
+                    setGameList(cachedData.gameList);
+                    setShownAskers(cachedData.shownAskers);
+                } else {
+                    //CHAT API
+                    const response = await fetch("/api/chat-gpt", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            scores: [disc, expa, expe, perf]
+                        })
+                    });
+
+                    const data = await response.json();
+                    // console.log("data", data)
+                    setChoices(data.choices);
+                    // console.log("choices : ", data.choices)
+
+
+
+                    //LIST API
+                    const responseList = await fetch("/api/list-gpt", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            scores: [disc, expa, expe, perf]
+                        })
+                    });
+                    const list = await responseList.json()
+                    // console.log("parsing list", list.choices[0].message.content)
+                    const jsonList = JSON.parse(list.choices[0].message.content)
+                    // console.log("RESPONSE = ", list)
+                    // console.log("LIST = ", jsonList)
+
+                    // on radomize la liste
+                    jsonList.sort(() => Math.random() - 0.5)
+                    let temp = jsonList
+                    // on setup les states en fonction du consent (5 jeux pour consent = false)
+                    if (consent === 'true') {
+                        // on prend seulement les 10 premiers
+                        const jsonListSpliced = temp.splice(0, 10)
+                        // console.log("LIST SPLICED = ", jsonListSpliced)
+                        setGameList(jsonListSpliced)
+                        setShownAskers(jsonListSpliced) // on montre les questions pour tous les jeux
+                        temp = jsonListSpliced
+                    } else {
+                        const jsonListSpliced = temp.splice(0, 5)
+                        // console.log("consent = false ", jsonListSpliced)
+                        setGameList(jsonListSpliced)
+                        // on ne set pas shownAskers pour ne pas poser les questions
+                    }
+
+
+
+                    //IMAGE API
+                    const text = await data.choices[0].message.content
+                    const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
+                    const lastSentence = text.match(regex)[0];
+
+                    const responseURL = await fetch("/api/image-gpt", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            lastSentence: lastSentence
+                        })
+                    }, { cache: 'force-cache' });
+
+                    const URL = await responseURL.json()
+                    // console.log("URL : ", URL)
+                    setImageURL(URL)
+                    setGamingPersona(lastSentence)
+
+                    setCacheData('apiData', {
+                        choices: data.choices,
+                        imageURL: URL,
+                        gamingPersona: lastSentence,
+                        gameList: temp,
+                        shownAskers: consent === 'true' ? temp : []
+                    });
+                }
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
         if (isNewUser !== null) {
             sessionStorage.setItem('scores', [disc, expa, expe, perf].join(','));
             apiCall()

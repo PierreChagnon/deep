@@ -8,7 +8,7 @@ import Chart from 'chart.js/auto'
 export default function ChartComponent({ color = 'red', title = 'Custom Chart Title', scores = [], userScore = 0, scores_100 = [], userScore_100 = 0 }) {
   const chartRef = useRef(null)
   // console.log("scores_100 = " + scores_100)
-  console.log("userScore_100 = " + userScore_100 + color)
+  // console.log("userScore_100 = " + userScore_100 + color)
 
   const topPercent = useMemo(() => {
     if (scores_100.length === 0) return
@@ -16,7 +16,7 @@ export default function ChartComponent({ color = 'red', title = 'Custom Chart Ti
     const top = scores_100.filter(score => score >= userScore_100).length
     const topPercent = top / scores_100.length * 100
     const topPercentRounded_1 = Math.round(topPercent * 10) / 10
-    console.log("topPercentRounded_1 = " + topPercentRounded_1)
+    // console.log("topPercentRounded_1 = " + topPercentRounded_1)
     return topPercentRounded_1
   }, [scores_100, userScore_100])
 

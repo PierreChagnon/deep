@@ -30,6 +30,6 @@ export async function POST(request) {
         model: "gpt-4o",
         // response_format: { type: "json_object" },
     });
-    console.log(completion.choices[0].message.content);
+    // console.log(completion.choices[0].message.content);
     return NextResponse.json(completion)
 }

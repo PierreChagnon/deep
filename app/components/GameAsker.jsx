@@ -28,7 +28,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
                 [`data.${likedKey}`]: liked.current,
                 [`data.${wouldLikedKey}`]: wouldLiked.current,
             });
-            console.log("Document successfully updated!");
+            // console.log("Document successfully updated!");
         } catch (error) {
             console.error("Error updating document: ", error);
         }

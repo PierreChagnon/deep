@@ -76,7 +76,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
     shuffleArray(temp)
     setRandomizedFields(temp)
     // console.log("shuffled :", temp)
-  }, [])
+  }, [consent])
 
   useEffect(() => {
     if (Object.keys(selectedOptions).length === numberOfFields) {

@@ -33,7 +33,7 @@ export default function FavouriteGames({ setFormValues, setFormIsCompleted }) {
     };
 
     useEffect(() => {
-        console.log(favGames)
+        // console.log(favGames)
         if (favGames.includes("") === false) {
             setFormIsCompleted(true)
         } else {

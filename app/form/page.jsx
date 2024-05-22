@@ -90,15 +90,15 @@ export default function Form() {
 
     const handleRevealResultsNavigation = async () => {
         const res = calcDeepScore(formValues)
-        console.log("res = " + res)
+        // console.log("res = " + res)
 
         if (consent === 'true') {
-            console.log("submitting form to firestore at id : ", formValues.id)
+            // console.log("submitting form to firestore at id : ", formValues.id)
             try {
                 const docRef = await setDoc(doc(db, "users", formValues.id), {
                     data: formValues,
                 });
-                console.log("Document written with ID: ", formValues.id);
+                // console.log("Document written with ID: ", formValues.id);
             } catch (e) {
                 console.error("Error adding document: ", e);
             }
@@ -114,10 +114,10 @@ export default function Form() {
         )
     }
 
-    useEffect(() => {
-        console.log(formValues)
-        // console.log("csv : ", jsonToCSV(formValues))
-    }, [formValues])
+    // useEffect(() => {
+    //     // console.log(formValues)
+    //     // console.log("csv : ", jsonToCSV(formValues))
+    // }, [formValues])
 
     if (!formElements.length) return <h1 className='text-white min-h-dvh flex flex-1 justify-center items-center text-center'>Loading...</h1>
 

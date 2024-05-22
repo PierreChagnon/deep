@@ -1,5 +1,5 @@
 export default function mergeJSONToCSV(jsonArray) {
-    console.log("jsonArray = " + jsonArray);
+    // console.log("jsonArray = " + jsonArray);
     // Vérifier si le tableau est vide
     if (jsonArray.length === 0) {
         return null;
