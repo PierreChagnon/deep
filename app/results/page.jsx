@@ -323,7 +323,7 @@ export default function Results() {
                     <div className='flex flex-col md:flex-row md:flex-wrap justify-between md:justify-normal gap-4 3xl:gap-8 3xl:mt-4 w-full'>
                         {
                             ["Discovering", "Expanding", "Experimenting", "Performing"].map((dimension, i) => {
-                                const colors = ["#7A45F0", "#ED5C8A", "#B751BA", "#FF922A"]
+                                const colors = ["#7A45F0", "#B751BA", "#ED5C8A", "#FF922A"]
                                 const scores = [discoveringScores, expandingScores, experimentingScores, performingScores]
                                 const userScores = [disc, expa, expe, perf]
                                 const scores_100 = [discoveringScores_100, expandingScores_100, experimentingScores_100, performingScores_100]
