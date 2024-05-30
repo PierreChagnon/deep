@@ -1,7 +1,6 @@
 'use client'
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
-import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { bungee } from '../fonts';
 import Image from 'next/image';
@@ -56,7 +55,10 @@ export default function Results() {
                 <h3 className='text-3xl mb-4 font-bold'>The predictive power of the DEEP model</h3>
                 <div className='flex flex-col lg:flex-row lg:items-center px-2 2xl:px-32 3xl:px-96'>
                     <div className='items-center lg:w-2/3 gap-4 flex-col'>
-                        <p className='3xl:text-xl '>To truly understand the value of the DEEP model, we needed to answer a key question: <em>Can the model predict the types of games a player would enjoy</em>?</p>
+                        <p className='3xl:text-xl '>To truly understand the value of the DEEP model, we needed to answer a key question: </p>
+                        <br />
+                        {/* <p className='3xl:text-xl text-pretty border p-2 3xl:p-4 rounded-md border-white/50 bg-white/10'><em>Can the model predict the types of games a player would enjoy ?</em></p> */}
+                        <p className='3xl:text-xl text-pretty text-center'><em>Can the model predict the types of games a player would enjoy ?</em></p>
                         <br />
                         <p className='3xl:text-xl '>First, we gathered data from <strong>1,000 gamers</strong> who completed the DEEP questionnaire, which assessed their preferences along the four dimensions. We then asked them to list their <strong>10 favorite video games</strong>. The challenge was to connect these two sets of data : the gamers' DEEP scores and their favorite games.</p>
                         <br />

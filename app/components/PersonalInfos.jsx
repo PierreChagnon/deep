@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
+import { COUNTRIES } from '@/lib/countries'
 import React, { useState, useEffect } from 'react'
 
 export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
@@ -8,6 +9,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
     const [age, setAge] = useState("")
     const [option, setOption] = useState("Prefer not to say")
     const [levelOfEnglish, setLevelOfEnglish] = useState("Intermediate")
+    const [country, setCountry] = useState("France")
     const [alreadyDone, setAlreadyDone] = useState("No")
 
     // useEffect to set the initial form values
@@ -17,7 +19,8 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
             age: "",
             already_done: 0,
             level_of_english: "Intermediate",
-            gender: "Prefer not to say"
+            gender: "Prefer not to say",
+            country: "France",
         }));
     }, [setFormValues])
 
@@ -100,6 +103,26 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 }
                     placeholder='0' value={age} type="number" className='h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl' />
             </div>
+            <p className='mb-4 mt-8 md:text-xl'>Country of residence</p>
+            <div className='relative p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+                <select value={country} onChange={(e) => {
+                    setFormValues((prevValues) => ({
+                        ...prevValues,
+                        "country": e.target.value,
+                    }));
+                    setCountry(e.target.value)
+                }
+                }
+                    name="level" id="level" className='appearance-none h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>
+                    {COUNTRIES.map((item) => {
+                        const country = item.title
+
+                        return (<option key={country} className='cursor-pointer p-2 text-sm' value={country}>{country}</option>)
+                    })}
+                </select>
+                {/* arrow */}
+                <span className='absolute right-4 w-2 h-2 border-b-2 border-r-2 rotate-45' />
+            </div>
             <p className='mb-4 mt-8 md:text-xl'>How would you rate your level of english proeficiency ?</p>
             <div className='relative p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={levelOfEnglish} onChange={(e) => {
@@ -120,6 +143,6 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 {/* arrow */}
                 <span className='absolute right-4 w-2 h-2 border-b-2 border-r-2 rotate-45' />
             </div>
-        </div>
+        </div >
     )
 }
