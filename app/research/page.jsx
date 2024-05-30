@@ -25,7 +25,7 @@ export default function page() {
                     enquiries and are ready to provide scholarly support. Our team is available to discuss
                     opportunities for collaboration and welcomes any scientific suggestions that can
                     refine and advance the model.</p>
-                <p>To contact us, please visit the <Link className='underline hover:no-underline' href="/about">About</Link> page.</p>
+                <p>To contact us, please visit the <Link className='underline hover:no-underline' href="/about-us">About</Link> page.</p>
             </div>
             <Footer />
         </main>
