@@ -124,20 +124,23 @@ export default function Results() {
                         })
                     });
 
-                    const list = await responseList.json()
+                    const res = await responseList.json()
+                    // console.log("res : ", res)
+                    const list = res.choices[0].message.content
+                    // console.log("list : ", list)
 
                     // Utilisation d'une expression régulière pour extraire la partie entre les crochets, incluant les crochets
                     const match = list.match(/\[.*\]/);
 
-                    let formattedList = '';
+                    let formattedList = list;
 
                     // Si une correspondance est trouvée, elle sera dans le premier élément de l'array retourné par .match()
                     if (match) {
                         formattedList = match[0];
                     }
-                    console.log("formattedList : ", formattedList)
+                    // console.log("formattedList : ", formattedList)
 
-                    const jsonList = JSON.parse(formattedList.choices[0].message.content)
+                    const jsonList = JSON.parse(formattedList)
 
                     // on radomize la liste
                     jsonList.sort(() => Math.random() - 0.5)
