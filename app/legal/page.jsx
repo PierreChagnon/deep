@@ -12,7 +12,6 @@ export default function page() {
                     <h2 className='font-bold mb-2'>Owner of the Website:</h2>
                     <p><strong>Valérian Chambon</strong></p>
                     <p><strong>Institut Jean Nicod</strong></p>
-                    <p><strong>Legal status: </strong>SAS</p>
                     <p><strong>Address: </strong>29 Rue d'Ulm, Paris, France</p>
                     <p><strong>Phone: </strong>01 44 32 26 47</p>
                     <p><strong>Contact: </strong>valerian.chambon@ens.fr</p>
