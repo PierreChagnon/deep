@@ -123,11 +123,21 @@ export default function Results() {
                             scores: [disc, expa, expe, perf]
                         })
                     });
+
                     const list = await responseList.json()
-                    // console.log("parsing list", list.choices[0].message.content)
-                    const jsonList = JSON.parse(list.choices[0].message.content)
-                    // console.log("RESPONSE = ", list)
-                    // console.log("LIST = ", jsonList)
+
+                    // Utilisation d'une expression régulière pour extraire la partie entre les crochets, incluant les crochets
+                    const match = list.match(/\[.*\]/);
+
+                    let formattedList = '';
+
+                    // Si une correspondance est trouvée, elle sera dans le premier élément de l'array retourné par .match()
+                    if (match) {
+                        formattedList = match[0];
+                    }
+                    console.log("formattedList : ", formattedList)
+
+                    const jsonList = JSON.parse(formattedList.choices[0].message.content)
 
                     // on radomize la liste
                     jsonList.sort(() => Math.random() - 0.5)
