@@ -1,3 +1,4 @@
+import { ORDER } from "@/lib/order";
 export default function mergeJSONToCSV(jsonArray) {
     // console.log("jsonArray = " + jsonArray);
     // Vérifier si le tableau est vide
@@ -8,12 +9,16 @@ export default function mergeJSONToCSV(jsonArray) {
     // Obtenir toutes les clés uniques de tous les objets JSON
     const allKeys = Array.from(new Set(jsonArray.flatMap(obj => Object.keys(obj))));
 
-    // Créer l'en-tête CSV avec toutes les clés
-    const csvHeader = allKeys.join(',');
+    // Ajouter les clés uniques qui ne sont pas dans l'ordre prédéfini
+    const additionalKeys = allKeys.filter(key => !ORDER.includes(key));
+    const finalOrder = [...ORDER, ...additionalKeys];
+
+    // Créer l'en-tête CSV avec toutes les clés dans l'ordre prédéfini
+    const csvHeader = finalOrder.join(',');
 
     // Créer les lignes CSV en fusionnant les objets JSON
     const csvRows = jsonArray.map(obj => {
-        return allKeys.map(key => obj[key]).join(',');
+        return finalOrder.map(key => obj[key] !== undefined ? obj[key] : '').join(',');
     });
 
     // Concaténer l'en-tête et les lignes CSV
