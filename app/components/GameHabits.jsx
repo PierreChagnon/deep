@@ -9,11 +9,15 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
 
     const [numberOfGames, setNumberOfGames] = useState("")
     const [gamesPerWeek, setGamesPerWeek] = useState("")
+    const [yearsOfGaming, setYearsOfGaming] = useState("")
+    const [numberOfGamesAllTime, setNumberOfGamesAllTime] = useState("")
 
     // useEffect to set the initial form values
     useEffect(() => {
         setFormValues((prevValues) => ({
             ...prevValues,
+            n_gamesalltime: "",
+            n_yearsofgaming: "",
             n_gamesbyyear: "",
             n_hoursperweek: "",
             homeconsoles: 0,
@@ -113,10 +117,12 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
     }, [setFormValues])
 
     useEffect(() => {
-        if (selectedOptions.length > 0 && numberOfGames !== "" && gamesPerWeek !== "") {
+        if (selectedOptions.length > 0 && numberOfGames !== "" && gamesPerWeek !== "" && yearsOfGaming !== "" && numberOfGamesAllTime !== "") {
             setFormIsCompleted(true)
+        } else {
+            setFormIsCompleted(false)
         }
-    }, [selectedOptions, numberOfGames, gamesPerWeek, setFormIsCompleted])
+    }, [selectedOptions, numberOfGames, gamesPerWeek, setFormIsCompleted, yearsOfGaming, numberOfGamesAllTime])
 
     const handleInputChange = (field, value) => {
         setFormValues((prevValues) => ({
@@ -126,6 +132,28 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
     };
     return (
         <div className='flex flex-col items-center mb-8 text-base 3xl:text-2xl'>
+            <div className='flex flex-col w-full 3xl:w-2/3'>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>How many years have you been playing video games?</p>
+                <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+                    <input onChange={(e) => {
+                        handleInputChange("n_yearsofgaming", e.currentTarget.value)
+                        setYearsOfGaming(e.currentTarget.value)
+                    }
+                    }
+                        placeholder='0' value={yearsOfGaming} type="number" className='h-full w-full bg-[#010018] p-2 md:p-4 3xl:py-5 rounded-md 3xl:rounded-xl' />
+                </div>
+            </div>
+            <div className='flex flex-col w-full 3xl:w-2/3'>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Approximately, accross all platforms, how many games do you think you have played?</p>
+                <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
+                    <input onChange={(e) => {
+                        handleInputChange("n_gamesalltime", e.currentTarget.value)
+                        setNumberOfGamesAllTime(e.currentTarget.value)
+                    }
+                    }
+                        placeholder='0' value={numberOfGamesAllTime} type="number" className='h-full w-full bg-[#010018] p-2 md:p-4 3xl:py-5 rounded-md 3xl:rounded-xl' />
+                </div>
+            </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
                 <p className='mb-4 3xl:mb-8 md:text-xl'>Counting all types of video games, across all platforms (including mobile games), how many different video games have you played in the last year, approximately?</p>
                 <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
@@ -162,7 +190,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                 </div>
             </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-xl'>Which game genres do you enjoy ? You can select multiple choices.</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Which game genres do you enjoy? You can select multiple choices.</p>
                 <div className='flex flex-col mb-16 md:flex-row md:flex-wrap items-center gap-4 3xl:gap-8'>
                     {["Action", "Adventure", "Role-Playing (RPG)", "Simulation", "Strategy", "Puzzle", "Sports", "Racing", "Fighting", "Shooter", "Horror", "Sandbox", "Tower Defense", "Platformer", "Massive Multiplayer Online (MMO)", "Survival"].map((value, i) => {
                         const formatedKey = ["action", "adventure", "roleplaying", "simulation", "strategy", "puzzle", "sports", "racing", "fighting", "shooter", "horror", "sandbox", "towerdefense", "platformer", "massivemultiplayeronline", "survival"]
