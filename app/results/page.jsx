@@ -32,7 +32,7 @@ export default function Results() {
     const [isNewUser, setIsNewUser] = useState(null)
 
 
-    // on vérifie s'il exesite des scores dans le session storage et s'ils sont différents des scores actuels
+    // on vérifie s'il existe des scores dans le session storage et s'ils sont différents des scores actuels
     useEffect(() => {
         const storedScores = sessionStorage.getItem('scores');
         const currentScores = [disc, expa, expe, perf].join(',');
