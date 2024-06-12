@@ -166,7 +166,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                 </div>
             </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-xl'>Counting all types of video games across all platforms (including mobile games), how much time do you play per week, on average?</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Counting all types of video games across all platforms (including mobile games), how much time do you play per week, on average? (in hours)</p>
                 <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <input onChange={(e) => {
                         handleInputChange("n_hoursperweek", e.currentTarget.value)
