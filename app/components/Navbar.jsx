@@ -37,7 +37,7 @@ export default function Navbar() {
             </div>
             {
                 isOpen && (
-                    <div className='md:hidden z-30 absolute top-0 right-0 flex flex-col gap-4 bg-[#060615] border-l-2 text-white p-4 h-dvh'>
+                    <div className='md:hidden z-[60] absolute top-0 right-0 flex flex-col gap-4 bg-[#060615] border-l-2 text-white p-4 h-dvh'>
                         <button onClick={() => setIsOpen(false)} className='text-3xl text-[#ED5C8A] flex self-end mb-4'><MdClose /></button>
                         <Link href="/about-us" className={`${pathname === "/about-us" ? "text-[#ED5C8A]" : "text-white"} mx-4 hover:opacity-50 duration-200'`}>About us</Link>
                         <Link href="/infos" className={`${pathname === "/infos" ? "text-[#ED5C8A]" : "text-white"} mx-4 hover:opacity-50 duration-200'`}>The deep model</Link>
