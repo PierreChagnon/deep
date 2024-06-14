@@ -7,6 +7,19 @@ import "./globals.css";
 export const metadata = {
   title: "Deep",
   description: "Deep is a project that aims to help you understand your personality and habits through a series of questions based on gaming preferences.",
+  openGraph: {
+    title: 'Deep',
+    description: 'Deep is a project that aims to help you understand your personality and habits through a series of questions based on gaming preferences.',
+    url: 'https://www.the-deepmodel.fr/',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'thumbail',
+      },
+    ],
+  },
 };
 
 // other possible bg colors: from-[#101419] to-[#101419e4]
