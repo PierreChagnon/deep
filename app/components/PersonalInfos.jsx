@@ -123,7 +123,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                 {/* arrow */}
                 <span className='absolute right-4 w-2 h-2 border-b-2 border-r-2 rotate-45' />
             </div>
-            <p className='mb-4 mt-8 md:text-xl'>How would you rate your level of english proeficiency ?</p>
+            <p className='mb-4 mt-8 md:text-xl'>How would you rate your level of English proficiency ?</p>
             <div className='relative p-[2px] md:w-1/2 3xl:w-1/3 cursor-pointer mb-10 w-full rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                 <select value={levelOfEnglish} onChange={(e) => {
                     setFormValues((prevValues) => ({

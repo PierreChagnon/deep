@@ -26,7 +26,7 @@ export default function Navbar() {
                 <Link className={`${pathname === "/infos" ? "text-[#ED5C8A]" : "text-white"} hover:opacity-50 duration-200'`} href="/infos">The deep model</Link>
                 <Link href="/research" className='p-[2px] rounded-full from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <div className='h-full w-full text-center hover:bg-transparent transition-all duration-300 ease-in-out bg-[#010018] py-2 px-4 md:px-8 rounded-full'>
-                        Resercher area
+                        Researcher area
                     </div>
                 </Link>
             </div>

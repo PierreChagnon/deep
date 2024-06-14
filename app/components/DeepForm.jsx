@@ -107,7 +107,7 @@ export default function DeepForm({ setFormValues, setFormIsCompleted, consent })
 
   return (
     <div className='flex flex-col items-center 2xl:px-32 3xl:px-96'>
-      <p className='md:px-20 mb-2 text-base 3xl:text-2xl'>Rate the statements below according to how accurate they are in relation to what you generally think about video games Take your time.</p>
+      <p className='md:px-20 mb-2 text-base 3xl:text-2xl'>Rate the statements below according to how accurate they are in relation to what you generally think about video games. Take your time.</p>
       <p className='md:px-20 mb-10 text-base 3xl:text-2xl'>Do not rate what you think you should feel, or what you wish you felt, or what you no longer feel. Be as honest as possible. If you hesitate, you can think of your favorite video games to answer the question.</p>
       {randomizedFields.map((field, i) => {
         let sentence
