@@ -53,13 +53,6 @@ export default function Home() {
                     <p>By ticking YES below, you certify that you have read this form and agree to
                         participate in accordance with the above conditions. If you choose not to participate
                         by selecting &quot;NO&quot;, you can still access your gaming profile without any data being
-                        collected.</p>
-                </div>
-                <div className='2xl:w-2/3'>
-                    <h2 className='font-bold mb-2'>Consent</h2>
-                    <p>By ticking YES below, you certify that you have read this form and agree to
-                        participate in accordance with the above conditions. If you choose not to participate
-                        by selecting &quot;NO&quot;, you can still access your gaming profile without any data being
                         collected. If you are under the age of 18, please ensure you have parental consent to share your data with us.</p>
                 </div>
                 <div className='flex flex-col items-center md:flex-row w-full justify-center gap-4 2xl:gap-16 mt-12 3xl:mt-16'>
