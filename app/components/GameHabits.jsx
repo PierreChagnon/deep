@@ -144,7 +144,7 @@ export default function GameHabits({ setFormValues, setFormIsCompleted }) {
                 </div>
             </div>
             <div className='flex flex-col w-full 3xl:w-2/3'>
-                <p className='mb-4 3xl:mb-8 md:text-xl'>Approximately, accross all platforms, how many games do you think you have played?</p>
+                <p className='mb-4 3xl:mb-8 md:text-xl'>Approximately, accross all platforms (including mobile games), how many games do you think you have played?</p>
                 <div className='p-[2px] mb-16 max-w-xs rounded-md 3xl:rounded-xl from-[#7944F0] via-[#ED5C8A] to-[#FF922A] bg-gradient-to-r flex justify-center items-center'>
                     <input onChange={(e) => {
                         handleInputChange("n_gamesalltime", e.currentTarget.value)
