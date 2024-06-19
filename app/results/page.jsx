@@ -171,14 +171,14 @@ export default function Results() {
 
                     // Vérifier si la valeur est définie
                     if (storedGender !== null) {
-                        console.log("storedGender : ", storedGender)
+                        // console.log("storedGender : ", storedGender)
                         gender = storedGender;
                     } else {
-                        console.log("storedGender is null")
+                        // console.log("storedGender is null")
                         // Tirer au sort entre 'male' et 'female' avec une probabilité de 50%
                         gender = Math.random() < 0.5 ? 'Male' : 'Female';
                     }
-                    console.log(gender)
+                    // console.log(gender)
 
                     const text = await data.choices[0].message.content
                     const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
