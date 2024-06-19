@@ -80,6 +80,7 @@ export default function PersonalInfos({ setFormValues, setFormIsCompleted }) {
                         "gender": e.target.value,
                     }));
                     setOption(e.target.value)
+                    sessionStorage.setItem('gender', e.target.value) // on set le genre dans le sessionStorage pour le réutiliser dans la génération de l'image
                 }
                 }
                     name="gender" id="gender" className='appearance-none h-full w-full bg-[#010018] p-2 md:p-4 rounded-md 3xl:rounded-xl cursor-pointer'>

@@ -163,6 +163,23 @@ export default function Results() {
 
 
                     //IMAGE API
+                    // Récupérer la valeur stockée dans sessionStorage
+                    const storedGender = sessionStorage.getItem('gender');
+
+                    // Déclarer la variable gender
+                    let gender;
+
+                    // Vérifier si la valeur est définie
+                    if (storedGender !== null) {
+                        console.log("storedGender : ", storedGender)
+                        gender = storedGender;
+                    } else {
+                        console.log("storedGender is null")
+                        // Tirer au sort entre 'male' et 'female' avec une probabilité de 50%
+                        gender = Math.random() < 0.5 ? 'Male' : 'Female';
+                    }
+                    console.log(gender)
+
                     const text = await data.choices[0].message.content
                     const regex = /(?:[A-Z][^.!?]*[.!?]){0,2}[.!?]?$/;
                     const lastSentence = text.match(regex)[0];
@@ -173,7 +190,8 @@ export default function Results() {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            lastSentence: lastSentence
+                            lastSentence: lastSentence,
+                            gender: gender
                         })
                     }, { cache: 'force-cache' });
 
