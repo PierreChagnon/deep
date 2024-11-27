@@ -129,20 +129,23 @@ export default function Results() {
                     const list = res.choices[0].message.content
                     // console.log("list : ", list)
 
-                    // Utilisation d'une expression régulière pour extraire la partie entre les crochets, incluant les crochets
-                    const match = list.match(/\[.*\]/);
+                    // Retirer les backticks et les mots clés "json" ou "javascript" et les retours à la ligne
+                    const cleanedList = list.replace(/```(json|javascript)?|\n|```/g, '').trim();
 
-                    let formattedList = list;
+                    // Utilisation d'une expression régulière pour extraire le contenu entre crochets, y compris les crochets
+                    const match = cleanedList.match(/\[.*\]/);
 
-                    // Si une correspondance est trouvée, elle sera dans le premier élément de l'array retourné par .match()
+                    // Vérifier si une correspondance est trouvée
+                    let jsonList
                     if (match) {
-                        formattedList = match[0];
+                        // Le contenu entre crochets, y compris les crochets eux-mêmes
+                        jsonList = JSON.parse(match[0]);
+                        // console.log("jsonList : ", jsonList);
+                    } else {
+                        console.error("Liste non trouvée ou format incorrect.");
                     }
-                    // console.log("formattedList : ", formattedList)
 
-                    const jsonList = JSON.parse(formattedList)
-
-                    // on radomize la liste
+                    // on randomize la liste
                     jsonList.sort(() => Math.random() - 0.5)
                     let temp = jsonList
                     // on setup les states en fonction du consent (5 jeux pour consent = false)
