@@ -14,7 +14,7 @@ import { db } from '../../firebase/firebase';
 export default function Home() {
     const router = useRouter()
 
-    const [userCount, setUserCount] = useState(0);
+    const [userCount, setUserCount] = useState(2403);
 
     useEffect(() => {
         const fetchUserCount = async () => {
@@ -23,7 +23,7 @@ export default function Home() {
             setUserCount(querySnapshot.size);
         };
 
-        fetchUserCount();
+        // fetchUserCount();
     }, []);
 
     const container = {
