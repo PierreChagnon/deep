@@ -101,7 +101,7 @@ export default function Form() {
 
                 // On incrémente le counter de la page d'accueil
                 const counterRef = doc(db, "counters", "general");
-                console.log("incrementing counter")
+                // console.log("incrementing counter")
                 await updateDoc(counterRef, { userCount: increment(1) });
 
                 // console.log("Document written with ID: ", formValues.id);
