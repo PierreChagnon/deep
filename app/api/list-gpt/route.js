@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic' // defaults to auto
+export const maxDuration = 30; // This function can run for a maximum of 30 seconds
 
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
