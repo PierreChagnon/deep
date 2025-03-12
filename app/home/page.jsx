@@ -14,7 +14,7 @@ import { db } from '../../firebase/firebase';
 export default function Home() {
     const router = useRouter()
 
-    const [userCount, setUserCount] = useState(2403);
+    const [userCount, setUserCount] = useState(3073);
 
     useEffect(() => {
         const fetchUserCount = async () => {
