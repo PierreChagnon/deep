@@ -8,19 +8,19 @@ export default function Footer() {
       <span className='w-full bg-gradient-to-r from-transparent via-white/50 h-[1px]' />
       <div className='flex flex-wrap w-full gap-8 md:gap-12 lg:gap-20 items-center justify-around'>
         <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-36 3xl:h-36 relative'>
-          <Image src='/assets/funders/ANR.png' objectFit='contain' fill alt='logo funder' />
+          <Image src='/assets/funders/ANR.png' className='object-contain' fill alt='logo funder' />
         </div>
         <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-28 3xl:h-36 relative'>
-          <Image src='/assets/funders/CNRS.png' objectFit='contain' fill alt='logo funder' />
+          <Image src='/assets/funders/CNRS.png' className='object-contain' fill alt='logo funder' />
         </div>
         <div className='w-8 h-8 md:w-40 md:h-24 3xl:w-56 w 3xl:h-36 relative'>
-          <Image src='/assets/funders/ENS-DEC.png' objectFit='contain' fill alt='logo funder' />
+          <Image src='/assets/funders/ENS-DEC.png' className='object-contain' fill alt='logo funder' />
         </div>
         <div className='w-8 h-8 md:w-20 md:h-20 3xl:w-36 3xl:h-36 relative rounded-full bg-white'>
-          <Image src='/assets/funders/ENS-PSL.png' objectFit='contain' fill alt='logo funder' />
+          <Image src='/assets/funders/ENS-PSL.png' className='object-contain' fill alt='logo funder' />
         </div>
         <div className='w-8 h-8 md:w-20 md:h-16 3xl:w-36 3xl:h-36 relative'>
-          <Image src='/assets/funders/nicod.png' objectFit='contain' fill alt='logo funder' />
+          <Image src='/assets/funders/nicod.png' className='object-contain' fill alt='logo funder' />
         </div>
       </div>
       <div className='flex flex-wrap w-full gap-8 md:gap-12 lg:gap-20 items-center justify-center'>

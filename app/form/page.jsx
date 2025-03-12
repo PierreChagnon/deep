@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { collection, setDoc, doc } from "firebase/firestore";
+import { collection, setDoc, doc, updateDoc, increment } from "firebase/firestore";
 import Footer from '../components/Footer';
 import DeepForm from '../components/DeepForm';
 import BigFive from '../components/BigFive'
@@ -98,6 +98,12 @@ export default function Form() {
                 const docRef = await setDoc(doc(db, "users", formValues.id), {
                     data: formValues,
                 });
+
+                // On incrémente le counter de la page d'accueil
+                const counterRef = doc(db, "counters", "general");
+                console.log("incrementing counter")
+                await updateDoc(counterRef, { userCount: increment(1) });
+
                 // console.log("Document written with ID: ", formValues.id);
             } catch (e) {
                 console.error("Error adding document: ", e);
