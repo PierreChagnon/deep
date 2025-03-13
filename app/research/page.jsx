@@ -17,14 +17,14 @@ export default function page() {
                     framework for games research developed by Edgar Dubourg and Valérian Chambon
                     at the Institut Jean Nicod, Ecole normale supérieure-PSL.</p>
                 <div className='flex items-center w-full flex-col gap-4 md:flex-row lg:w-2/3 rounded-md bg-white/10 p-6 self-center justify-between'>
-                    <Link target='blank' href="https://osf.io/z3mvu" className='flex gap-2 items-center cursor-pointer hover:opacity-50 duration-200'>
-                        <span className='text-3xl text-red-400'><TbWorld /></span>
-                        <button className='underline flex items-center gap-1'>Read the article<FiExternalLink className='text-xl' /></button>
-                    </Link>
-                    <p className='md:w-1/2'><strong>Preprint of our paper</strong> with theoretical framework and empirical tests.</p>
+                <a href="/data/DEEP_A model of gaming preferences informed.pdf" download className='flex gap-2 items-center cursor-pointer hover:opacity-50 duration-200'>
+                        <span className='text-3xl text-red-400'><FaFileDownload /></span>
+                        <span className='underline'>Download the article</span>
+                    </a>
+                    <p className='md:w-1/2'>Paper with theoretical framework and empirical tests.</p>
                 </div>
                 <div className='flex items-center w-full flex-col gap-4 md:flex-row lg:w-2/3 rounded-md bg-white/10 p-6 self-center justify-between'>
-                    <a href="/data/vg_annotated.csv" download className='flex gap-2 items-center cursor-pointer hover:opacity-50 duration-200'>
+                    <a href="/data/vg_sales_annotated.csv" download className='flex gap-2 items-center cursor-pointer hover:opacity-50 duration-200'>
                         <span className='text-3xl text-red-400'><FaFileDownload /></span>
                         <span className='underline'>Download the annotated video games</span>
                     </a>
