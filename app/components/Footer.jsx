@@ -3,6 +3,8 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear(); // Récupère l'année en cours
+
   return (
     <div className='p-8 gap-6 flex flex-col items-center justify-center mt-16'>
       <span className='w-full bg-gradient-to-r from-transparent via-white/50 h-[1px]' />
@@ -24,7 +26,7 @@ export default function Footer() {
         </div>
       </div>
       <div className='flex flex-wrap w-full gap-8 md:gap-12 lg:gap-20 items-center justify-center'>
-        <Link className='hover:underline opacity-50' href="https://www.beyondgames.fr">© 2024 - Beyond Games SAS. All rights reserved.</Link>
+        <Link className='hover:underline opacity-50' href="https://www.beyondgames.fr">© {currentYear} - Beyond Games SAS. All rights reserved.</Link>
         <Link className='hover:underline opacity-50' href="/legal">Legal</Link>
       </div>
     </div>
