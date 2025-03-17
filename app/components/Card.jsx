@@ -9,7 +9,7 @@ export default function Card({ discPercent = 0, expaPercent = 0, expePercent = 0
                 {
                     imageURL ?
                         <div className='relative h-40 w-40 3xl:w-48 3xl:h-48 border-2 rounded-full overflow-hidden'>
-                            <Image src={imageURL} alt='avatar image' fill objectFit='contain' />
+                            <Image unoptimized={true} src={imageURL} alt='avatar image' fill objectFit='contain' />
                         </div>
                         :
                         <div className='relative flex justify-center flex-col items-center h-40 w-40 3xl:w-44 3xl:h-44 bg-gradient-to-br animate-pulse from-white via-white/20 to-white/50 opacity-20 border-2 rounded-full overflow-hidden'>
