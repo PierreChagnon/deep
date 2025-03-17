@@ -90,7 +90,14 @@ export default function Form() {
 
     const handleRevealResultsNavigation = async () => {
         const res = calcDeepScore(formValues)
-        // console.log("res = " + res)
+
+        try {
+            // On incrémente le counter de la page d'accueil
+            const counterRef = doc(db, "counters", "general");
+            await updateDoc(counterRef, { userCount: increment(1) });
+        } catch (error) {
+            console.error("Error incrementing counter: ", error);
+        }
 
         if (consent === 'true') {
             // console.log("submitting form to firestore at id : ", formValues.id)
