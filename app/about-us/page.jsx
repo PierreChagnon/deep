@@ -17,7 +17,7 @@ export default function page() {
 
                 <div className='flex flex-col md:flex-row justify-between items-center gap-8 mt-8 mb-8'>
                     <div className='relative h-40 w-40 min-w-40 rounded-full overflow-hidden'>
-                        <Image src='/assets/aboutus/valerianchambon.png' fill objectFit='cover' alt='photo Valerian Chambon' />
+                        <Image unoptimized src='/assets/aboutus/valerianchambon.png' fill objectFit='cover' alt='photo Valerian Chambon' />
                     </div>
                     <div className='flex flex-col gap-2'>
                         <h2 className='text-2xl 3xl:text-3xl'>Valérian Chambon</h2>
@@ -36,7 +36,7 @@ export default function page() {
 
                 <div className='flex flex-col md:flex-row justify-between items-center gap-8 mt-8 mb-8'>
                     <div className='relative h-40 w-40 min-w-40 rounded-full overflow-hidden'>
-                        <Image src='/assets/aboutus/edgardubourg.jpeg' fill objectFit='cover' alt='photo Edgar Dubourg' />
+                        <Image unoptimized src='/assets/aboutus/edgardubourg.jpeg' fill objectFit='cover' alt='photo Edgar Dubourg' />
                     </div>
                     <div className='flex flex-col gap-2'>
                         <h2 className='text-2xl 3xl:text-3xl'>Edgar Dubourg</h2>
