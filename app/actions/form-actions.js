@@ -29,6 +29,7 @@ export async function handleFormSubmission(formData, consent) {
 
 // Cette fonction permet de récupérer tous les documents de la collection "users"
 export default async function getAllDocuments() {
+    console.log("Getting all documents...")
     try {
         const querySnapshot = await getDocs(collection(db, "users"));
         const documents = querySnapshot.docs.map((doc) => doc.data().data);

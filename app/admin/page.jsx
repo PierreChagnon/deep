@@ -1,4 +1,5 @@
 "use client"
+export const maxDuration = 60; // This function can run for a maximum of 60 seconds
 
 import { useState, useEffect } from "react"
 import mergeJSONToCSV from "../utils/mergeJSONToCSV"
