@@ -41,7 +41,7 @@ export default async function getAllDocuments() {
 }
 
 // Cette fonction s'occupe de la soumission des informations depuis la page de résultats
-export async function handleGameAskerSubmission(index, id, played, liked, wouldLiked) {
+export async function handleGameAskerSubmission(index, id, item, played, liked, wouldLiked) {
     const titleKey = "proposed_game_" + index
     const everPlayedKey = "proposed_game_" + index + "_ever_played"
     const likedKey = "proposed_game_" + index + "_liked"

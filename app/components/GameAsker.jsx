@@ -14,7 +14,7 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
 
 
     const updateFirestore = async () => {
-        await handleGameAskerSubmission(index, id, played.current, liked.current, wouldLiked.current)
+        await handleGameAskerSubmission(index, id, item, played.current, liked.current, wouldLiked.current)
     }
 
 
