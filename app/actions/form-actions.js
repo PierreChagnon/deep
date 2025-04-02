@@ -51,9 +51,9 @@ export async function handleGameAskerSubmission(index, id, item, played, liked, 
     try {
         await updateDoc(docRef, {
             [`data.${titleKey}`]: item || "NA",
-            [`data.${everPlayedKey}`]: played || "NA",
-            [`data.${likedKey}`]: liked || "NA",
-            [`data.${wouldLikedKey}`]: wouldLiked || "NA",
+            [`data.${everPlayedKey}`]: played || false,
+            [`data.${likedKey}`]: liked || false,
+            [`data.${wouldLikedKey}`]: wouldLiked || false,
         });
         // console.log("Document successfully updated!");
     } catch (error) {
