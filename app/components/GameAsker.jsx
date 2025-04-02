@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from "framer-motion";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from '../../firebase/firebase';
+import { handleGameAskerSubmission } from '../actions/form-actions';
 
 export default function GameAsker({ item, setShownAskers, shownAskers, id, index }) {
     const [showEverPlayedQuestion, setShowEverPlayedQuestion] = useState(true)
@@ -12,26 +11,10 @@ export default function GameAsker({ item, setShownAskers, shownAskers, id, index
     const liked = useRef(null)
     const wouldLiked = useRef(null)
 
-    const docRef = doc(db, "users", id);
 
 
     const updateFirestore = async () => {
-        const titleKey = "proposed_game_" + index
-        const everPlayedKey = "proposed_game_" + index + "_ever_played"
-        const likedKey = "proposed_game_" + index + "_liked"
-        const wouldLikedKey = "proposed_game_" + index + "_would_liked"
-
-        try {
-            await updateDoc(docRef, {
-                [`data.${titleKey}`]: item,
-                [`data.${everPlayedKey}`]: played.current,
-                [`data.${likedKey}`]: liked.current,
-                [`data.${wouldLikedKey}`]: wouldLiked.current,
-            });
-            // console.log("Document successfully updated!");
-        } catch (error) {
-            console.error("Error updating document: ", error);
-        }
+        await handleGameAskerSubmission(index, id, played.current, liked.current, wouldLiked.current)
     }
 
 

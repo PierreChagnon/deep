@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { collection, setDoc, doc, updateDoc, increment } from "firebase/firestore";
 import Footer from '../components/Footer';
 import DeepForm from '../components/DeepForm';
 import BigFive from '../components/BigFive'
@@ -9,11 +8,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import GameHabits from '../components/GameHabits';
 import FancyButton from '../components/FancyButton';
 import PersonalInfos from '../components/PersonalInfos';
-import jsonToCSV from '../utils/jsonToCSV';
 import calcDeepScore from '../utils/calcDeepScore';
 import FavouriteGames from '../components/FavouriteGames';
 import Understanding from '../components/Understanding';
-import { db } from '../../firebase/firebase';
+import { handleFormSubmission } from '../actions/form-actions';
 
 export default function Form() {
 
@@ -91,31 +89,7 @@ export default function Form() {
     const handleRevealResultsNavigation = async () => {
         const res = calcDeepScore(formValues)
 
-        try {
-            // On incrémente le counter de la page d'accueil
-            const counterRef = doc(db, "counters", "general");
-            await updateDoc(counterRef, { userCount: increment(1) });
-        } catch (error) {
-            console.error("Error incrementing counter: ", error);
-        }
-
-        if (consent === 'true') {
-            // console.log("submitting form to firestore at id : ", formValues.id)
-            try {
-                const docRef = await setDoc(doc(db, "users", formValues.id), {
-                    data: formValues,
-                });
-
-                // On incrémente le counter de la page d'accueil
-                const counterRef = doc(db, "counters", "general");
-                // console.log("incrementing counter")
-                await updateDoc(counterRef, { userCount: increment(1) });
-
-                // console.log("Document written with ID: ", formValues.id);
-            } catch (e) {
-                console.error("Error adding document: ", e);
-            }
-        }
+        handleFormSubmission(formValues, consent)
 
         router.push('/results?'
             + 'consent=' + consent + '&'
